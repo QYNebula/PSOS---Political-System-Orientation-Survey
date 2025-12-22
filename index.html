@@ -379,7 +379,8 @@
         {
           "text": "C. 取决于议题，重大授权应重新交由全民公投", 
           "weights": {"X7": 0.5, "Y5": 1.0}, 
-          "flag": "will_refer"}
+          "flag": "will_refer"
+		}
       ]
     },
     {
@@ -578,7 +579,7 @@
         // 初始化所有维度分数
         ['X1','X2','X3','X4','X5','X6','X7','Y1','Y2','Y3','Y4','Y5','vector_cabinet','vector_negotiation','vector_bureaucracy','vector_elitism'].forEach(k => scores[k] = 0);
 
-        [span_0](start_span)// 累计得分[span_0](end_span)
+        // 累计得分
         for (let qIdx in userAnswers) {
             let optIdx = userAnswers[qIdx];
             let weights = quizData.questions[qIdx].options[optIdx].weights;
@@ -592,18 +593,18 @@
         let title, desc, mode = "精确匹配";
         let coord = bestX + bestY;
 
-        [span_1](start_span)// 1. 悖论判定[span_1](end_span)
+        // 1. 悖论判定
         if (paradoxMap[coord]) {
             [title, desc] = paradoxMap[coord];
             mode = "逻辑悖论冲突";
         } 
-        [span_2](start_span)// 2. X7Y4 特殊注明[span_2](end_span)
+        // 2. X7Y4 特殊注明
         else if (bestX === "X7" && bestY === "Y4") {
             title = "直接民主的中点";
             desc = "你处于 13. 嵌入式直接民主 与 12. 工具化公投制 之间。反映了受试者在民意授权与法治边界上的复杂态度。";
             mode = "中间倾向注明";
         } 
-        [span_3](start_span)// 3. 正常匹配与同列归位[span_3](end_span)
+        // 3. 正常匹配与同列归位
         else {
             if (!logicMap[coord]) {
                 let definedYs = Object.keys(logicMap).filter(k => k.startsWith(bestX)).map(k => parseInt(k.substring(2)));
@@ -616,7 +617,7 @@
                 }
             }
 
-            [span_4](start_span)// 4. 三岔口拦截逻辑[span_4](end_span)
+            // 4. 三岔口拦截逻辑
             if (bestX === "X6" && bestY === "Y4") {
                 if (scores.vector_cabinet >= 2.0) [title, desc] = logicMap["X3Y4"];
                 else if (scores.vector_negotiation >= 1.5) [title, desc] = ["11. 协商型民主", "在代议制基础上引入社会伙伴协商机制。"];
@@ -629,7 +630,7 @@
             }
         }
 
-        [span_5](start_span)// 组装报告[span_5](end_span)
+        // 组装报告
         const report = `判定坐标: ${bestX} - ${bestY} (${mode})\n\n` +
                        `匹配政体: ${title}\n` +
                        `结果描述: ${desc}\n\n` +
@@ -655,4 +656,5 @@
 </script>
 </body>
 </html>
+
 
