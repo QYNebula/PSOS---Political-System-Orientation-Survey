@@ -7,14 +7,13 @@
     <style>
         :root { --primary: #2196F3; --success: #4CAF50; --error: #f44336; --bg: #f5f7f9; }
         body { font-family: "微软雅黑", sans-serif; background: var(--bg); margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
-        #app { background: white; width: 95%; max-width: 800px; padding: 30px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+        #app { background: white; width: 95%; max-width: 800px; padding: 40px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
         
-        /* 语言选择界面 */
         #lang-select { text-align: center; }
-        .lang-btn { padding: 15px 40px; margin: 10px; font-size: 1.1rem; cursor: pointer; border: 1px solid #ddd; border-radius: 8px; background: white; transition: 0.2s; }
-        .lang-btn:hover { background: var(--primary); color: white; border-color: var(--primary); }
+        .lang-dropdown { padding: 12px 20px; font-size: 1rem; border-radius: 8px; border: 1px solid #ddd; width: 80%; max-width: 300px; margin-bottom: 20px; outline: none; }
+        .start-btn { background: var(--primary); color: white; padding: 12px 40px; font-size: 1rem; border-radius: 8px; border: none; cursor: pointer; transition: 0.3s; }
+        .start-btn:hover { background: #1976D2; }
 
-        /* 问卷主体 */
         .progress { color: #888; font-size: 14px; margin-bottom: 10px; }
         .question-text { font-size: 1.25rem; font-weight: bold; margin-bottom: 25px; min-height: 60px; line-height: 1.5; color: #333; }
         .option { display: block; width: 100%; padding: 15px; margin-bottom: 12px; border: 1px solid #ddd; border-radius: 8px; cursor: pointer; transition: all 0.2s; text-align: left; background: white; font-size: 1rem; }
@@ -27,7 +26,6 @@
         .next-btn { background: var(--success); color: white; }
         button:disabled { opacity: 0.5; cursor: not-allowed; }
 
-        /* 结果遮罩层 */
         #result-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); justify-content: center; align-items: center; z-index: 100; }
         .result-card { background: white; width: 90%; max-width: 600px; padding: 30px; border-radius: 12px; max-height: 85vh; overflow-y: auto; }
         .report-content { white-space: pre-wrap; background: #f9f9f9; padding: 20px; border-radius: 8px; font-size: 0.95rem; line-height: 1.6; border: 1px solid #eee; font-family: "Consolas", monospace; }
@@ -40,8 +38,12 @@
 <div id="app">
     <div id="lang-select">
         <h2 id="lang-title">Please Select Language / 请选择语言</h2>
-        <button class="lang-btn" onclick="initQuiz('zh')">简体中文</button>
-        <button class="lang-btn" onclick="initQuiz('en')" disabled>English (Coming Soon)</button>
+        <select id="lang-menu" class="lang-dropdown">
+            <option value="zh">简体中文</option>
+            <option value="en" disabled>English (Coming Soon)</option>
+        </select>
+        <br>
+        <button class="start-btn" onclick="handleStart()">Start / 开始测试</button>
     </div>
 
     <div id="quiz-container" style="display: none;">
@@ -66,31 +68,33 @@
 </div>
 
 <script>
-    const CORE_VERSION = "v3.2.2"; // 主程序版本，不干扰 JSON 逻辑
+    const CORE_VERSION = "v3.3.4"; 
     let quizData = null;
     let currentIndex = 0;
     let userAnswers = {};
     let history = [];
 
-    // 1. 初始化
+    function handleStart() {
+        const selectedLang = document.getElementById('lang-menu').value;
+        initQuiz(selectedLang);
+    }
+
     async function initQuiz(lang) {
         try {
             const response = await fetch(`questions_${lang}.json`);
+            if (!response.ok) throw new Error("File not found");
             quizData = await response.json();
             setupUI();
             document.getElementById('lang-select').style.display = 'none';
             document.getElementById('quiz-container').style.display = 'block';
             showQuestion();
         } catch (error) {
-            console.error("Data Load Error:", error);
-            alert("Error loading questionnaire data.");
+            alert("加载失败，请确保 questions_zh.json 已上传。");
         }
     }
 
-    // 2. 绑定 UI (完全来自 JSON)
     function setupUI() {
         const ui = quizData.ui;
-        document.title = ui.title;
         document.getElementById('prev-btn').innerText = ui.prev_btn;
         document.getElementById('next-btn').innerText = ui.next_btn;
         document.getElementById('result-title').innerText = ui.result_title;
@@ -103,7 +107,6 @@
         const ui = quizData.ui;
         document.getElementById('progress').innerText = `${ui.progress_prefix}${currentIndex + 1} / ${quizData.quiz_data.questions.length}`;
         document.getElementById('question-text').innerText = q.text;
-        
         const container = document.getElementById('options-container');
         container.innerHTML = '';
         q.options.forEach((opt, i) => {
@@ -126,21 +129,15 @@
     function submitAnswer() {
         history.push(currentIndex);
         currentIndex++;
-        if (currentIndex < quizData.quiz_data.questions.length) {
-            showQuestion();
-        } else {
-            generateAnalysis();
-        }
+        if (currentIndex < quizData.quiz_data.questions.length) showQuestion();
+        else generateAnalysis();
     }
 
     function prevQuestion() {
-        if (history.length > 0) {
-            currentIndex = history.pop();
-            showQuestion();
-        }
+        if (history.length > 0) { currentIndex = history.pop(); showQuestion(); }
     }
 
-    // 3. 核心算法 (无中文硬编码)
+    // 核心算法
     function generateAnalysis() {
         let scores = {};
         const axes = ['X1','X2','X3','X4','X5','X6','X7','Y1','Y2','Y3','Y4','Y5'];
@@ -158,54 +155,64 @@
         const labels = quizData.ui.report_labels;
         const logicMap = quizData.quiz_data.logic_map;
         const paradoxMap = quizData.quiz_data.paradox_map;
-        let modeKey = "exact";
+        let modeKey = "exact"; //初始定性为精准匹配
 
-        // --- 逻辑重定向：X7Y4 -> X7Y5 ---
+        // 1. 悖论判定
+        if (paradoxMap[bestX + bestY]) {
+            displayResult(paradoxMap[bestX + bestY], "paradox", bestX, bestY, scores, labels);
+            return;
+        }
+
+        // 2. 逻辑重定向 (X7Y4 -> X7Y5)
         if (bestX === "X7" && bestY === "Y4") {
             bestY = "Y5";
             modeKey = "approx";
         }
 
-        let coord = bestX + bestY;
-        let title, desc;
-
-        if (paradoxMap[coord]) {
-            [title, desc] = paradoxMap[coord];
-            modeKey = "paradox";
-            document.getElementById('paradox-alert-area').innerHTML = `<div class="paradox-banner">${labels.paradox_alert}</div>`;
-        } else {
-            document.getElementById('paradox-alert-area').innerHTML = '';
-            
-            // 特殊向量拦截
-            if (bestX === "X6" && bestY === "Y4" && scores.vector_negotiation >= 1.5) {
-                [title, desc] = logicMap["X6Y4_negotiation"];
-            } else if (bestX === "X2" && bestY === "Y2" && scores.vector_bureaucracy > scores.vector_elitism) {
-                [title, desc] = logicMap["X2Y2_bureaucracy"];
-            } else {
-                // 近似匹配
-                if (!logicMap[coord]) {
-                    let definedYs = Object.keys(logicMap).filter(k => k.startsWith(bestX)).map(k => parseInt(k.split('Y')[1]));
-                    if (definedYs.length > 0) {
-                        let curYVal = parseInt(bestY.substring(1));
-                        let closestY = definedYs.reduce((prev, curr) => Math.abs(curr - curYVal) < Math.abs(prev - curYVal) ? curr : prev);
-                        bestY = "Y" + closestY;
-                        coord = bestX + bestY;
-                        modeKey = "column_approx";
-                    }
-                }
-                const result = logicMap[coord] || labels.no_match;
-                [title, desc] = result;
+        // 3. 坐标近似计算
+        let finalCoord = bestX + bestY;
+        if (!logicMap[finalCoord]) {
+            let definedYs = Object.keys(logicMap).filter(k => k.startsWith(bestX)).map(k => parseInt(k.split('Y')[1]));
+            if (definedYs.length > 0) {
+                let curYVal = parseInt(bestY.substring(1));
+                let closestY = definedYs.reduce((prev, curr) => Math.abs(curr - curYVal) < Math.abs(prev - curYVal) ? curr : prev);
+                bestY = "Y" + closestY;
+                finalCoord = bestX + bestY;
+                modeKey = "approx"; 
             }
         }
 
-        // 4. 组装报告 (使用 labels 动态翻译)
-        const report = `${labels.coord}: ${bestX} - ${bestY}\n` +
+        // 4. 特殊向量拦截
+        let finalTitle, finalDesc;
+        if (finalCoord === "X6Y4") {
+            if ((scores.vector_cabinet || 0) >= 2.0) {
+                [finalTitle, finalDesc] = logicMap["X3Y4"];
+            } else if ((scores.vector_negotiation || 0) >= 1.5) {
+                [finalTitle, finalDesc] = logicMap["X6Y4_negotiation"];
+            } else {
+                [finalTitle, finalDesc] = logicMap["X6Y4"];
+            }
+        } else if (finalCoord === "X2Y2" && (scores.vector_bureaucracy || 0) > (scores.vector_elitism || 0)) {
+            [finalTitle, finalDesc] = logicMap["X2Y2_bureaucracy"];
+        } else {
+            const result = logicMap[finalCoord] || labels.no_match;
+            [finalTitle, finalDesc] = result;
+        }
+
+        displayResult([finalTitle, finalDesc], modeKey, bestX, bestY, scores, labels);
+    }
+
+    function displayResult(contentArray, modeKey, x, y, scores, labels) {
+        const [title, desc] = contentArray;
+        document.getElementById('paradox-alert-area').innerHTML = (modeKey === "paradox") ? `<div class="paradox-banner">${labels.paradox_alert}</div>` : '';
+
+        const report = `${labels.coord}: ${x} - ${y}\n` +
                        `${labels.mode}: ${labels.modes[modeKey]}\n\n` +
                        `${labels.matched}: ${title}\n` +
                        `${labels.desc}: ${desc}\n\n` +
                        `${labels.stats_title}\n` +
-                       `${labels.axis_x}: ${bestX} (${scores[bestX].toFixed(1)})\n` +
-                       `${labels.axis_y}: ${bestY} (${scores[bestY].toFixed(1)})\n` +
+                       `${labels.axis_x}: ${x} (${scores[x].toFixed(1)})\n` +
+                       `${labels.axis_y}: ${y} (${scores[y].toFixed(1)})\n` +
                        `${labels.special_vectors}:\n` +
                        ` - ${labels.vector_bureaucracy}: ${(scores.vector_bureaucracy || 0).toFixed(1)}\n` +
                        ` - ${labels.vector_negotiation}: ${(scores.vector_negotiation || 0).toFixed(1)}`;
