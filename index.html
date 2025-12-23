@@ -1,539 +1,107 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>政治体制倾向问卷 v3.1</title>
+    <title>Political Orientation Scanner</title>
     <style>
-        :root { --primary: #2196F3; --success: #4CAF50; --bg: #f5f7f9; }
+        :root { --primary: #2196F3; --success: #4CAF50; --error: #f44336; --bg: #f5f7f9; }
         body { font-family: "微软雅黑", sans-serif; background: var(--bg); margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
         #app { background: white; width: 95%; max-width: 800px; padding: 30px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+        
+        /* 语言选择界面 */
+        #lang-select { text-align: center; }
+        .lang-btn { padding: 15px 40px; margin: 10px; font-size: 1.1rem; cursor: pointer; border: 1px solid #ddd; border-radius: 8px; background: white; transition: 0.2s; }
+        .lang-btn:hover { background: var(--primary); color: white; border-color: var(--primary); }
+
+        /* 问卷主体 */
         .progress { color: #888; font-size: 14px; margin-bottom: 10px; }
-        .question-text { font-size: 1.2rem; font-weight: bold; margin-bottom: 25px; min-height: 60px; line-height: 1.5; }
+        .question-text { font-size: 1.25rem; font-weight: bold; margin-bottom: 25px; min-height: 60px; line-height: 1.5; color: #333; }
         .option { display: block; width: 100%; padding: 15px; margin-bottom: 12px; border: 1px solid #ddd; border-radius: 8px; cursor: pointer; transition: all 0.2s; text-align: left; background: white; font-size: 1rem; }
         .option:hover { background: #f0f7ff; border-color: var(--primary); }
         .option.selected { background: var(--primary); color: white; border-color: var(--primary); }
         .nav { display: flex; gap: 15px; margin-top: 30px; }
+        
         button { flex: 1; padding: 12px; border: none; border-radius: 6px; cursor: pointer; font-size: 1rem; transition: opacity 0.2s; }
         .prev-btn { background: #e0e0e0; color: #333; }
         .next-btn { background: var(--success); color: white; }
         button:disabled { opacity: 0.5; cursor: not-allowed; }
-        #result-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); justify-content: center; align-items: center; z-index: 100; }
-        .result-card { background: white; width: 90%; max-width: 550px; padding: 30px; border-radius: 12px; max-height: 85vh; overflow-y: auto; }
-        .report-content { white-space: pre-wrap; background: #f9f9f9; padding: 15px; border-radius: 6px; font-size: 0.95rem; line-height: 1.6; border: 1px solid #eee; }
+
+        /* 结果遮罩层 */
+        #result-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); justify-content: center; align-items: center; z-index: 100; }
+        .result-card { background: white; width: 90%; max-width: 600px; padding: 30px; border-radius: 12px; max-height: 85vh; overflow-y: auto; }
+        .report-content { white-space: pre-wrap; background: #f9f9f9; padding: 20px; border-radius: 8px; font-size: 0.95rem; line-height: 1.6; border: 1px solid #eee; font-family: "Consolas", monospace; }
+        .paradox-banner { background: #fff1f0; border-left: 5px solid var(--error); padding: 10px; margin-bottom: 15px; color: var(--error); font-weight: bold; }
+        .version-tag { font-size: 11px; color: #ccc; margin-top: 15px; text-align: right; }
     </style>
 </head>
 <body>
 
 <div id="app">
-    <div class="progress" id="progress">进度: 1 / 40</div>
-    <div class="question-text" id="question-text">加载中...</div>
-    <div id="options-container"></div>
-    <div class="nav">
-        <button class="prev-btn" id="prev-btn" onclick="prevQuestion()">← 上一题</button>
-        <button class="next-btn" id="next-btn" onclick="submitAnswer()" disabled>确认选择 →</button>
+    <div id="lang-select">
+        <h2 id="lang-title">Please Select Language / 请选择语言</h2>
+        <button class="lang-btn" onclick="initQuiz('zh')">简体中文</button>
+        <button class="lang-btn" onclick="initQuiz('en')" disabled>English (Coming Soon)</button>
+    </div>
+
+    <div id="quiz-container" style="display: none;">
+        <div class="progress" id="progress"></div>
+        <div class="question-text" id="question-text"></div>
+        <div id="options-container"></div>
+        <div class="nav">
+            <button class="prev-btn" id="prev-btn" onclick="prevQuestion()"></button>
+            <button class="next-btn" id="next-btn" onclick="submitAnswer()" disabled></button>
+        </div>
     </div>
 </div>
 
 <div id="result-overlay">
     <div class="result-card">
-        <h3>分析报告</h3>
+        <h3 id="result-title"></h3>
+        <div id="paradox-alert-area"></div>
         <div class="report-content" id="report-text"></div>
-        <button class="next-btn" style="margin-top:20px; width:100%" onclick="resetQuiz()">返回重测</button>
+        <div class="version-tag" id="app-version"></div>
+        <button class="next-btn" style="margin-top:20px; width:100%" id="reset-btn" onclick="resetQuiz()"></button>
     </div>
 </div>
 
 <script>
-    // 1. 集成题库数据
-    const quizData = {
-        "questions": [
-            {
-      "id": 1,
-      "text": "Q1. 你认为一个理想的领导者，其权力最正当的来源是：",
-      "type": "origin",
-      "options": [
-        {"text": "A. 历史悠久的传统与家族血缘的延续性（含虚位元首和实权君主）", "weights": {"X3": 1.5}, "next_id": null},
-        {"text": "B. 在国家动荡或危机中展现出的非凡胆识与铁腕", "weights": {"X1": 1.0}, "next_id": null},
-        {"text": "C. 经过长期培养、选拔并达成共识的专业精英集团", "weights": {"X2": 1.0}, "next_id": null},
-        {"text": "D. 广大公民在法律框架下通过自主竞争投出的选票", "weights": {"X6": 1.0}, "next_id": null}
-      ]
-    },
-    {
-      "id": 2,
-      "text": "Q2. 当社会面临根本性分歧时，你最信任哪种决策机制？",
-      "type": "origin",
-      "options": [
-        {"text": "A. 由全体国民对具体议题直接进行最终裁决", "weights": {"X7": 1.0}, "next_id": null},
-        {"text": "B. 由象征国家团结的唯一领导机构做出统一指示", "weights": {"X4": 1.0}, "next_id": null},
-        {"text": "C. 在确保体制稳定的前提下，听取部分被认可的民间代表意见", "weights": {"X5": 1.0}, "next_id": null},
-        {"text": "D. 依靠具有深厚根基的传统家族或宗法权威进行调解", "weights": {"X3": 1.0}, "next_id": null}
-      ]
-    },
-    {
-      "id": 3,
-      "text": "Q3. 关于国家治理的“专业性”与“参与感”，你倾向于：",
-      "type": "origin",
-      "options": [
-        {"text": "A. 治理应由职业化、纪律严明的核心委员会全权负责", "weights": {"X2": 1.0, "vector_elitism": 1.0}, "next_id": null},
-        {"text": "B. 治理应向所有政见开放，即使过程混乱也要保证竞争", "weights": {"X6": 1.0}, "next_id": null},
-        {"text": "C. 领袖应直接向民众寻求授权，绕过复杂的官僚中介", "weights": {"X7": 1.0}, "next_id": null},
-        {"text": "D. 选举应作为一种展示全民团结支持现状的仪式", "weights": {"X4": 1.0}, "next_id": null}
-      ]
-    },
-    {
-      "id": 4,
-      "text": "Q4. 如果国家需要进行深层改革，谁最能破除阻力？",
-      "type": "origin",
-      "options": [
-        {"text": "A. 一位拥有绝对威望、不受繁文缛节束缚的政治强人", "weights": {"X1": 1.0}, "next_id": null},
-        {"text": "B. 一个内部高度团结、掌握核心资源的执政集体", "weights": {"X2": 1.0}, "next_id": null},
-        {"text": "C. 拥有天然合法性、能让各派系归顺的传统王室/元首", "weights": {"X3": 1.0}, "next_id": null},
-        {"text": "D. 能够自由组建政党、通过辩论赢得多数支持的新兴力量", "weights": {"X6": 1.0}, "next_id": null}
-      ]
-    },
-    {
-      "id": 5,
-      "text": "Q5. 你如何看待政治竞争？",
-      "type": "origin",
-      "options": [
-        {"text": "A. 竞争应控制在温和的范围内，不应挑战核心领导地位", "weights": {"X5": 1.0}, "next_id": null},
-        {"text": "B. 竞争是必要的，但重大决策应交给公民直接公投而非政客", "weights": {"X7": 1.0}, "next_id": null},
-        {"text": "C. 竞争会导致分裂，国家需要的是上下一致的选举仪式", "weights": {"X4": 1.0}, "next_id": null},
-        {"text": "D. 胜者应是那些在实力竞争中证明了自己能掌控局面的人", "weights": {"X1": 1.0}, "next_id": null}
-      ]
-    },
-    {
-      "id": 6,
-      "text": "Q6. 关于权力的稳定性，你认为最关键的是：",
-      "type": "origin",
-      "options": [
-        {"text": "A. 确立明确且不可篡改的接班人血统或序列", "weights": {"X3": 1.0}, "next_id": null},
-        {"text": "B. 保持执政精英层内部的迭代与自我更新", "weights": {"X2": 1.0}, "next_id": null},
-        {"text": "C. 允许社会各界在可控范围内进行政治参与", "weights": {"X5": 1.0}, "next_id": null},
-        {"text": "D. 确保每个公民都有通过选票随时更替执政者的权利", "weights": {"X6": 1.0}, "next_id": null}
-      ]
-    },
-    {
-      "id": 7,
-      "text": "Q7. 什么样的政府最能代表“公意”？",
-      "type": "origin",
-      "options": [
-        {"text": "A. 敢于跨越程序限制、直接回应民众情绪的强力政府", "weights": {"X1": 1.0}, "next_id": null},
-        {"text": "B. 经过严格选拔、能理性判断国家长远利益的精英政府", "weights": {"X2": 1.0}, "next_id": null},
-        {"text": "C. 通过广泛的竞争性选举获得动态授权的政府", "weights": {"X6": 1.0}, "next_id": null},
-        {"text": "D. 对每一项重大决策都咨询全体国民意见的政府", "weights": {"X7": 1.0}, "next_id": null}
-      ]
-    },
-    {
-      "id": 8,
-      "text": "Q8. 假设必须举行选举，但国家正处于转型期，你认为：",
-      "type": "origin",
-      "options": [
-        {"text": "A. 选举应不设门槛，支持各派势力完全公平竞争", "weights": {"X6": 1.0}, "next_id": null},
-        {"text": "B. 应对参选方进行资格审核，确保不冲击基本制度", "weights": {"X5": 1.0}, "next_id": null},
-        {"text": "C. 选举应作为全民对现任领导层投出的信任票", "weights": {"X4": 1.0}, "next_id": null}
-      ]
-    },
-    {
-      "id": 9,
-      "text": "Q9. 假设为了保证政策的极高连续性（10-20年不变），你认为：",
-      "type": "origin",
-      "options": [
-        {"text": "A. 应当建立跨代交接的传统或世袭标准", "weights": {"X3": 1.0}, "next_id": null},
-        {"text": "B. 应当由执政团体内部进行长远布局和指定", "weights": {"X2": 1.0}, "next_id": null},
-        {"text": "C. 应当通过法律限制竞争性选举的频率或议题", "weights": {"X5": 1.0}, "next_id": null}
-      ]
-    },
-    {
-      "id": 10,
-      "text": "Q10. 假设社会出现了严重的民粹主义倾向，你认为哪种方式是“防火墙”？",
-      "type": "origin",
-      "options": [
-        {"text": "A. 依靠具有神圣感的传统权威来稳固人心", "weights": {"X3": 1.0}, "next_id": null},
-        {"text": "B. 依靠强有力的个人决断迅速平息骚乱", "weights": {"X1": 1.0}, "next_id": null},
-        {"text": "C. 依靠复杂的代议制和法治程序来过滤冲动", "weights": {"X6": 1.0}, "next_id": null}
-      ]
-    },
-    {
-      "id": 11,
-      "text": "Q11. 假设技术手段已经能实现“秒级响应”，你认为：",
-      "type": "origin",
-      "options": [
-        {"text": "A. 应废除选举，推行大规模的即时全民公投", "weights": {"X7": 1.0}, "next_id": null},
-        {"text": "B. 应利用技术强化领导人对社会的动员与一致性", "weights": {"X4": 1.0}, "next_id": null},
-        {"text": "C. 应利用技术辅助精英层做出更精准的决策", "weights": {"X2": 1.0}, "next_id": null}
-      ]
-    },
-    {
-      "id": 12,
-      "text": "Q12. 假设面临战争等极端生存危机，权力的产生应转向：",
-      "type": "origin",
-      "options": [
-        {"text": "A. 事实上的个人支配，由强者临危受命", "weights": {"X1": 1.0}, "next_id": null},
-        {"text": "B. 由军方或安全机构组成的委员会集体接管", "weights": {"X2": 1.0}, "next_id": null},
-        {"text": "C. 赋予现有领导人无限期连任的合法性", "weights": {"X4": 1.0}, "next_id": null}
-      ]
-    },
-    {
-      "id": 13,
-      "text": "Q13. 假设你非常厌恶政客间的尔虞我诈，你更倾向于：",
-      "type": "origin",
-      "options": [
-        {"text": "A. 还是让权力在家族或血缘中自然传递", "weights": {"X3": 1.0}, "next_id": null},
-        {"text": "B. 干脆让民众对事务直接表决，不要中间政客", "weights": {"X7": 1.0}, "next_id": null},
-        {"text": "C. 限制竞争，只保留一个高效的治理团队", "weights": {"X5": 1.0}, "next_id": null}
-      ]
-    },
-    {
-      "id": 14,
-      "text": "Q14. 假设社会要求变革，但你担心暴力冲突，你会选择：",
-      "type": "origin",
-      "options": [
-        {"text": "A. 支持一位有能力的强人通过非正规手段接管", "weights": {"X1": 1.0}, "next_id": null},
-        {"text": "B. 支持受控的、有步骤的逐步开放选举", "weights": {"X5": 1.0}, "next_id": null},
-        {"text": "C. 坚持通过全民公投决定是否改变现状", "weights": {"X7": 1.0}, "next_id": null}
-      ]
-    },
-	{
-      "id": 15,
-      "text": "Q15. 你认为“法律”在统治者面前应该是：",
-      "type": "transition",
-      "options": [
-        {
-          "text": "A. 统治者必须绝对服从的最高准则（即便这会降低效率）", 
-          "weights": {"X6": 0.5, "Y4": 1.0}, 
-          "next_id": null
-        },
-        {
-          "text": "B. 统治者治理国家的有效工具，可根据需要调整", 
-          "weights": {"X2": 0.5, "Y2": 1.0}, 
-          "next_id": null
-        },
-        {
-          "text": "C. 统治者与各派精英达成妥协后的契约文本", 
-          "weights": {"X5": 0.5, "Y3": 1.0}, 
-          "next_id": null
-        },
-        {
-          "text": "D. 法律应服从于更高的民族意志或领袖决断", 
-          "weights": {"X1": 1.0, "Y1": 1.5}, 
-          "next_id": null
-        }
-      ]
-    },
-    {
-      "id": 16,
-      "text": "Q16. 当政府为了推行一项重大利国利民的政策，却遭到法院以程序违宪为由阻拦时：",
-      "type": "constraint",
-      "options": [
-        {"text": "A. 法律程序应让位国家利益，可绕过阻碍强制执行", "weights": {"Y1": 1.0}, "next_id": null},
-        {"text": "B. 应将法律视为工具，通过修改法律使其合法化后再推行", "weights": {"Y2": 1.0}, "next_id": null},
-        {"text": "C. 必须尊重法院裁决，哪怕政策因此失败或延期", "weights": {"Y4": 1.0}, "next_id": null}
-      ]
-    },
-    {
-      "id": 17,
-      "text": "Q17. 你如何看待“紧急状态”下领导者的权力边界？",
-      "type": "constraint",
-      "options": [
-        {"text": "A. 领袖意志即最高统帅，不应受任何文官规则束缚", "weights": {"Y1": 1.0}, "next_id": null},
-        {"text": "B. 领导者可拥有特权，但应在事后补齐法律手续", "weights": {"Y2": 1.0}, "next_id": null},
-        {"text": "C. 重大决定必须通过既定的分权机构（如议会）审议", "weights": {"Y3": 1.0}, "next_id": null}
-      ]
-    },
-    {
-      "id": 18,
-      "text": "Q18. 如果法律限制了政府处理治安犯罪的效率，你倾向于：",
-      "type": "constraint",
-      "options": [
-        {"text": "A. 赋予行政部门更大裁量权，法律不应成为阻碍", "weights": {"Y2": 1.0}, "next_id": null},
-        {"text": "B. 严格遵守证据程序，即便这可能导致罪犯逃脱", "weights": {"Y4": 1.0}, "next_id": null},
-        {"text": "C. 这种重大权衡应由全体公民通过公投确定标准", "weights": {"Y5": 1.0}, "next_id": null}
-      ]
-    },
-    {
-      "id": 19,
-      "text": "Q19. 你认为媒体对政府的批评报道应该：",
-      "type": "constraint",
-      "options": [
-        {"text": "A. 受到国家严格引导，确保社会意志一致", "weights": {"Y1": 1.0}, "next_id": null},
-        {"text": "B. 允许存在，但在涉及核心决策时应受行政限制", "weights": {"Y3": 1.0}, "next_id": null},
-        {"text": "C. 独立于行政权，作为权力的外部天敌", "weights": {"Y4": 1.0}, "next_id": null}
-      ]
-    },
-    {
-      "id": 20,
-      "text": "Q20. 关于司法机构（法院）的地位，你的理解是：",
-      "type": "constraint",
-      "options": [
-        {"text": "A. 应作为政府部门，协助维持秩序和执行政令", "weights": {"Y2": 1.0}, "next_id": null},
-        {"text": "B. 应保持中立，但在政治争议时应考虑政府稳定", "weights": {"Y3": 1.0}, "next_id": null},
-        {"text": "C. 必须绝对独立，有权宣布行政行为无效", "weights": {"Y4": 1.0}, "next_id": null}
-      ]
-    },
-    {
-      "id": 21,
-      "text": "Q21. 当立法机构（议会）与行政首长发生剧烈冲突时：",
-      "type": "constraint",
-      "options": [
-        {"text": "A. 应以行政首长意志为准，保证国家不瘫痪", "weights": {"Y1": 1.0}, "next_id": null},
-        {"text": "B. 通过政治议价解决，规则仅提供谈判框架", "weights": {"Y3": 1.0}, "next_id": null},
-        {"text": "C. 应交由公民通过全民公投直接裁决", "weights": {"Y5": 1.0}, "next_id": null}
-      ]
-    },
-    {
-      "id": 22,
-      "text": "Q22. 你认为个人的基本财产和言论权利：",
-      "type": "constraint",
-      "options": [
-        {"text": "A. 应服从国家最高目标，可被征用或限制", "weights": {"Y1": 1.0}, "next_id": null},
-        {"text": "B. 应受法律保护，但政府依法可以干预", "weights": {"Y2": 1.0}, "next_id": null},
-        {"text": "C. 是神圣的，任何政府无权以集体名义侵犯", "weights": {"Y4": 1.0}, "next_id": null}
-      ]
-    },
-    {
-      "id": 23,
-      "text": "Q23. 对于公民通过和平示威表达政见，你的看法是：",
-      "type": "constraint",
-      "options": [
-        {"text": "A. 这是对秩序的破坏，政府应迅速平息", "weights": {"Y1": 1.0}, "next_id": null},
-        {"text": "B. 可以在指定规则内进行，但不得干扰决策", "weights": {"Y3": 1.0}, "next_id": null},
-        {"text": "C. 这是基本权利，政府必须做出制度化响应", "weights": {"Y5": 1.0}, "next_id": null}
-      ]
-    },
-    {
-      "id": 24,
-      "text": "Q24. 如果政策涉及多数人福利，但损害极少数人的核心权利：",
-      "type": "constraint",
-      "options": [
-        {"text": "A. 少数服从多数，政府有权采取行动", "weights": {"Y2": 1.0}, "next_id": null},
-        {"text": "B. 法律必须保护少数，除非通过极高难度司法挑战", "weights": {"Y4": 1.0}, "next_id": null},
-        {"text": "C. 利益冲突必须通过广泛协商和公民投票决定", "weights": {"Y5": 1.0}, "next_id": null}
-      ]
-    },
-    {
-      "id": 25,
-      "text": "Q25. 修改宪法或根本规则的难度应该：",
-      "type": "constraint",
-      "options": [
-        {"text": "A. 非常容易，只要最高领导层认为有必要", "weights": {"Y2": 1.0}, "next_id": null},
-        {"text": "B. 适中，需要经过立法机构的磋商博弈", "weights": {"Y3": 1.0}, "next_id": null},
-        {"text": "C. 极难，必须经过公民全民公决", "weights": {"Y5": 1.0}, "next_id": null}
-      ]
-    },
-    {
-      "id": 26,
-      "text": "Q26. 当官僚机构（技术官僚）执行政策时，他们应该：",
-      "type": "constraint",
-      "options": [
-        {"text": "A. 仅对上级负责，规则是灵活的执行手段", "weights": {"Y1": 1.0, "vector_bureaucracy": 1.5}, "next_id": null},
-        {"text": "B. 遵循法典，但在行政压力下可以变通", "weights": {"Y3": 1.0}, "next_id": null},
-        {"text": "C. 严格受制于审计监督，越权行为必遭诉讼", "weights": {"Y4": 1.0}, "next_id": null}
-      ]
-    },
-    {
-      "id": 27,
-      "text": "Q27. 你如何看待公民对政府决策的直接参与？",
-      "type": "constraint",
-      "options": [
-        {"text": "A. 决策是领导者责任，大众参与会导致混乱", "weights": {"Y2": 1.0}, "next_id": null},
-        {"text": "B. 可以在特定议题征求民意，但最终决定权在专家", "weights": {"Y3": 1.0}, "next_id": null},
-        {"text": "C. 法律应明确重大议题必须由公民直接决定", "weights": {"Y5": 1.0}, "next_id": null}
-      ]
-    },
-    {
-      "id": 28,
-      "text": "Q28. 你认为一个“好政府”最核心的标志是：",
-      "type": "constraint",
-      "options": [
-        {"text": "A. 拥有无上权威，能调动一切资源实现伟大目标", "weights": {"Y1": 1.0}, "next_id": null},
-        {"text": "B. 灵活运用法律手段，高效管理并维持稳定", "weights": {"Y2": 1.0}, "next_id": null},
-        {"text": "C. 权力运作受法律限制，且能保护个人自由", "weights": {"Y4": 1.0}, "next_id": null}
-      ]
-    },
-    {
-      "id": 29,
-      "text": "Q29. 关于社会契约，你更认同：",
-      "type": "constraint",
-      "options": [
-        {"text": "A. 秩序优于规则，个人应向国家让渡自主权", "weights": {"Y1": 1.0}, "next_id": null},
-        {"text": "B. 规则优于意志，政府存在是为了保护权利", "weights": {"Y4": 1.0}, "next_id": null},
-        {"text": "C. 契约是动态的，重大决策应通过投票更新", "weights": {"Y5": 1.0}, "next_id": null}
-      ]
-    },
-    {
-      "id": 30,
-      "text": "Q30. 若领导者由你支持的方式产生，你是否愿意赋予其超越法律的特权？",
-      "type": "constraint_anchor",
-      "options": [
-        {
-          "text": "A. 是的，正当产生的领袖不应被平庸规则束缚", 
-          "weights": {"X1": 0.8, "Y1": 1.5}, 
-          "flag": "will_overstep"
-        },
-        {
-          "text": "B. 不可以，产生正当不代表权力可以无限", 
-          "weights": {"X6": 0.5, "Y5": 1.0}, 
-          "flag": "will_obey"
-        },
-        {
-          "text": "C. 取决于议题，重大授权应重新交由全民公投", 
-          "weights": {"X7": 0.5, "Y5": 1.0}, 
-          "flag": "will_refer"
-		}
-      ]
-    },
-    {
-      "id": 31,
-      "text": "Q31. 当国家决策遭遇重大失败时，最根本的补救方案是：",
-      "type": "calibration",
-      "options": [
-        {"text": "A. 寻找并确立一位更具洞察力的英雄式领袖", "weights": {"vector_personal": 1.5}, "next_id": null},
-        {"text": "B. 强化集体决策体系的纠错与监督能力", "weights": {"vector_group": 1.5}, "next_id": null}
-      ]
-    },
-    {
-      "id": 32,
-      "text": "Q32. 在选拔高层官员时，你认为哪个特质更具合法性：",
-      "type": "calibration",
-      "options": [
-        {"text": "A. 对核心意志的绝对忠诚与执行力", "weights": {"vector_loyalty": 1.5, "vector_bureaucracy": 1.0}, "next_id": null},
-        {"text": "B. 在精英集团内部博弈中达成的平衡与妥协", "weights": {"vector_elitism": 1.5}, "next_id": null}
-      ]
-    },
-    {
-      "id": 33,
-      "text": "Q33. 若全民公投决定剥夺宪法保护的少数群体权利：",
-      "type": "calibration",
-      "options": [
-        {"text": "A. 既然是民意决定的，宪法和法院不应干预", "weights": {"vector_populism": 1.5}, "next_id": null},
-        {"text": "B. 宪法程序高于民意，该决定必须宣布无效", "weights": {"vector_constitutional": 1.5}, "next_id": null}
-      ]
-    },
-    {
-      "id": 34,
-      "text": "Q34. 你更倾向于生活在：",
-      "type": "calibration",
-      "options": [
-        {"text": "A. 一个虽然竞争不公，但效率极高、生活稳定的体制下", "weights": {"vector_order": 1.5}, "next_id": null},
-        {"text": "B. 一个虽然竞争混乱，但规则透明且保护权利的体制下", "weights": {"vector_liberty": 1.5}, "next_id": null}
-      ]
-    },
-    {
-      "id": 35,
-      "text": "Q35. 关于重大公共政策（如税收、修宪）：",
-      "type": "calibration",
-      "options": [
-        {
-          "text": "A. 应由民众针对方案直接决定，不受政治家干扰", 
-          "weights": {"X7": 1.5} 
-        },
-        {
-          "text": "B. 应由政府、议会与社会利益集团（如工会、商会）共同协商达成共识", 
-          "weights": {"vector_negotiation": 2.5} 
-        }
-      ]
-    },
-    {
-      "id": 36,
-      "text": "Q36. 关于“世袭传统”与“现代行政”的关系，你认为：",
-      "type": "calibration",
-      "options": [
-        {
-          "text": "A. 现代行政中不应存在世袭传统", 
-          "weights": {"X3": -1.0},
-          "next_id": null
-        },
-        {
-          "text": "B. 世袭元首应当保留为超越党派的精神象征，实际决策由受约束的内阁负责", 
-          "weights": {"X3": 1.0, "vector_cabinet": 2.5},
-          "next_id": null
-        },
-        {
-          "text": "C. 传统权威的实权地位不可动摇，内阁与官员应作为辅助者服从其意志", 
-          "weights": {"X3": 1.5, "vector_monarchy": 2.5},
-          "next_id": null
-        }
-      ]
-    },
-    {
-      "id": 37,
-      "text": "Q37. 若你的政敌通过合法公平竞争上台，并推行你极度厌恶的政策：",
-      "type": "calibration",
-      "options": [
-        {"text": "A. 我倾向支持非正规手段来废除/限制他的权力", "weights": {"vector_low_const": 1.5}, "next_id": null},
-        {"text": "B. 我会选择在下次选举前通过合法制衡阻碍他", "weights": {"vector_high_const": 1.5}, "next_id": null}
-      ]
-    },
-    {
-      "id": 38,
-      "text": "Q38. 关于“秩序”，你的最终底线是：",
-      "type": "calibration",
-      "options": [
-        {"text": "A. 哪怕没有法律，只要有秩序，社会就可以运转", "weights": {"vector_realism": 1.5}, "next_id": null},
-        {"text": "B. 哪怕社会暂时混乱，只要有法治，秩序终会重建", "weights": {"vector_idealism": 1.5}, "next_id": null}
-      ]
-    },
-    {
-      "id": 39,
-      "text": "Q39. 你认为政治权力的终极目的应该是：",
-      "type": "calibration",
-      "options": [
-        {"text": "A. 实现某种伟大的、超越个人的共同体远景", "weights": {"vector_collectivism": 1.5}, "next_id": null},
-        {"text": "B. 为每个人追求私人幸福提供安全边界与规则", "weights": {"vector_individualism": 1.5}, "next_id": null}
-      ]
-    },
-    {
-      "id": 40,
-      "text": "Q40. 若一个体制能带来持续经济增长，你是否愿意永久放弃政治参与权？",
-      "type": "calibration",
-      "options": [
-        {"text": "A. 愿意，结果（增长与稳定）比产生过程重要", "weights": {"vector_authoritarian_final": 2.0}, "next_id": null},
-        {"text": "B. 不愿意，没有过程合法性，结果的分配不可靠", "weights": {"vector_liberal_final": 2.0}, "next_id": null}
-      ]
-    }
-
-        ]
-    };
-
-    // 核心判定字典 (Python logic_map)
-    const logicMap = {
-        "X1Y1": ["1. 个人极权", "个人强夺 × 无约束。权力集中于一人，靠意识形态动员与安全机构维持统治。"],
-        "X1Y2": ["2. 个人威权", "个人强夺 × 工具性约束。存在法律但本质为工具，反对派被选择性压制。"],
-        "X2Y2": ["3. 集团威权", "少数集团选择 × 工具性约束。小圈层集体控制，程序服务集团利益。"],
-        "X2Y3": ["4. 寡头合议制", "少数集团选择 × 弱分权约束。精英间议价达成合意，有限司法存在但被俘获。"],
-        "X2Y4": ["14. 精英立宪制", "少数集团选择 × 强分权约束。由专业精英治理，且受独立司法严格限制。"],
-        "X3Y1": ["6. 宗法君主制", "世袭继承 × 无约束。君主个人意志至上，法与礼制服务王权。"],
-        "X3Y4": ["7. 宪政君主制", "世袭继承 × 强分权与权利保障。君主象征性，政府民选并受宪法约束。"],
-        "X4Y2": ["8. 选举威权", "选举—非竞争 × 工具性约束。选举外观可控，合法性来源于程序象征。"],
-        "X5Y3": ["9. 混合政体", "选举—有限竞争 × 弱分权约束。多党竞争不对等，政策易受行政主导。"],
-        "X6Y4": ["10. 代议制民主", "选举—充分竞争 × 强分权保障。自由公平选举、独立司法、权利保障。"],
-        "X7Y2": ["15. 民粹威权制", "直接表决 × 工具性约束。领袖借民意授权绕过程序，打击建制精英。"],
-        "X7Y3": ["12. 工具化公投制", "直接表决 × 弱分权约束。频繁公投但易被动员操控，决策易情绪化。"],
-        "X7Y5": ["13. 嵌入式直接民主", "直接表决 × 程序与议题双约束。代议与直接参与互补，保留社会纠错。"]
-    };
-
-    // 悖论映射 (Python paradox_map)
-    const paradoxMap = {
-        "X1Y4": ["救世主悖论", "个人强人(X1)与强力法律约束(Y4)在现实中难以兼容。"],
-        "X1Y5": ["救世主悖论", "极致分权(Y5)下不存在无所不能的强人(X1)。"],
-        "X6Y1": ["多数人暴政", "充分竞争选举(X6)配合零约束(Y1)将导致社会迅速崩溃。"],
-        "X7Y1": ["多数人暴政", "绝对民意(X7)若无任何制度刹车(Y1)是通往极权的捷径。"],
-        "X4Y4": ["幻影法治", "权力垄断(X4)背景下，不存在真正独立的司法分权(Y4)。"],
-        "X2Y5": ["精英洁癖", "精英集团(X2)利益与极致分权(Y5)存在不可调和的矛盾。"]
-    };
-
+    const CORE_VERSION = "v3.2.2"; // 主程序版本，不干扰 JSON 逻辑
+    let quizData = null;
     let currentIndex = 0;
-    let userAnswers = {}; // {qIndex: optIndex}
+    let userAnswers = {};
     let history = [];
 
-    function init() {
-        showQuestion();
+    // 1. 初始化
+    async function initQuiz(lang) {
+        try {
+            const response = await fetch(`questions_${lang}.json`);
+            quizData = await response.json();
+            setupUI();
+            document.getElementById('lang-select').style.display = 'none';
+            document.getElementById('quiz-container').style.display = 'block';
+            showQuestion();
+        } catch (error) {
+            console.error("Data Load Error:", error);
+            alert("Error loading questionnaire data.");
+        }
+    }
+
+    // 2. 绑定 UI (完全来自 JSON)
+    function setupUI() {
+        const ui = quizData.ui;
+        document.title = ui.title;
+        document.getElementById('prev-btn').innerText = ui.prev_btn;
+        document.getElementById('next-btn').innerText = ui.next_btn;
+        document.getElementById('result-title').innerText = ui.result_title;
+        document.getElementById('reset-btn').innerText = ui.reset_btn;
+        document.getElementById('app-version').innerText = `Engine: ${CORE_VERSION}`;
     }
 
     function showQuestion() {
-        const q = quizData.questions[currentIndex];
-        document.getElementById('progress').innerText = `进度: ${currentIndex + 1} / ${quizData.questions.length}`;
+        const q = quizData.quiz_data.questions[currentIndex];
+        const ui = quizData.ui;
+        document.getElementById('progress').innerText = `${ui.progress_prefix}${currentIndex + 1} / ${quizData.quiz_data.questions.length}`;
         document.getElementById('question-text').innerText = q.text;
         
         const container = document.getElementById('options-container');
@@ -545,22 +113,20 @@
             btn.onclick = () => selectOption(i);
             container.appendChild(btn);
         });
-
         document.getElementById('prev-btn').disabled = currentIndex === 0;
         document.getElementById('next-btn').disabled = userAnswers[currentIndex] === undefined;
     }
 
     function selectOption(index) {
         userAnswers[currentIndex] = index;
-        const options = document.querySelectorAll('.option');
-        options.forEach((btn, i) => btn.classList.toggle('selected', i === index));
+        document.querySelectorAll('.option').forEach((btn, i) => btn.classList.toggle('selected', i === index));
         document.getElementById('next-btn').disabled = false;
     }
 
     function submitAnswer() {
         history.push(currentIndex);
         currentIndex++;
-        if (currentIndex < quizData.questions.length) {
+        if (currentIndex < quizData.quiz_data.questions.length) {
             showQuestion();
         } else {
             generateAnalysis();
@@ -574,94 +140,85 @@
         }
     }
 
+    // 3. 核心算法 (无中文硬编码)
     function generateAnalysis() {
         let scores = {};
-        // 初始化所有维度分数
-        ['X1','X2','X3','X4','X5','X6','X7','Y1','Y2','Y3','Y4','Y5','vector_cabinet','vector_negotiation','vector_bureaucracy','vector_elitism'].forEach(k => scores[k] = 0);
+        const axes = ['X1','X2','X3','X4','X5','X6','X7','Y1','Y2','Y3','Y4','Y5'];
+        const vectors = ['vector_bureaucracy','vector_negotiation','vector_elitism','vector_cabinet'];
+        [...axes, ...vectors].forEach(k => scores[k] = 0);
 
-        // 1. 累计得分
         for (let qIdx in userAnswers) {
-            let optIdx = userAnswers[qIdx];
-            let weights = quizData.questions[qIdx].options[optIdx].weights;
+            let weights = quizData.quiz_data.questions[qIdx].options[userAnswers[qIdx]].weights;
             for (let k in weights) { scores[k] = (scores[k] || 0) + weights[k]; }
         }
 
-        // 2. 确定最高分坐标
         let bestX = ['X1','X2','X3','X4','X5','X6','X7'].reduce((a, b) => scores[a] >= scores[b] ? a : b);
         let bestY = ['Y1','Y2','Y3','Y4','Y5'].reduce((a, b) => scores[a] >= scores[b] ? a : b);
         
-        let title, desc, mode = "精确匹配";
-        let coord = bestX + bestY;
+        const labels = quizData.ui.report_labels;
+        const logicMap = quizData.quiz_data.logic_map;
+        const paradoxMap = quizData.quiz_data.paradox_map;
+        let modeKey = "exact";
 
-        // 3. 逻辑判定流程
+        // --- 逻辑重定向：X7Y4 -> X7Y5 ---
+        if (bestX === "X7" && bestY === "Y4") {
+            bestY = "Y5";
+            modeKey = "approx";
+        }
+
+        let coord = bestX + bestY;
+        let title, desc;
+
         if (paradoxMap[coord]) {
             [title, desc] = paradoxMap[coord];
-            mode = "逻辑悖论冲突";
-        } 
-        else if (bestX === "X7" && bestY === "Y4") {
-            title = "直接民主的中点";
-            desc = "你处于 13. 嵌入式直接民主 与 12. 工具化公投制 之间。反映了受试者在民意授权与法治边界上的复杂态度。";
-            mode = "中间倾向注明";
-        } 
-        else {
-            // 如果坐标不存在，执行同列近似匹配
-            if (!logicMap[coord]) {
-                // 【核心修复点】这里改为 split('Y')[1] 以正确获取 Y 后面的数字
-                let definedYs = Object.keys(logicMap)
-                    .filter(k => k.startsWith(bestX))
-                    .map(k => parseInt(k.split('Y')[1]));
-                
-                if (definedYs.length > 0) {
-                    let curY = parseInt(bestY.substring(1)); // 获取当前 bestY 的数字 (如 "Y3" -> 3)
-                    let closestY = definedYs.reduce((prev, curr) => Math.abs(curr - curY) < Math.abs(prev - curY) ? curr : prev);
-                    
-                    bestY = "Y" + closestY; // 重置 bestY 为最近的有效值
-                    coord = bestX + bestY;
-                    mode = "同列近似匹配";
-                }
-            }
-
-            // 特殊拦截逻辑
-            if (bestX === "X6" && bestY === "Y4") {
-                if (scores.vector_cabinet >= 2.0) [title, desc] = logicMap["X3Y4"];
-                else if (scores.vector_negotiation >= 1.5) [title, desc] = ["11. 协商型民主", "在代议制基础上引入社会伙伴协商机制。"];
-                else [title, desc] = logicMap["X6Y4"];
-            } else if (bestX === "X2" && bestY === "Y2") {
-                if (scores.vector_bureaucracy > scores.vector_elitism) [title, desc] = ["5. 科层党国", "单一执政主体以严密的科层体系实现治理。"];
-                else [title, desc] = logicMap["X2Y2"];
+            modeKey = "paradox";
+            document.getElementById('paradox-alert-area').innerHTML = `<div class="paradox-banner">${labels.paradox_alert}</div>`;
+        } else {
+            document.getElementById('paradox-alert-area').innerHTML = '';
+            
+            // 特殊向量拦截
+            if (bestX === "X6" && bestY === "Y4" && scores.vector_negotiation >= 1.5) {
+                [title, desc] = logicMap["X6Y4_negotiation"];
+            } else if (bestX === "X2" && bestY === "Y2" && scores.vector_bureaucracy > scores.vector_elitism) {
+                [title, desc] = logicMap["X2Y2_bureaucracy"];
             } else {
-                [title, desc] = logicMap[coord] || ["未匹配政体", "您的倾向组合较为独特，暂无完全匹配的历史政体模型。"];
+                // 近似匹配
+                if (!logicMap[coord]) {
+                    let definedYs = Object.keys(logicMap).filter(k => k.startsWith(bestX)).map(k => parseInt(k.split('Y')[1]));
+                    if (definedYs.length > 0) {
+                        let curYVal = parseInt(bestY.substring(1));
+                        let closestY = definedYs.reduce((prev, curr) => Math.abs(curr - curYVal) < Math.abs(prev - curYVal) ? curr : prev);
+                        bestY = "Y" + closestY;
+                        coord = bestX + bestY;
+                        modeKey = "column_approx";
+                    }
+                }
+                const result = logicMap[coord] || labels.no_match;
+                [title, desc] = result;
             }
         }
 
-        // 4. 组装报告
-        const report = `判定坐标: ${bestX} - ${bestY} (${mode})\n\n` +
-                       `匹配政体: ${title}\n` +
-                       `结果描述: ${desc}\n\n` +
-                       `--- 维度得分统计 ---\n` +
-                       `权力产生(X轴): ${bestX} = ${scores[bestX].toFixed(1)}\n` +
-                       `权力约束(Y轴): ${bestY} = ${scores[bestY].toFixed(1)}\n` +
-                       `特殊倾向: 官僚主义倾向=${(scores.vector_bureaucracy || 0).toFixed(1)}, 协商主义倾向=${(scores.vector_negotiation || 0).toFixed(1)}`;
+        // 4. 组装报告 (使用 labels 动态翻译)
+        const report = `${labels.coord}: ${bestX} - ${bestY}\n` +
+                       `${labels.mode}: ${labels.modes[modeKey]}\n\n` +
+                       `${labels.matched}: ${title}\n` +
+                       `${labels.desc}: ${desc}\n\n` +
+                       `${labels.stats_title}\n` +
+                       `${labels.axis_x}: ${bestX} (${scores[bestX].toFixed(1)})\n` +
+                       `${labels.axis_y}: ${bestY} (${scores[bestY].toFixed(1)})\n` +
+                       `${labels.special_vectors}:\n` +
+                       ` - ${labels.vector_bureaucracy}: ${(scores.vector_bureaucracy || 0).toFixed(1)}\n` +
+                       ` - ${labels.vector_negotiation}: ${(scores.vector_negotiation || 0).toFixed(1)}`;
 
         document.getElementById('report-text').innerText = report;
         document.getElementById('result-overlay').style.display = 'flex';
     }
 
     function resetQuiz() {
-        currentIndex = 0;
-        userAnswers = {};
-        history = [];
+        currentIndex = 0; userAnswers = {}; history = [];
         document.getElementById('result-overlay').style.display = 'none';
         showQuestion();
     }
-
-    // 启动
-    init();
 </script>
 </body>
 </html>
-
-
-
-
-
