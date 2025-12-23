@@ -1,0 +1,263 @@
+{
+  "ui": {
+    "title": "정치 체제 성향 진단",
+    "lang_display": "한국어",
+    "lang_select_title": "언어를 선택해 주세요",
+    "loading": "데이터를 불러오는 중...",
+    "progress_prefix": "진행률: ",
+    "prev_btn": "← 이전 질문",
+    "next_btn": "선택 확정 →",
+    "result_title": "진단 보고서",
+    "reset_btn": "다시 테스트하기",
+    "report_labels": {
+      "coord": "판정 좌표",
+      "mode": "판정 모드",
+      "matched": "일치하는 정체(政體)",
+      "desc": "결과 설명",
+      "stats_title": "--- 차원별 점수 통계 ---",
+      "axis_x": "권력의 창출 (X축)",
+      "axis_y": "권력의 통제 (Y축)",
+      "special_vectors": "특수 성향",
+      "vector_bureaucracy": "관료주의적 경향",
+      "vector_negotiation": "협의주의/코포라티즘 경향",
+      "paradox_alert": "【주의】 논리적 역설이 감지되었습니다. 재테스트를 권장합니다.",
+      "modes": {
+        "exact": "정밀 일치",
+        "approx": "근사 일치",
+        "column_approx": "동일 열 근사 일치",
+        "paradox": "논리 역설 충돌",
+        "unique": "독자적 경향"
+      },
+      "no_match": ["일치하는 정체 없음", "귀하의 성향은 매우 독특하며 표준적인 역사적 모델에 해당하지 않습니다."]
+    }
+  },
+  "quiz_data": {
+    "questions": [
+      { "id": 1, "text": "Q1. 이상적인 지도자에게 있어 가장 정당한 권력의 원천은 무엇이라고 생각하십니까?", "type": "origin", "options": [
+        {"text": "A. 오랜 역사적 전통이나 혈통 (의례적/통치적 군주 포함)", "weights": {"X3": 1.5}, "next_id": null},
+        {"text": "B. 국가적 혼란이나 위기 상황에서 보여주는 비범한 용기와 철권통치", "weights": {"X1": 1.0}, "next_id": null},
+        {"text": "C. 장기적인 합의를 통해 육성되고 선발된 전문 엘리트 집단", "weights": {"X2": 1.0}, "next_id": null},
+        {"text": "D. 법적 테두리 안에서 자유로운 경쟁을 통해 행사된 시민들의 투표", "weights": {"X6": 1.0}, "next_id": null}
+      ]},
+      { "id": 2, "text": "Q2. 사회가 근본적인 갈등에 직면했을 때, 가장 신뢰할 수 있는 의사결정 매커니즘은 무엇입니까?", "type": "origin", "options": [
+        {"text": "A. 특정 사안에 대해 모든 시민이 직접 내리는 최종 판결", "weights": {"X7": 1.0}, "next_id": null},
+        {"text": "B. 국가의 단결을 상징하는 유일한 지도 기관의 통일된 지시", "weights": {"X4": 1.0}, "next_id": null},
+        {"text": "C. 체제의 안정을 유지하면서 공인된 시민 대표들의 의견을 수렴하는 것", "weights": {"X5": 1.0}, "next_id": null},
+        {"text": "D. 뿌리 깊은 전통 가문이나 가부장적 권위에 의한 중재", "weights": {"X3": 1.0}, "next_id": null}
+      ]},
+      { "id": 3, "text": "Q3. 통치에 있어 '전문성'과 '참여' 중 어느 쪽을 더 중시하십니까?", "type": "origin", "options": [
+        {"text": "A. 통치는 고도로 훈련된 전문 핵심 위원회가 전적으로 책임져야 한다", "weights": {"X2": 1.0, "vector_elitism": 1.0}, "next_id": null},
+        {"text": "B. 통치는 모든 정치적 견해에 개방되어야 하며, 다소 혼란스럽더라도 경쟁을 보장해야 한다", "weights": {"X6": 1.0}, "next_id": null},
+        {"text": "C. 지도자는 관료적 매개를 배제하고 민중으로부터 직접 권한을 위임받아야 한다", "weights": {"X7": 1.0}, "next_id": null},
+        {"text": "D. 선거는 국가의 단결과 현상 유지에 대한 지지를 보여주는 '의식'으로 기능해야 한다", "weights": {"X4": 1.0}, "next_id": null}
+      ]},
+      { "id": 4, "text": "Q4. 국가가 근본적인 개혁을 필요로 할 때, 저항을 돌파하기에 가장 적합한 주체는 누구입니까?", "type": "origin", "options": [
+        {"text": "A. 절차에 얽매이지 않는, 절대적인 위신을 가진 정치적 강자", "weights": {"X1": 1.0}, "next_id": null},
+        {"text": "B. 핵심 자원을 장악하고 고도로 결속된 집권 집단", "weights": {"X2": 1.0}, "next_id": null},
+        {"text": "C. 자연스러운 정당성을 갖춘 전통 왕실 혹은 국가 원수", "weights": {"X3": 1.0}, "next_id": null},
+        {"text": "D. 자유로운 정당 결성과 논쟁을 통해 지지를 얻는 신흥 세력", "weights": {"X6": 1.0}, "next_id": null}
+      ]},
+      { "id": 5, "text": "Q5. 정치적 경쟁에 대해 어떻게 생각하십니까?", "type": "origin", "options": [
+        {"text": "A. 경쟁은 적절해야 하며, 핵심 지도권을 위협해서는 안 된다", "weights": {"X5": 1.0}, "next_id": null},
+        {"text": "B. 필요하지만, 중요한 결정은 정치인이 아닌 국민투표에 맡겨야 한다", "weights": {"X7": 1.0}, "next_id": null},
+        {"text": "C. 경쟁은 분열을 초래한다. 국가에는 통일된 선거 의례가 필요하다", "weights": {"X4": 1.0}, "next_id": null},
+        {"text": "D. 권력 투쟁을 통해 실력을 증명한 자가 승리자가 되어야 한다", "weights": {"X1": 1.0}, "next_id": null}
+      ]},
+      { "id": 6, "text": "Q6. 권력의 안정에 있어 가장 중요한 요인은 무엇이라고 생각하십니까?", "type": "origin", "options": [
+        {"text": "A. 명확하고 변경 불가능한 승계 순위나 혈통을 확립하는 것", "weights": {"X3": 1.0}, "next_id": null},
+        {"text": "B. 통치 엘리트 내에서의 세대교체와 자기 혁신을 유지하는 것", "weights": {"X2": 1.0}, "next_id": null},
+        {"text": "C. 통제된 범위 내에서 다양한 계층의 정치 참여를 허용하는 것", "weights": {"X5": 1.0}, "next_id": null},
+        {"text": "D. 모든 시민이 투표를 통해 언제든 통치자를 교체할 수 있게 보장하는 것", "weights": {"X6": 1.0}, "next_id": null}
+      ]},
+      { "id": 7, "text": "Q7. 어떤 정부가 '민의'를 가장 잘 대표한다고 보십니까?", "type": "origin", "options": [
+        {"text": "A. 절차적 제한을 회피하고 민중의 감정에 즉각 응답하는 강력한 정부", "weights": {"X1": 1.0}, "next_id": null},
+        {"text": "B. 엄격한 선발을 거쳐 장기적인 국가 이익을 합리적으로 판단하는 엘리트 정부", "weights": {"X2": 1.0}, "next_id": null},
+        {"text": "C. 광범위한 경쟁적 선거를 통해 역동적으로 권한을 위임받는 정부", "weights": {"X6": 1.0}, "next_id": null},
+        {"text": "D. 모든 중요 사항에 대해 전 시민에게 자문을 구하는 정부", "weights": {"X7": 1.0}, "next_id": null}
+      ]},
+      { "id": 8, "text": "Q8. 체제 이행기의 선거에 대한 귀하의 생각은?", "type": "origin", "options": [
+        {"text": "A. 제한을 두지 않고 모든 세력이 공정하게 경쟁해야 한다", "weights": {"X6": 1.0}, "next_id": null},
+        {"text": "B. 기본 제도를 흔들지 않도록 후보자의 적격성을 심사해야 한다", "weights": {"X5": 1.0}, "next_id": null},
+        {"text": "C. 현 지도부에 대한 신임 투표 성격을 강하게 띠어야 한다", "weights": {"X4": 1.0}, "next_id": null}
+      ]},
+      { "id": 9, "text": "Q9. 높은 정책 지속성(10~20년)을 확보하기 위해 필요한 것은?", "type": "origin", "options": [
+        {"text": "A. 세대를 넘어서는 계승 전통이나 세습적 기준을 마련하는 것", "weights": {"X3": 1.0}, "next_id": null},
+        {"text": "B. 통치 그룹에 의한 장기적인 계획 수립과 후계자 지명", "weights": {"X2": 1.0}, "next_id": null},
+        {"text": "C. 경쟁적 선거의 빈도나 쟁점을 법적으로 제한하는 것", "weights": {"X5": 1.0}, "next_id": null}
+      ]},
+      { "id": 10, "text": "Q10. 과격한 포퓰리즘에 대한 최선의 '방화벽'은 무엇입니까?", "type": "origin", "options": [
+        {"text": "A. 신성함을 동반한 전통적인 권위에 의거하는 것", "weights": {"X3": 1.0}, "next_id": null},
+        {"text": "B. 강력한 개인의 결단력으로 신속하게 혼란을 잠재우는 것", "weights": {"X1": 1.0}, "next_id": null},
+        {"text": "C. 복잡한 대의제와 법적 절차를 통해 충동을 여과하는 것", "weights": {"X6": 1.0}, "next_id": null}
+      ]},
+      { "id": 11, "text": "Q11. 기술이 '실시간 의사 표시'를 가능하게 할 경우:", "type": "origin", "options": [
+        {"text": "A. 선거를 폐지하고 대규모 실시간 국민투표로 대체해야 한다", "weights": {"X7": 1.0}, "next_id": null},
+        {"text": "B. 지도부의 동원력과 사회적 통합성을 강화하는 데 활용해야 한다", "weights": {"X4": 1.0}, "next_id": null},
+        {"text": "C. 엘리트가 더 정밀한 의사결정을 내리기 위한 보조 도구로 삼아야 한다", "weights": {"X2": 1.0}, "next_id": null}
+      ]},
+      { "id": 12, "text": "Q12. 전쟁과 같은 극한의 생존 위기 상황에서 권력은 어디로 이동해야 합니까?", "type": "origin", "options": [
+        {"text": "A. 위기 상황에서 소환된 강자에 의한 사실상의 개인 지배", "weights": {"X1": 1.0}, "next_id": null},
+        {"text": "B. 군사나 안보 기관의 위원회에 의한 집단적 장악", "weights": {"X2": 1.0}, "next_id": null},
+        {"text": "C. 현직 지도자에게 무기한 재선을 허용하는 정당성 부여", "weights": {"X4": 1.0}, "next_id": null}
+      ]},
+      { "id": 13, "text": "Q13. 정치인들 사이의 권모술수를 혐오한다면, 어느 쪽을 선호하십니까?", "type": "origin", "options": [
+        {"text": "A. 가문이나 혈통을 통해 자연스럽게 권력이 승계되는 것", "weights": {"X3": 1.0}, "next_id": null},
+        {"text": "B. 정치인을 거치지 않고 국민이 직접 투표로 사안을 결정하는 것", "weights": {"X7": 1.0}, "next_id": null},
+        {"text": "C. 경쟁을 제한하고 효율적인 하나의 통치 팀만을 유지하는 것", "weights": {"X5": 1.0}, "next_id": null}
+      ]},
+      { "id": 14, "text": "Q14. 사회가 변화를 요구하지만 격렬한 충돌은 피하고 싶을 때, 무엇을 선택하시겠습니까?", "type": "origin", "options": [
+        {"text": "A. 유능한 강자가 초법적으로 주도권을 잡는 것을 지지한다", "weights": {"X1": 1.0}, "next_id": null},
+        {"text": "B. 단계적이고 관리된 방식의 선거 개방을 지지한다", "weights": {"X5": 1.0}, "next_id": null},
+        {"text": "C. 현상 변경 여부를 국민투표로 결정하자고 주장한다", "weights": {"X7": 1.0}, "next_id": null}
+      ]},
+      { "id": 15, "text": "Q15. 귀하가 생각하는 '법'의 본질은 무엇입니까?", "type": "transition", "options": [
+        {"text": "A. 통치자가 반드시 따라야 할 지고의 원칙 (효율성이 떨어지더라도 준수)", "weights": {"X6": 0.5, "Y4": 1.0}, "next_id": null},
+        {"text": "B. 통치를 위한 유효한 도구이며, 필요에 따라 조정될 수 있는 것", "weights": {"X2": 0.5, "Y2": 1.0}, "next_id": null},
+        {"text": "C. 통치자와 엘리트 계층 간의 타협 결과로 태어난 계약", "weights": {"X5": 0.5, "Y3": 1.0}, "next_id": null},
+        {"text": "D. 보다 높은 차원의 국가 의지 혹은 지도자의 결단에 종속되는 것", "weights": {"X1": 1.0, "Y1": 1.5}, "next_id": null}
+      ]},
+      { "id": 16, "text": "Q16. 유익한 정책이 절차상 위헌을 이유로 법원에 의해 저지될 경우:", "type": "constraint", "options": [
+        {"text": "A. 절차는 국익에 양보해야 한다. 장애를 우회하여 집행한다", "weights": {"Y1": 1.0}, "next_id": null},
+        {"text": "B. 법은 도구다. 먼저 법을 개정하여 합법화한 후 집행한다", "weights": {"Y2": 1.0}, "next_id": null},
+        {"text": "C. 법원의 판단은 존중되어야 한다. 정책이 지연되거나 실패하더라도 지킨다", "weights": {"Y4": 1.0}, "next_id": null}
+      ]},
+      { "id": 17, "text": "Q17. '비상 사태' 시 권력의 경계에 대해 어떻게 생각하십니까?", "type": "constraint", "options": [
+        {"text": "A. 지도자의 의지가 지상 명령이며 평시의 규칙은 적용되지 않는다", "weights": {"Y1": 1.0}, "next_id": null},
+        {"text": "B. 지도자에게 특권을 인정하되 사후에 법적 추인 절차를 완료해야 한다", "weights": {"Y2": 1.0}, "next_id": null},
+        {"text": "C. 중요한 결정은 반드시 의회 등 설치된 기관을 통과해야 한다", "weights": {"Y3": 1.0}, "next_id": null}
+      ]},
+      { "id": 18, "text": "Q18. 법이 범죄 소탕의 효율성을 제한하고 있다면 어느 쪽을 택하시겠습니까?", "type": "constraint", "options": [
+        {"text": "A. 행정에 광범위한 재량을 주어야 한다. 법이 걸림돌이 되어서는 안 된다", "weights": {"Y2": 1.0}, "next_id": null},
+        {"text": "B. 설령 범인을 놓치더라도 증거와 절차를 엄격히 준수한다", "weights": {"Y4": 1.0}, "next_id": null},
+        {"text": "C. 이 절충안에 대해서는 모든 시민이 국민투표로 결정해야 한다", "weights": {"Y5": 1.0}, "next_id": null}
+      ]},
+      { "id": 19, "text": "Q19. 정부에 비판적인 언론 보도는:", "type": "constraint", "options": [
+        {"text": "A. 사회적 통합을 위해 국가에 의해 엄격히 유도되어야 한다", "weights": {"Y1": 1.0}, "next_id": null},
+        {"text": "B. 존재는 인정하되 핵심 결정 사안에 대해서는 행정적 제한을 받는다", "weights": {"Y3": 1.0}, "next_id": null},
+        {"text": "C. 권력으로부터 완전히 독립하여 권력에 대한 외부의 '천적' 역할을 해야 한다", "weights": {"Y4": 1.0}, "next_id": null}
+      ]},
+      { "id": 20, "text": "Q20. 사법부(법원)의 지위에 대한 귀하의 견해는?", "type": "constraint", "options": [
+        {"text": "A. 질서 유지와 집행을 확실히 하기 위해 정부를 보조해야 한다", "weights": {"Y2": 1.0}, "next_id": null},
+        {"text": "B. 중립적이어야 하지만 분쟁 해결 시 정치적 안정을 고려해야 한다", "weights": {"Y3": 1.0}, "next_id": null},
+        {"text": "C. 절대적으로 독립하여 행정 행위를 무효화할 권한을 가져야 한다", "weights": {"Y4": 1.0}, "next_id": null}
+      ]},
+      { "id": 21, "text": "Q21. 의회와 행정 수반이 격렬하게 대립할 경우:", "type": "constraint", "options": [
+        {"text": "A. 국가가 마비되지 않도록 수반의 의지가 우선되어야 한다", "weights": {"Y1": 1.0}, "next_id": null},
+        {"text": "B. 정치적 거래로 해결해야 한다. 규칙은 단지 틀에 불과하다", "weights": {"Y3": 1.0}, "next_id": null},
+        {"text": "C. 국민투표를 통해 시민이 직접 결판을 내야 한다", "weights": {"Y5": 1.0}, "next_id": null}
+      ]},
+      { "id": 22, "text": "Q22. 개인의 재산권이나 표현의 자유에 대해:", "type": "constraint", "options": [
+        {"text": "A. 국가의 목표에 기여해야 하며 징용이나 제한이 가능하다", "weights": {"Y1": 1.0}, "next_id": null},
+        {"text": "B. 법으로 보호받아야 하지만 정부는 법에 근거해 개입할 수 있다", "weights": {"Y2": 1.0}, "next_id": null},
+        {"text": "C. 신성불가침이며 어떤 정부도 이를 침해할 권리가 없다", "weights": {"Y4": 1.0}, "next_id": null}
+      ]},
+      { "id": 23, "text": "Q23. 시민들의 평화로운 시위는:", "type": "constraint", "options": [
+        {"text": "A. 질서를 어지럽히는 행위이며 정부는 신속히 제지해야 한다", "weights": {"Y1": 1.0}, "next_id": null},
+        {"text": "B. 규칙의 범위 내에서 허용되되 의사결정을 방해해서는 안 된다", "weights": {"Y3": 1.0}, "next_id": null},
+        {"text": "C. 기본적 인권이며 정부는 제도적으로 응답할 의무가 있다", "weights": {"Y5": 1.0}, "next_id": null}
+      ]},
+      { "id": 24, "text": "Q24. 어떤 정책이 다수에게 이익이 되나 소수의 핵심 권리를 침해할 경우:", "type": "constraint", "options": [
+        {"text": "A. 소수는 다수를 따라야 한다. 정부는 단행할 수 있다", "weights": {"Y2": 1.0}, "next_id": null},
+        {"text": "B. 고도의 합헌성 판단이 없는 한 법은 소수를 보호해야 한다", "weights": {"Y4": 1.0}, "next_id": null},
+        {"text": "C. 광범위한 협상과 국민의 의사 확인을 통해 해결해야 한다", "weights": {"Y5": 1.0}, "next_id": null}
+      ]},
+      { "id": 25, "text": "Q25. 헌법이나 기본 규칙 개정의 난이도는 어떠해야 합니까?", "type": "constraint", "options": [
+        {"text": "A. 최고 지도자가 필요하다고 판단하면 매우 용이해야 한다", "weights": {"Y2": 1.0}, "next_id": null},
+        {"text": "B. 의회 내 협의와 조정을 필요로 하는 중간 정도의 난이도", "weights": {"Y3": 1.0}, "next_id": null},
+        {"text": "C. 국민투표를 필수적으로 거치는 등 매우 곤란해야 한다", "weights": {"Y5": 1.0}, "next_id": null}
+      ]},
+      { "id": 26, "text": "Q26. 전문 관료들이 정책을 집행할 때:", "type": "constraint", "options": [
+        {"text": "A. 상사에게만 책임을 지며 규칙은 유연한 도구로 활용한다", "weights": {"Y1": 1.0, "vector_bureaucracy": 1.5}, "next_id": null},
+        {"text": "B. 규정을 따르되 행정적 압력이 있다면 적응을 허용한다", "weights": {"Y3": 1.0}, "next_id": null},
+        {"text": "C. 회계 감사 등에 의해 엄격히 제약되며 직권 남용은 소송 대상이 된다", "weights": {"Y4": 1.0}, "next_id": null}
+      ]},
+      { "id": 27, "text": "Q27. 정부 결정에 대한 시민의 직접 참여에 대해 어떻게 생각하십니까?", "type": "constraint", "options": [
+        {"text": "A. 결정은 지도자의 책무다. 대중의 참여는 혼란만 초래한다", "weights": {"Y2": 1.0}, "next_id": null},
+        {"text": "B. 특정 사안에 민의를 수렴할 수는 있으나 최종 결정은 전문가가 한다", "weights": {"Y3": 1.0}, "next_id": null},
+        {"text": "C. 법에 의해 중요한 사항은 시민들의 투표로 결정하도록 의무화해야 한다", "weights": {"Y5": 1.0}, "next_id": null}
+      ]},
+      { "id": 28, "text": "Q28. '좋은 정부'의 핵심적인 상징은 무엇입니까?", "type": "constraint", "options": [
+        {"text": "A. 위대한 목표를 위해 자원을 동원할 수 있는 지고의 권위를 갖는 것", "weights": {"Y1": 1.0}, "next_id": null},
+        {"text": "B. 효율적 관리와 안정을 위해 법적 도구를 유연하게 운용하는 것", "weights": {"Y2": 1.0}, "next_id": null},
+        {"text": "C. 법에 의해 권력이 제한되고 개인의 자유가 보호되는 것", "weights": {"Y4": 1.0}, "next_id": null}
+      ]},
+      { "id": 29, "text": "Q29. 사회 계약에 대한 귀하의 생각과 가장 가까운 것은?", "type": "constraint", "options": [
+        {"text": "A. 규칙보다 질서. 개인은 국가에 자율성을 위임한다", "weights": {"Y1": 1.0}, "next_id": null},
+        {"text": "B. 의지보다 규칙. 정부는 권리 보호를 위해 존재한다", "weights": {"Y4": 1.0}, "next_id": null},
+        {"text": "C. 역동적 계약. 중요한 결정은 투표를 통해 갱신된다", "weights": {"Y5": 1.0}, "next_id": null}
+      ]},
+      { "id": 30, "text": "Q30. 귀하가 선택한 방식으로 탄생한 지도자에게 초법적 권한을 부여하시겠습니까?", "type": "constraint_anchor", "options": [
+        {"text": "A. 예. 정당한 지도자는 평범한 규칙에 얽매여서는 안 된다", "weights": {"X1": 0.8, "Y1": 1.5}, "flag": "will_overstep"},
+        {"text": "B. 아니오. 정당한 출처라도 권력이 무한해서는 안 된다", "weights": {"X6": 0.5, "Y5": 1.0}, "flag": "will_obey"},
+        {"text": "C. 상황에 따라 다르다. 중대한 권한 부여는 국민투표로 다시 물어야 한다", "weights": {"X7": 0.5, "Y5": 1.0}, "flag": "will_refer"}
+      ]},
+      { "id": 31, "text": "Q31. 국가 의사결정이 실패했을 때 근본적인 시정 방안은?", "type": "calibration", "options": [
+        {"text": "A. 더 통찰력 있고 영웅적인 지도자를 찾아 세우는 것", "weights": {"vector_personal": 1.5}, "next_id": null},
+        {"text": "B. 집단적 시스템의 교정과 감시 기능을 강화하는 것", "weights": {"vector_group": 1.5}, "next_id": null}
+      ]},
+      { "id": 32, "text": "Q32. 고위 공직자를 선발할 때 어떤 특성이 더 정당성을 갖습니까?", "type": "calibration", "options": [
+        {"text": "A. 핵심 의지에 대한 절대적 충성과 집행 능력", "weights": {"vector_loyalty": 1.5, "vector_bureaucracy": 1.0}, "next_id": null},
+        {"text": "B. 엘리트 계층 내에서의 균형과 타협을 통해 얻어진 합의", "weights": {"vector_elitism": 1.5}, "next_id": null}
+      ]},
+      { "id": 33, "text": "Q33. 국민투표로 법이 보호하는 소수의 권리를 박탈하기로 결정했다면:", "type": "calibration", "options": [
+        {"text": "A. 그것이 민의인 이상 법이나 법원은 개입해서는 안 된다", "weights": {"vector_populism": 1.5}, "next_id": null},
+        {"text": "B. 법적 절차는 민의에 우선한다. 그 결정은 무효다", "weights": {"vector_constitutional": 1.5}, "next_id": null}
+      ]},
+      { "id": 34, "text": "Q34. 어느 시스템에서 살고 싶으십니까?", "type": "calibration", "options": [
+        {"text": "A. 경쟁은 불공정하지만 효율과 안정성이 매우 높은 시스템", "weights": {"vector_order": 1.5}, "next_id": null},
+        {"text": "B. 경쟁은 혼란스럽지만 규칙과 권리가 투명한 시스템", "weights": {"vector_liberty": 1.5}, "next_id": null}
+      ]},
+      { "id": 35, "text": "Q35. 주요 공공 정책(증세, 개헌안 등)에 대하여:", "type": "calibration", "options": [
+        {"text": "A. 정치인의 간섭 없이 시민들이 직접 안을 결정한다", "weights": {"X7": 1.5}},
+        {"text": "B. 정부, 의회, 사회 단체(노조 등)가 협상하여 합의를 형성한다", "weights": {"vector_negotiation": 2.5}}
+      ]},
+      { "id": 36, "text": "Q36. '세습적 전통'과 '현대적 행정'에 대하여:", "type": "calibration", "options": [
+        {"text": "A. 현대 행정에서 세습적 전통은 존재해서는 안 된다", "weights": {"X3": -1.0}, "next_id": null},
+        {"text": "B. 세습 군주는 의례적 상징으로 두고 내각이 의사결정을 한다", "weights": {"X3": 1.0, "vector_cabinet": 2.5}, "next_id": null},
+        {"text": "C. 전통적 권위가 실권을 갖고 내각과 관료는 그에 따른다", "weights": {"X3": 1.5, "vector_monarchy": 2.5}, "next_id": null}
+      ]},
+      { "id": 37, "text": "Q37. 정치적 적대 세력이 공정하게 집권하여 귀하가 혐오하는 정책을 추진한다면:", "type": "calibration", "options": [
+        {"text": "A. 비공식적 수단을 동원해서라도 그 권력을 폐지/제한하려 할 것이다", "weights": {"vector_low_const": 1.5}, "next_id": null},
+        {"text": "B. 다음 선거를 기다리며 법적 견제 장치를 통해 저지를 도모한다", "weights": {"vector_high_const": 1.5}, "next_id": null}
+      ]},
+      { "id": 38, "text": "Q38. '질서'에 관한 귀하의 최종적인 마지노선은?", "type": "calibration", "options": [
+        {"text": "A. 법이 없어도 질서만 있다면 사회는 기능한다", "weights": {"vector_realism": 1.5}, "next_id": null},
+        {"text": "B. 일시적 혼란이 있어도 법만 있다면 질서는 회복된다", "weights": {"vector_idealism": 1.5}, "next_id": null}
+      ]},
+      { "id": 39, "text": "Q39. 정치 권력의 궁극적인 목적은 무엇이어야 합니까?", "type": "calibration", "options": [
+        {"text": "A. 개인을 초월한 위대한 공동체의 비전을 실현하는 것", "weights": {"vector_collectivism": 1.5}, "next_id": null},
+        {"text": "B. 개인의 행복을 위해 안전한 경계와 규칙을 제공하는 것", "weights": {"vector_individualism": 1.5}, "next_id": null}
+      ]},
+      { "id": 40, "text": "Q40. 성장을 가져온다면 정치 참여 권리를 영구히 포기하시겠습니까?", "type": "calibration", "options": [
+        {"text": "A. 예. 결과(성장과 안정)는 과정보다 중요하다", "weights": {"vector_authoritarian_final": 2.0}, "next_id": null},
+        {"text": "B. 아니오. 과정에 정당성이 없다면 결과의 분배도 신뢰할 수 없다", "weights": {"vector_liberal_final": 2.0}, "next_id": null}
+      ]}
+    ],
+    "logic_map": {
+      "X1Y1": ["1. 개인 독재", "개인 찬탈(X1) × 제약 없음(Y1). 권력이 일인에게 집중되며, 이데올로기 동원과 안보 기구에 의해 유지됨."],
+      "X1Y2": ["2. 개인 위권주의", "개인 찬탈(X1) × 도구적 제약(Y2). 법은 존재하나 본질적으로 도구이며, 반대파는 선택적으로 압제됨."],
+      "X2Y2": ["3. 집단 위권주의", "소수 엘리트 선택(X2) × 도구적 제약(Y2). 소수 집단의 집단적 통제. 절차는 집단의 이익에 봉사함."],
+      "X2Y2_bureaucracy": ["5. 관료주의적 당국 체제", "단일 집권 주체가 엄격한 관료 체계(X2)를 통해 통제(Y2)를 실현함."],
+      "X2Y3": ["4. 과두 협의제", "소수 엘리트 선택(X2) × 약한 분권 제약(Y3). 엘리트 간 협상으로 합의가 형성됨. 사법권은 제한적임."],
+      "X2Y4": ["14. 엘리트 입헌제", "소수 엘리트 선택(X2) × 강한 분권 제약(Y4). 전문 엘리트에 의해 통치되며 독립적 사법부에 의해 엄격히 제한됨."],
+      "X3Y1": ["6. 종법 군주제", "세습 승계(X3) × 제약 없음(Y1). 군주 개인의 의지가 지상 명령. 법과 예법은 왕권을 보좌함."],
+      "X3Y4": ["7. 입헌 군주제", "세습 승계(X3) × 강한 분권과 권리 보장(Y4). 군주는 상징적 존재. 정부는 민선이며 헌법에 구속됨."],
+      "X4Y2": ["8. 선거 위권주의", "비경쟁적 선거(X4) × 도구적 제약(Y2). 관리된 선거를 통해 상징적 절차적 정당성을 확보함."],
+      "X5Y3": ["9. 하이브리드 체제", "제한적 경쟁 선거(X5) × 약한 분권 제약(Y3). 불평등한 정당 간 경쟁. 행정부가 정책을 주도함."],
+      "X6Y4": ["10. 대의 민주제", "완전 경쟁 선거(X6) × 강한 법치(Y4). 자유로운 선거, 독립적 사법부, 기본권 보호."],
+      "X6Y4_negotiation": ["11. 협의 민주제", "대의 민주제(X6/Y4) 위에 사회적 파트너십과 협상 매커니즘을 도입한 형태."],
+      "X7Y2": ["15. 포퓰리즘적 위권주의", "직접 수임(X7) × 도구적 제약(Y2). 리더가 '민의'를 내세워 절차를 우회하고 기존 엘리트를 공격함."],
+      "X7Y3": ["12. 도구적 국민투표제", "직접 수임(X7) × 약한 분권 제약(Y3). 국민투표가 빈번하나 조작되기 쉽고 감정적으로 흐르기 쉬움."],
+      "X7Y5": ["13. 내재적 직접 민주제", "직접 수임(X7) × 절차 및 쟁점 이중 제약(Y5). 대의제와 직접 참여의 상호 보완 관계."]
+    },
+    "paradox_map": {
+      "X1Y4": ["구세주 역설", "규칙을 깨는 강자(X1)와 법에 의한 안정(Y4)을 동시에 요구하는 것은 논리적으로 상충됩니다."],
+      "X1Y5": ["구세주 역설", "지고의 법치(Y5)는 제약 없는 강자(X1)가 존재할 여지를 남기지 않습니다."],
+      "X6Y1": ["다수의 전제", "제동 장치 없는(Y1) 절대적 민의(X6)는 급격한 숙청과 혼란으로 붕괴하기 쉽습니다."],
+      "X7Y1": ["다수의 전제", "제도적 브레이크 없는(Y1) 직접적 민의(X7)는 독재로 가는 지름길입니다."],
+      "X4Y4": ["허상의 법치", "권력의 완전 독점(X4)과 독립적 사법부(Y4)는 상호 배타적인 관계입니다."],
+      "X4Y5": ["허상의 법치", "형식적인 선거(X4)는 극단적인 권력 분립(Y5)을 지탱할 수 없습니다."],
+      "X2Y5": ["엘리트의 긴장", "엘리트 집단의 이익(X2)과 보편적 법치(Y5) 사이에는 깊은 구조적 긴장이 존재합니다."]
+    }
+  }
+}
