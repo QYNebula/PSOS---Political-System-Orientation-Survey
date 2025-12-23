@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Political Orientation Scanner</title>
+    <title>Political System Orientation Survey</title>
     <style>
         :root { --primary: #2196F3; --success: #4CAF50; --error: #f44336; --bg: #f5f7f9; }
         body { font-family: "微软雅黑", sans-serif; background: var(--bg); margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
@@ -87,7 +87,7 @@
 
     async function initQuiz(lang) {
         try {
-            const response = await fetch(`questions_${lang}.json`);
+            const response = await fetch(`questions_${lang}.json?t=${new Date().getTime()}`);
             if (!response.ok) throw new Error("File not found");
             quizData = await response.json();
             setupUI();
@@ -95,6 +95,7 @@
             document.getElementById('quiz-container').style.display = 'block';
             showQuestion();
         } catch (error) {
+            console.error(error);
             alert("Sorry, this language is not supported now.");
         }
     }
@@ -235,6 +236,7 @@
 </script>
 </body>
 </html>
+
 
 
 
