@@ -1,0 +1,263 @@
+{
+  "ui": {
+    "title": "Fragebogen zur politischen Orientierung",
+    "lang_display": "Deutsch",
+    "lang_select_title": "Bitte wählen Sie eine Sprache",
+    "loading": "Daten werden geladen...",
+    "progress_prefix": "Fortschritt: ",
+    "prev_btn": "← Zurück",
+    "next_btn": "Auswahl bestätigen →",
+    "result_title": "Analysebericht",
+    "reset_btn": "Test wiederholen",
+    "report_labels": {
+      "coord": "Entscheidungskoordinaten",
+      "mode": "Bestimmungsmodus",
+      "matched": "Entsprechendes Regimesystem",
+      "desc": "Beschreibung des Ergebnisses",
+      "stats_title": "--- Statistiken nach Dimensionen ---",
+      "axis_x": "Machtquelle (X-Achse)",
+      "axis_y": "Machtkontrolle (Y-Achse)",
+      "special_vectors": "Besondere Tendenzen",
+      "vector_bureaucracy": "Bürokratische Tendenz",
+      "vector_negotiation": "Verhandlungs-/Korporatistische Tendenz",
+      "paradox_alert": "[Warnung] Logisches Paradoxon erkannt. Ein erneuter Test wird empfohlen.",
+      "modes": {
+        "exact": "Exakte Übereinstimmung",
+        "approx": "Annähernde Übereinstimmung",
+        "column_approx": "Spaltenweise Annäherung",
+        "paradox": "Logischer Paradoxon-Konflikt",
+        "unique": "Einzigartige Tendenz"
+      },
+      "no_match": ["Kein direktes Match", "Ihre Tendenzen sind einzigartig und entsprechen keinem historischen Standardmodell."]
+    }
+  },
+  "quiz_data": {
+    "questions": [
+      { "id": 1, "text": "Q1. Was ist aus Ihrer Sicht die legitimste Machtquelle für eine ideale Führungskraft?", "type": "origin", "options": [
+        {"text": "A. Langjährige Tradition und der Fortbestand familiärer Blutlinien (einschließlich zeremonieller und regierender Monarchen)", "weights": {"X3": 1.5}, "next_id": null},
+        {"text": "B. Außergewöhnlicher Mut und eine eiserne Faust, die in Zeiten nationaler Unruhen oder Krisen bewiesen wurden", "weights": {"X1": 1.0}, "next_id": null},
+        {"text": "C. Eine professionelle Elitegruppe, die durch langfristigen Konsens kultiviert und ausgewählt wurde", "weights": {"X2": 1.0}, "next_id": null},
+        {"text": "D. Stimmen, die von Bürgern in einem rechtlichen Rahmen durch unabhängigen Wettbewerb abgegeben werden", "weights": {"X6": 1.0}, "next_id": null}
+      ]},
+      { "id": 2, "text": "Q2. Welchem Entscheidungsmechanismus vertrauen Sie am meisten, wenn die Gesellschaft mit grundlegenden Meinungsverschiedenheiten konfrontiert ist?", "type": "origin", "options": [
+        {"text": "A. Die endgültige Entscheidung über spezifische Sachfragen direkt durch alle Bürger", "weights": {"X7": 1.0}, "next_id": null},
+        {"text": "B. Einheitliche Anweisungen eines einzigen Führungsorgans, das die nationale Einheit symbolisiert", "weights": {"X4": 1.0}, "next_id": null},
+        {"text": "C. Das Anhören anerkannter ziviler Vertreter unter Sicherstellung der Systemstabilität", "weights": {"X5": 1.0}, "next_id": null},
+        {"text": "D. Vermittlung durch traditionelle Familien oder patriarchale Autoritäten mit tiefen Wurzeln", "weights": {"X3": 1.0}, "next_id": null}
+      ]},
+      { "id": 3, "text": "Q3. In Bezug auf „Professionalität“ vs. „Partizipation“ in der Regierungsführung neigen Sie zu:", "type": "origin", "options": [
+        {"text": "A. Die Regierungsführung sollte in der Verantwortung eines professionellen, disziplinierten Kernkomitees liegen", "weights": {"X2": 1.0, "vector_elitism": 1.0}, "next_id": null},
+        {"text": "B. Die Regierungsführung sollte für alle politischen Ansichten offen sein und Wettbewerb gewährleisten, auch wenn dies unruhig ist", "weights": {"X6": 1.0}, "next_id": null},
+        {"text": "C. Führungskräfte sollten Mandate direkt vom Volk einholen und bürokratische Vermittler umgehen", "weights": {"X7": 1.0}, "next_id": null},
+        {"text": "D. Wahlen sollten als Ritual dienen, um die nationale Einheit und Unterstützung für den Status quo zu demonstrieren", "weights": {"X4": 1.0}, "next_id": null}
+      ]},
+      { "id": 4, "text": "Q4. Wer ist am besten geeignet, den Widerstand zu brechen, wenn ein Land tiefgreifende Reformen benötigt?", "type": "origin", "options": [
+        {"text": "A. Ein politischer „starker Mann“ mit absolutem Prestige, der nicht durch bürokratische Hürden eingeschränkt ist", "weights": {"X1": 1.0}, "next_id": null},
+        {"text": "B. Eine hochgradig geeinte Führungsgruppe, die die Kernressourcen kontrolliert", "weights": {"X2": 1.0}, "next_id": null},
+        {"text": "C. Eine traditionelle königliche Familie oder ein Staatsoberhaupt mit natürlicher Legitimität", "weights": {"X3": 1.0}, "next_id": null},
+        {"text": "D. Aufstrebende Kräfte, die frei Parteien bilden und durch Debatten Unterstützung gewinnen können", "weights": {"X6": 1.0}, "next_id": null}
+      ]},
+      { "id": 5, "text": "Q5. Wie stehen Sie zum politischen Wettbewerb?", "type": "origin", "options": [
+        {"text": "A. Wettbewerb sollte moderat sein und darf die Kernführung niemals herausfordern", "weights": {"X5": 1.0}, "next_id": null},
+        {"text": "B. Notwendig, aber wichtige Entscheidungen sollten eher durch Volksabstimmungen als durch Politiker getroffen werden", "weights": {"X7": 1.0}, "next_id": null},
+        {"text": "C. Wettbewerb führt zur Spaltung; die Nation braucht einheitliche Wahlrituale", "weights": {"X4": 1.0}, "next_id": null},
+        {"text": "D. Gewinner sollte derjenige sein, der seine Kontrolle durch Machtwettbewerb beweist", "weights": {"X1": 1.0}, "next_id": null}
+      ]},
+      { "id": 6, "text": "Q6. Welchen Faktor halten Sie für die Stabilität der Macht für am wichtigsten?", "type": "origin", "options": [
+        {"text": "A. Die Etablierung klarer und unveränderlicher Erbfolgelinien oder Abfolgen", "weights": {"X3": 1.0}, "next_id": null},
+        {"text": "B. Die Aufrechterhaltung der Erneuerung innerhalb der Führungselite", "weights": {"X2": 1.0}, "next_id": null},
+        {"text": "C. Die Zulassung politischer Partizipation aus verschiedenen Sektoren innerhalb eines kontrollierten Rahmens", "weights": {"X5": 1.0}, "next_id": null},
+        {"text": "D. Sicherstellen, dass jeder Bürger das Recht hat, den Regierenden jederzeit durch Wahlen zu ersetzen", "weights": {"X6": 1.0}, "next_id": null}
+      ]},
+      { "id": 7, "text": "Q7. Welche Art von Regierung repräsentiert den „öffentlichen Willen“ am besten?", "type": "origin", "options": [
+        {"text": "A. Eine starke Regierung, die Verfahrensgrenzen umgeht, um auf die öffentliche Stimmung zu reagieren", "weights": {"X1": 1.0}, "next_id": null},
+        {"text": "B. Eine Eliteregierung, die langfristige nationale Interessen durch strenge Selektion rationalisiert", "weights": {"X2": 1.0}, "next_id": null},
+        {"text": "C. Eine Regierung mit dynamischer Autorisierung durch weit verbreitete kompetitive Wahlen", "weights": {"X6": 1.0}, "next_id": null},
+        {"text": "D. Eine Regierung, die alle Bürger bei jeder wichtigen Entscheidung konsultiert", "weights": {"X7": 1.0}, "next_id": null}
+      ]},
+      { "id": 8, "text": "Q8. Wenn in einer Übergangszeit Wahlen stattfinden, glauben Sie:", "type": "origin", "options": [
+        {"text": "A. Wahlen sollten keine Hürden haben und einen fairen Wettbewerb für alle Fraktionen ermöglichen", "weights": {"X6": 1.0}, "next_id": null},
+        {"text": "B. Kandidaten sollten überprüft werden, um sicherzustellen, dass sie das Basissystem nicht erschüttern", "weights": {"X5": 1.0}, "next_id": null},
+        {"text": "C. Wahlen sollten als Vertrauensvotum für die aktuelle Führung dienen", "weights": {"X4": 1.0}, "next_id": null}
+      ]},
+      { "id": 9, "text": "Q9. Um eine hohe politische Kontinuität (10-20 Jahre) zu gewährleisten, sollte man Ihrer Meinung nach:", "type": "origin", "options": [
+        {"text": "A. Eine Tradition der generationenübergreifenden Nachfolge oder erbliche Standards festlegen", "weights": {"X3": 1.0}, "next_id": null},
+        {"text": "B. Langfristige Planung und Nominierung der Führungsgruppe überlassen", "weights": {"X2": 1.0}, "next_id": null},
+        {"text": "C. Die Häufigkeit oder die Themen von kompetitiven Wahlen gesetzlich einschränken", "weights": {"X5": 1.0}, "next_id": null}
+      ]},
+      { "id": 10, "text": "Q10. Was ist die beste „Feuerwand“ gegen extremen Populismus?", "type": "origin", "options": [
+        {"text": "A. Sich auf traditionelle Autorität mit einem Gefühl des Heiligen verlassen", "weights": {"X3": 1.0}, "next_id": null},
+        {"text": "B. Sich auf starke individuelle Entschlossenheit verlassen, um Unruhen schnell beizulegen", "weights": {"X1": 1.0}, "next_id": null},
+        {"text": "C. Sich auf komplexe repräsentative und rechtliche Verfahren verlassen, um Impulse zu filtern", "weights": {"X6": 1.0}, "next_id": null}
+      ]},
+      { "id": 11, "text": "Q11. Wenn Technologie eine „Reaktion in Echtzeit“ ermöglicht, glauben Sie:", "type": "origin", "options": [
+        {"text": "A. Wahlen sollten durch massive öffentliche Volksabstimmungen in Echtzeit ersetzt werden", "weights": {"X7": 1.0}, "next_id": null},
+        {"text": "B. Technologie sollte die Mobilisierung der Führung und die soziale Konsistenz stärken", "weights": {"X4": 1.0}, "next_id": null},
+        {"text": "C. Technologie sollte der Elite helfen, präzisere Entscheidungen zu treffen", "weights": {"X2": 1.0}, "next_id": null}
+      ]},
+      { "id": 12, "text": "Q12. In einer extremen Überlebenskrise wie einem Krieg sollte die Machtgenerierung sich verlagern auf:", "type": "origin", "options": [
+        {"text": "A. De-facto-Dominanz durch einen starken Mann, der in der Krise gerufen wird", "weights": {"X1": 1.0}, "next_id": null},
+        {"text": "B. Kollektive Übernahme durch ein Komitee aus Militär- oder Sicherheitsbehörden", "weights": {"X2": 1.0}, "next_id": null},
+        {"text": "C. Dem bestehenden Führer die Legitimität für eine unbefristete Wiederwahl gewähren", "weights": {"X4": 1.0}, "next_id": null}
+      ]},
+      { "id": 13, "text": "Q13. Wenn Sie politische Intrigen unter Politikern verachten, bevorzugen Sie:", "type": "origin", "options": [
+        {"text": "A. Die Macht natürlich durch Familie oder Blutlinie weitergeben lassen", "weights": {"X3": 1.0}, "next_id": null},
+        {"text": "B. Die Öffentlichkeit direkt über Angelegenheiten abstimmen lassen, ohne Politiker als Zwischeninstanz", "weights": {"X7": 1.0}, "next_id": null},
+        {"text": "C. Den Wettbewerb einschränken, um nur ein effizientes Governance-Team zu behalten", "weights": {"X5": 1.0}, "next_id": null}
+      ]},
+      { "id": 14, "text": "Q14. Wenn die Gesellschaft Veränderungen fordert, Sie aber einen gewaltsamen Konflikt fürchten, würden Sie wählen:", "type": "origin", "options": [
+        {"text": "A. Unterstützung eines fähigen starken Mannes, der die Macht informell übernimmt", "weights": {"X1": 1.0}, "next_id": null},
+        {"text": "B. Unterstützung einer kontrollierten, schrittweisen Öffnung von Wahlen", "weights": {"X5": 1.0}, "next_id": null},
+        {"text": "C. Bestehen auf einem Referendum, um über die Änderung des Status quo zu entscheiden", "weights": {"X7": 1.0}, "next_id": null}
+      ]},
+      { "id": 15, "text": "Q15. Ihrer Meinung nach sollte „das Gesetz“ sein:", "type": "transition", "options": [
+        {"text": "A. Das höchste Prinzip, dem die Regierenden gehorchen müssen, auch wenn es die Effizienz mindert", "weights": {"X6": 0.5, "Y4": 1.0}, "next_id": null},
+        {"text": "B. Ein wirksames Instrument für die Regierungsführung, das je nach Bedarf angepasst werden kann", "weights": {"X2": 0.5, "Y2": 1.0}, "next_id": null},
+        {"text": "C. Ein Vertrag, der aus einem Kompromiss zwischen dem Regierenden und Elitefraktionen resultiert", "weights": {"X5": 0.5, "Y3": 1.0}, "next_id": null},
+        {"text": "D. Untergeordnet einem höheren nationalen Willen oder der Entscheidung des Führers", "weights": {"X1": 1.0, "Y1": 1.5}, "next_id": null}
+      ]},
+      { "id": 16, "text": "Q16. Wenn eine nützliche Politik von einem Gericht wegen Verfassungswidrigkeit blockiert wird:", "type": "constraint", "options": [
+        {"text": "A. Verfahren sollten dem nationalen Interesse weichen; das Gericht umgehen und die Politik durchsetzen", "weights": {"Y1": 1.0}, "next_id": null},
+        {"text": "B. Das Gesetz ist ein Instrument; ändern Sie das Gesetz, um es legal zu machen, und setzen Sie es dann um", "weights": {"Y2": 1.0}, "next_id": null},
+        {"text": "C. Das Gerichtsurteil muss respektiert werden, auch wenn die Politik verzögert wird oder scheitert", "weights": {"Y4": 1.0}, "next_id": null}
+      ]},
+      { "id": 17, "text": "Q17. In Bezug auf Machtgrenzen im „Ausnahmezustand“ glauben Sie:", "type": "constraint", "options": [
+        {"text": "A. Der Wille des Führers ist der oberste Befehl; keine zivilen Regeln sollten gelten", "weights": {"Y1": 1.0}, "next_id": null},
+        {"text": "B. Führungskräfte können Privilegien haben, müssen aber im Nachhinein formelle Verfahren abschließen", "weights": {"Y2": 1.0}, "next_id": null},
+        {"text": "C. Wichtige Entscheidungen müssen durch festgelegte Institutionen wie das Parlament gehen", "weights": {"Y3": 1.0}, "next_id": null}
+      ]},
+      { "id": 18, "text": "Q18. Wenn das Gesetz die Effizienz bei der Verbrechensbekämpfung einschränkt, neigen Sie zu:", "type": "constraint", "options": [
+        {"text": "A. Der Exekutive mehr Ermessensspielraum geben; das Gesetz sollte kein Hindernis sein", "weights": {"Y2": 1.0}, "next_id": null},
+        {"text": "B. Beweisen und Verfahren strikt folgen, auch wenn Kriminelle entkommen", "weights": {"Y4": 1.0}, "next_id": null},
+        {"text": "C. Dieser Kompromiss sollte von allen Bürgern per Referendum entschieden werden", "weights": {"Y5": 1.0}, "next_id": null}
+      ]},
+      { "id": 19, "text": "Q19. Medienberichte, die die Regierung kritisieren, sollten:", "type": "constraint", "options": [
+        {"text": "A. Vom Staat streng gelenkt werden, um die soziale Konsistenz zu gewährleisten", "weights": {"Y1": 1.0}, "next_id": null},
+        {"text": "B. Erlaubt sein, aber administrativen Grenzen bei Kernentscheidungen unterliegen", "weights": {"Y3": 1.0}, "next_id": null},
+        {"text": "C. Unabhängig sein und als externer „natürlicher Feind“ der Macht fungieren", "weights": {"Y4": 1.0}, "next_id": null}
+      ]},
+      { "id": 20, "text": "Q20. In Bezug auf den Status der Justiz (Gerichte) ist Ihre Ansicht:", "type": "constraint", "options": [
+        {"text": "A. Sie sollte die Regierung bei der Aufrechterhaltung von Ordnung und Vollzug unterstützen", "weights": {"Y2": 1.0}, "next_id": null},
+        {"text": "B. Sie sollte neutral sein, aber bei Streitigkeiten die politische Stabilität berücksichtigen", "weights": {"Y3": 1.0}, "next_id": null},
+        {"text": "C. Sie muss absolut unabhängig sein und befugt, Exekutivakte für nichtig zu erklären", "weights": {"Y4": 1.0}, "next_id": null}
+      ]},
+      { "id": 21, "text": "Q21. Wenn das Parlament und der Exekutivchef in einem heftigen Konflikt stehen:", "type": "constraint", "options": [
+        {"text": "A. Der Wille des Chefs sollte Vorrang haben, um sicherzustellen, dass der Staat nicht gelähmt wird", "weights": {"Y1": 1.0}, "next_id": null},
+        {"text": "B. Lösung durch politisches Feilschen; Regeln sind nur ein Rahmen", "weights": {"Y3": 1.0}, "next_id": null},
+        {"text": "C. Es sollte direkt von den Bürgern durch ein Referendum entschieden werden", "weights": {"Y5": 1.0}, "next_id": null}
+      ]},
+      { "id": 22, "text": "Q22. Persönliches Eigentum und Redefreiheit:", "type": "constraint", "options": [
+        {"text": "A. Sollten nationalen Zielen dienen und können beschlagnahmt oder eingeschränkt werden", "weights": {"Y1": 1.0}, "next_id": null},
+        {"text": "B. Sollten gesetzlich geschützt sein, aber die Regierung kann legal intervenieren", "weights": {"Y2": 1.0}, "next_id": null},
+        {"text": "C. Sind unantastbar; keine Regierung hat das Recht, sie zu verletzen", "weights": {"Y4": 1.0}, "next_id": null}
+      ]},
+      { "id": 23, "text": "Q23. Friedliche Demonstrationen von Bürgern zur Meinungsäußerung sind:", "type": "constraint", "options": [
+        {"text": "A. Störungen der Ordnung; die Regierung sollte sie schnell unterbinden", "weights": {"Y1": 1.0}, "next_id": null},
+        {"text": "B. Innerhalb von Regeln erlaubt, dürfen aber die Entscheidungsfindung nicht stören", "weights": {"Y3": 1.0}, "next_id": null},
+        {"text": "C. Grundrechte; die Regierung muss institutionell darauf reagieren", "weights": {"Y5": 1.0}, "next_id": null}
+      ]},
+      { "id": 24, "text": "Q24. Wenn eine Politik der Mehrheit hilft, aber die Kernrechte einer winzigen Minderheit verletzt:", "type": "constraint", "options": [
+        {"text": "A. Die Minderheit muss der Mehrheit weichen; die Regierung kann handeln", "weights": {"Y2": 1.0}, "next_id": null},
+        {"text": "B. Das Gesetz muss die Minderheit schützen, außer bei einer hohen gerichtlichen Anfechtung", "weights": {"Y4": 1.0}, "next_id": null},
+        {"text": "C. Der Konflikt muss durch umfassende Verhandlungen und Volksabstimmung gelöst werden", "weights": {"Y5": 1.0}, "next_id": null}
+      ]},
+      { "id": 25, "text": "Q25. Die Schwierigkeit, die Verfassung oder grundlegende Regeln zu ändern, sollte sein:", "type": "constraint", "options": [
+        {"text": "A. Sehr einfach, solange die oberste Führung es für notwendig hält", "weights": {"Y2": 1.0}, "next_id": null},
+        {"text": "B. Moderat, erfordert Konsultation und Verhandlung im Parlament", "weights": {"Y3": 1.0}, "next_id": null},
+        {"text": "C. Extrem schwierig, erfordert ein vollständiges Volksreferendum", "weights": {"Y5": 1.0}, "next_id": null}
+      ]},
+      { "id": 26, "text": "Q26. Wenn technische Bürokraten Maßnahmen ausführen, sollten sie:", "type": "constraint", "options": [
+        {"text": "A. Nur den Vorgesetzten gegenüber verantwortlich sein; Regeln sind flexible Instrumente", "weights": {"Y1": 1.0, "vector_bureaucracy": 1.5}, "next_id": null},
+        {"text": "B. Dem Kodex folgen, können sich aber unter administrativem Druck anpassen", "weights": {"Y3": 1.0}, "next_id": null},
+        {"text": "C. Durch Audits streng begrenzt sein; Machtmissbrauch muss zu Klagen führen", "weights": {"Y4": 1.0}, "next_id": null}
+      ]},
+      { "id": 27, "text": "Q27. Wie sehen Sie die direkte Bürgerbeteiligung an Regierungsentscheidungen?", "type": "constraint", "options": [
+        {"text": "A. Entscheidung ist die Pflicht des Führers; Massenbeteiligung verursacht Chaos", "weights": {"Y2": 1.0}, "next_id": null},
+        {"text": "B. Man kann die öffentliche Meinung zu spezifischen Themen konsultieren, aber Experten entscheiden", "weights": {"Y3": 1.0}, "next_id": null},
+        {"text": "C. Das Gesetz sollte vorschreiben, dass wichtige Themen von den Bürgern entschieden werden", "weights": {"Y5": 1.0}, "next_id": null}
+      ]},
+      { "id": 28, "text": "Q28. Das Kernzeichen einer „Guten Regierung“ ist:", "type": "constraint", "options": [
+        {"text": "A. Die oberste Autorität zu haben, um Ressourcen für große Ziele zu mobilisieren", "weights": {"Y1": 1.0}, "next_id": null},
+        {"text": "B. Rechtliche Instrumente flexibel für eine effiziente Verwaltung und Stabilität einzusetzen", "weights": {"Y2": 1.0}, "next_id": null},
+        {"text": "C. Eine durch das Gesetz begrenzte Macht und der Schutz der individuellen Freiheit", "weights": {"Y4": 1.0}, "next_id": null}
+      ]},
+      { "id": 29, "text": "Q29. In Bezug auf den Gesellschaftsvertrag stimmen Sie eher überein mit:", "type": "constraint", "options": [
+        {"text": "A. Ordnung vor Regeln; Individuen treten Autonomie an den Staat ab", "weights": {"Y1": 1.0}, "next_id": null},
+        {"text": "B. Regeln vor Willen; die Regierung existiert, um Rechte zu schützen", "weights": {"Y4": 1.0}, "next_id": null},
+        {"text": "C. Dynamischer Vertrag; wichtige Entscheidungen werden durch Abstimmung aktualisiert", "weights": {"Y5": 1.0}, "next_id": null}
+      ]},
+      { "id": 30, "text": "Q30. Würden Sie einer Führungskraft, die nach Ihrer Methode hervorgegangen ist, außergesetzliche Befugnisse gewähren?", "type": "constraint_anchor", "options": [
+        {"text": "A. Ja, eine legitime Führungspersönlichkeit sollte nicht durch mittelmäßige Regeln gebunden sein", "weights": {"X1": 0.8, "Y1": 1.5}, "flag": "will_overstep"},
+        {"text": "B. Nein, eine legitime Herkunft bedeutet nicht, dass Macht unendlich sein kann", "weights": {"X6": 0.5, "Y5": 1.0}, "flag": "will_obey"},
+        {"text": "C. Es kommt darauf an; eine umfassende Autorisierung sollte an ein Referendum zurückgehen", "weights": {"X7": 0.5, "Y5": 1.0}, "flag": "will_refer"}
+      ]},
+      { "id": 31, "text": "Q31. Wenn eine nationale Entscheidung scheitert, ist das grundlegende Heilmittel:", "type": "calibration", "options": [
+        {"text": "A. Eine einsichtigere, heroische Führungspersönlichkeit finden und etablieren", "weights": {"vector_personal": 1.5}, "next_id": null},
+        {"text": "B. Die Korrektur und Aufsicht kollektiver Systeme stärken", "weights": {"vector_group": 1.5}, "next_id": null}
+      ]},
+      { "id": 32, "text": "Q32. Welches Merkmal ist bei der Auswahl hoher Beamter legitimer:", "type": "calibration", "options": [
+        {"text": "A. Absolute Loyalität gegenüber dem Kernwillen und Ausführungsfähigkeit", "weights": {"vector_loyalty": 1.5, "vector_bureaucracy": 1.0}, "next_id": null},
+        {"text": "B. Ausgewogenheit und Kompromiss innerhalb der Elitegruppe", "weights": {"vector_elitism": 1.5}, "next_id": null}
+      ]},
+      { "id": 33, "text": "Q33. Wenn ein Referendum beschließt, gesetzlich geschützte Minderheitenrechte abzuschaffen:", "type": "calibration", "options": [
+        {"text": "A. Da es der öffentliche Wille ist, sollten Gesetz und Gerichte nicht intervenieren", "weights": {"vector_populism": 1.5}, "next_id": null},
+        {"text": "B. Rechtliche Verfahren stehen über dem öffentlichen Willen; die Entscheidung ist nichtig", "weights": {"vector_constitutional": 1.5}, "next_id": null}
+      ]},
+      { "id": 34, "text": "Q34. Sie bevorzugen es zu leben in:", "type": "calibration", "options": [
+        {"text": "A. Einem System mit unfairem Wettbewerb, aber hoher Effizienz und Stabilität", "weights": {"vector_order": 1.5}, "next_id": null},
+        {"text": "B. Einem System mit ungeordnetem Wettbewerb, aber transparenten Regeln und Rechten", "weights": {"vector_liberty": 1.5}, "next_id": null}
+      ]},
+      { "id": 35, "text": "Q35. In Bezug auf wichtige öffentliche Maßnahmen (z.B. Steuern, Verfassungsänderungen):", "type": "calibration", "options": [
+        {"text": "A. Bürger entscheiden direkt über Pläne, keine Einmischung durch Politiker", "weights": {"X7": 1.5}},
+        {"text": "B. Regierung, Parlament und gesellschaftliche Gruppen (Gewerkschaften etc.) handeln Konsens aus", "weights": {"vector_negotiation": 2.5}}
+      ]},
+      { "id": 36, "text": "Q36. Über „Erbliche Tradition“ vs. „Moderne Verwaltung“:", "type": "calibration", "options": [
+        {"text": "A. Erbliche Tradition sollte in der modernen Verwaltung nicht existieren", "weights": {"X3": -1.0}, "next_id": null},
+        {"text": "B. Erblicher Monarch als zeremonielles Symbol; das Kabinett trifft Entscheidungen", "weights": {"X3": 1.0, "vector_cabinet": 2.5}, "next_id": null},
+        {"text": "C. Traditionelle Autorität bleibt an der Macht; Kabinett und Beamte gehorchen", "weights": {"X3": 1.5, "vector_monarchy": 2.5}, "next_id": null}
+      ]},
+      { "id": 37, "text": "Q37. Wenn Ihr politischer Feind die Macht fair übernimmt und eine Politik vorantreibt, die Sie hassen:", "type": "calibration", "options": [
+        {"text": "A. Ich neige zu informellen Mitteln, um seine Macht abzuschaffen/einzuschränken", "weights": {"vector_low_const": 1.5}, "next_id": null},
+        {"text": "B. Ich werde bis zur nächsten Wahl warten und rechtliche Kontrollen nutzen, um ihn zu blockieren", "weights": {"vector_high_const": 1.5}, "next_id": null}
+      ]},
+      { "id": 38, "text": "Q38. In Bezug auf „Ordnung“ ist Ihre ultimative rote Linie:", "type": "calibration", "options": [
+        {"text": "A. Auch ohne Gesetz kann die Gesellschaft funktionieren, solange Ordnung herrscht", "weights": {"vector_realism": 1.5}, "next_id": null},
+        {"text": "B. Selbst bei vorübergehendem Chaos wird die Ordnung zurückkehren, solange das Gesetz besteht", "weights": {"vector_idealism": 1.5}, "next_id": null}
+      ]},
+      { "id": 39, "text": "Q39. Das ultimative Ziel politischer Macht sollte sein:", "type": "calibration", "options": [
+        {"text": "A. Eine große, kollektive Vision zu erreichen, die über das Individuum hinausgeht", "weights": {"vector_collectivism": 1.5}, "next_id": null},
+        {"text": "B. Sichere Grenzen und Regeln für das persönliche Glück bereitzustellen", "weights": {"vector_individualism": 1.5}, "next_id": null}
+      ]},
+      { "id": 40, "text": "Q40. Würden Sie Partizipationsrechte dauerhaft abtreten, wenn ein System Wachstum bringt?", "type": "calibration", "options": [
+        {"text": "A. Ja, Ergebnisse (Wachstum und Stabilität) sind wichtiger als der Prozess", "weights": {"vector_authoritarian_final": 2.0}, "next_id": null},
+        {"text": "B. Nein, ohne Legitimität im Prozess ist die Verteilung der Ergebnisse unzuverlässig", "weights": {"vector_liberal_final": 2.0}, "next_id": null}
+      ]}
+    ],
+    "logic_map": {
+      "X1Y1": ["1. Persönliche Autokratie", "Persönliche Machtergreifung (X1) × Keine Kontrolle (Y1). Machtkonzentration bei einer Person, aufrechterhalten durch ideologische Mobilisierung und Sicherheitsapparate."],
+      "X1Y2": ["2. Persönlicher Autoritarismus", "Persönliche Machtergreifung (X1) × Instrumentelle Kontrolle (Y2). Das Gesetz als Werkzeug; Opposition wird selektiv unterdrückt."],
+      "X2Y2": ["3. Gruppenautoritarismus", "Elitegruppen-Selektion (X2) × Instrumentelle Kontrolle (Y2). Kollektive Kontrolle durch einen kleinen Kreis; Verfahren dienen den Gruppeninteressen."],
+      "X2Y2_bureaucracy": ["5. Bürokratischer Parteistaat", "Eine einzige führende Einheit regiert durch eine strenge bürokratische Hierarchie (X2) mit administrativer Kontrolle (Y2)."],
+      "X2Y3": ["4. Oligarchisches Verhandlungssystem", "Elitegruppen-Selektion (X2) × Schwache Kontrolle (Y3). Konsensfindung durch Verhandlungen; begrenzte richterliche Präsenz."],
+      "X2Y4": ["14. Elite-Konstitutionalismus", "Elitegruppen-Selektion (X2) × Starke Kontrolle (Y4). Professionell regiert und streng durch eine unabhängige Justiz begrenzt."],
+      "X3Y1": ["6. Patriarchale Monarchie", "Erbfolge (X3) × Keine Kontrolle (Y1). Der Wille des Monarchen ist oberstes Gebot; das Gesetz dient der Krone."],
+      "X3Y4": ["7. Konstitutionelle Monarchie", "Erbfolge (X3) × Starke Kontrolle (Y4). Zeremonieller Monarch; Regierung ist gewählt und verfassungsrechtlich gebunden."],
+      "X4Y2": ["8. Elektoraler Autoritarismus", "Nicht-kompetitiv (X4) × Instrumentell (Y2). Kontrollierte Wahlen bieten symbolische prozedurale Legitimität."],
+      "X5Y3": ["9. Hybrid-Regime", "Begrenzter Wettbewerb (X5) × Schwache Kontrolle (Y3). Ungleiches Parteienspiel; die Exekutive dominiert die Politik."],
+      "X6Y4": ["10. Repräsentative Demokratie", "Voller Wettbewerb (X6) × Starke Kontrolle (Y4). Freie Wahlen, unabhängige Justiz und Schutz der Grundrechte."],
+      "X6Y4_negotiation": ["11. Verhandlungsdemokratie", "Ergänzt die repräsentative Demokratie (X6/Y4) um Mechanismen der Sozialpartnerschaft und Verhandlung."],
+      "X7Y2": ["15. Populistischer Autoritarismus", "Direktes Mandat (X7) × Instrumentell (Y2). Führung umgeht Verfahren durch Nutzung des „öffentlichen Willens“ gegen Eliten."],
+      "X7Y3": ["12. Instrumentelles plebiszitäres System", "Direktes Mandat (X7) × Schwache Kontrolle (Y3). Häufige Referenden, die jedoch leicht manipuliert oder emotionalisiert werden."],
+      "X7Y5": ["13. Eingebettete direkte Demokratie", "Direktes Mandat (X7) × Doppelte Kontrolle (Y5). Komplementäre repräsentative und direkte Beteiligung."]
+    },
+    "paradox_map": {
+      "X1Y4": ["Retter-Paradoxon", "Sowohl einen starken Mann, der Regeln bricht (X1), als auch eine gesetzlich fixierte Stabilität (Y4) zu fordern, ist inkonsistent."],
+      "X1Y5": ["Retter-Paradoxon", "Ein souveräner Rechtsstaat (Y5) lässt keinen Raum für einen uneingeschränkten starken Mann (X1)."],
+      "X6Y1": ["Tyrannei der Mehrheit", "Absoluter Volkswille (X6) ohne Kontrollen (Y1) führt zu einem schnellen Zusammenbruch in Säuberungen."],
+      "X7Y1": ["Tyrannei der Mehrheit", "Direkter öffentlicher Wille (X7) ohne institutionelle Bremsen (Y1) ist eine Abkürzung zur Autokratie."],
+      "X4Y4": ["Phantom-Rechtsstaat", "Das totale Machtmonopol (X4) und eine unabhängige Justiz (Y4) schließen sich gegenseitig aus."],
+      "X4Y5": ["Phantom-Rechtsstaat", "Formalisierte Wahlen (X4) können eine extreme Gewaltenteilung (Y5) nicht stützen."],
+      "X2Y5": ["Elite-Spannung", "Elitegruppeninteressen (X2) und ein universalisierter Rechtsstaat (Y5) stehen in tiefer struktureller Spannung."]
+    }
+  }
+}
