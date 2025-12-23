@@ -1,6 +1,6 @@
-﻿{
+{
   "ui": {
-    "title": "Political System Orientation Quiz",
+    "title": "Political System Orientation Survey",
     "lang_display": "English",
     "lang_select_title": "Please Select Language",
     "loading": "Loading data...",
@@ -33,101 +33,231 @@
   },
   "quiz_data": {
     "questions": [
-      {
-        "id": 1,
-        "text": "Q1. In your view, what is the most legitimate source of power for an ideal leader?",
-        "type": "origin",
-        "options": [
-          {"text": "A. Long-standing tradition and the continuity of family bloodlines (including ceremonial and ruling monarchs)", "weights": {"X3": 1.5}, "next_id": null},
-          {"text": "B. Extraordinary courage and an iron fist demonstrated during national turmoil or crisis", "weights": {"X1": 1.0}, "next_id": null},
-          {"text": "C. A professional elite group cultivated and selected through long-term consensus", "weights": {"X2": 1.0}, "next_id": null},
-          {"text": "D. Votes cast by citizens through independent competition within a legal framework", "weights": {"X6": 1.0}, "next_id": null}
-        ]
-      },
-      {
-        "id": 2,
-        "text": "Q2. When society faces fundamental disagreements, which decision-making mechanism do you trust most?",
-        "type": "origin",
-        "options": [
-          {"text": "A. Final adjudication on specific issues directly by all citizens", "weights": {"X7": 1.0}, "next_id": null},
-          {"text": "B. Unified instructions from the sole leading body symbolizing national unity", "weights": {"X4": 1.0}, "next_id": null},
-          {"text": "C. Listening to recognized civil representatives while ensuring systemic stability", "weights": {"X5": 1.0}, "next_id": null},
-          {"text": "D. Mediation by traditional families or patriarchal authorities with deep roots", "weights": {"X3": 1.0}, "next_id": null}
-        ]
-      },
-      {
-        "id": 3,
-        "text": "Q3. Regarding 'Professionalism' vs. 'Participation' in governance, you lean towards:",
-        "type": "origin",
-        "options": [
-          {"text": "A. Governance should be the sole responsibility of a professional, disciplined core committee", "weights": {"X2": 1.0, "vector_elitism": 1.0}, "next_id": null},
-          {"text": "B. Governance should be open to all political views, ensuring competition even if the process is messy", "weights": {"X6": 1.0}, "next_id": null},
-          {"text": "C. Leaders should seek mandates directly from the people, bypassing complex bureaucratic intermediaries", "weights": {"X7": 1.0}, "next_id": null},
-          {"text": "D. Elections should serve as a ritual to demonstrate national unity and support for the status quo", "weights": {"X4": 1.0}, "next_id": null}
-        ]
-      },
-      {
-        "id": 15,
-        "text": "Q15. In your opinion, 'The Law' should be:",
-        "type": "transition",
-        "options": [
-          {"text": "A. The supreme principle that rulers must absolutely obey (even if it reduces efficiency)", "weights": {"X6": 0.5, "Y4": 1.0}, "next_id": null},
-          {"text": "B. An effective tool for rulers to govern, adjustable according to needs", "weights": {"X2": 0.5, "Y2": 1.0}, "next_id": null},
-          {"text": "C. A contractual text resulting from compromises between the ruler and various elite factions", "weights": {"X5": 0.5, "Y3": 1.0}, "next_id": null},
-          {"text": "D. Subordinate to a higher national will or the leader's ultimate decision", "weights": {"X1": 1.0, "Y1": 1.5}, "next_id": null}
-        ]
-      },
-      {
-        "id": 16,
-        "text": "Q16. If the government tries to implement a beneficial policy but is blocked by a court on grounds of procedural unconstitutionality:",
-        "type": "constraint",
-        "options": [
-          {"text": "A. Legal procedures should yield to national interests; the policy should be enforced by bypassing obstacles", "weights": {"Y1": 1.0}, "next_id": null},
-          {"text": "B. Law should be treated as a tool; the law should be amended to make the policy legal before implementation", "weights": {"Y2": 1.0}, "next_id": null},
-          {"text": "C. The court's ruling must be respected, even if the policy fails or is delayed", "weights": {"Y4": 1.0}, "next_id": null}
-        ]
-      },
-      {
-        "id": 19,
-        "text": "Q19. You believe that media reports critical of the government should:",
-        "type": "constraint",
-        "options": [
-          {"text": "A. Be strictly guided by the state to ensure a unified social will", "weights": {"Y1": 1.0}, "next_id": null},
-          {"text": "B. Be allowed to exist, but face administrative restrictions on core decision-making issues", "weights": {"Y3": 1.0}, "next_id": null},
-          {"text": "C. Be independent of executive power, serving as an external 'natural enemy' to authority", "weights": {"Y4": 1.0}, "next_id": null}
-        ]
-      },
-      {
-        "id": 40,
-        "text": "Q40. If a system can bring continuous economic growth, would you permanently give up your right to political participation?",
-        "type": "calibration",
-        "options": [
-          {"text": "A. Yes, the outcome (growth and stability) is more important than the process", "weights": {"vector_authoritarian_final": 2.0}, "next_id": null},
-          {"text": "B. No, without procedural legitimacy, the distribution of outcomes is unreliable", "weights": {"vector_liberal_final": 2.0}, "next_id": null}
-        ]
-      }
+      { "id": 1, "text": "Q1. In your view, what is the most legitimate source of power for an ideal leader?", "type": "origin", "options": [
+        {"text": "A. Long-standing tradition and the continuity of family bloodlines (including ceremonial and ruling monarchs)", "weights": {"X3": 1.5}, "next_id": null},
+        {"text": "B. Extraordinary courage and an iron fist demonstrated during national turmoil or crisis", "weights": {"X1": 1.0}, "next_id": null},
+        {"text": "C. A professional elite group cultivated and selected through long-term consensus", "weights": {"X2": 1.0}, "next_id": null},
+        {"text": "D. Votes cast by citizens through independent competition within a legal framework", "weights": {"X6": 1.0}, "next_id": null}
+      ]},
+      { "id": 2, "text": "Q2. When society faces fundamental disagreements, which decision-making mechanism do you trust most?", "type": "origin", "options": [
+        {"text": "A. Final adjudication on specific issues directly by all citizens", "weights": {"X7": 1.0}, "next_id": null},
+        {"text": "B. Unified instructions from a sole leading body symbolizing national unity", "weights": {"X4": 1.0}, "next_id": null},
+        {"text": "C. Listening to recognized civil representatives while ensuring systemic stability", "weights": {"X5": 1.0}, "next_id": null},
+        {"text": "D. Mediation by traditional families or patriarchal authorities with deep roots", "weights": {"X3": 1.0}, "next_id": null}
+      ]},
+      { "id": 3, "text": "Q3. Regarding 'Professionalism' vs. 'Participation' in governance, you lean towards:", "type": "origin", "options": [
+        {"text": "A. Governance should be the responsibility of a professional, disciplined core committee", "weights": {"X2": 1.0, "vector_elitism": 1.0}, "next_id": null},
+        {"text": "B. Governance should be open to all political views, ensuring competition even if messy", "weights": {"X6": 1.0}, "next_id": null},
+        {"text": "C. Leaders should seek mandates directly from the people, bypassing bureaucratic intermediaries", "weights": {"X7": 1.0}, "next_id": null},
+        {"text": "D. Elections should serve as a ritual to demonstrate national unity and support for the status quo", "weights": {"X4": 1.0}, "next_id": null}
+      ]},
+      { "id": 4, "text": "Q4. If a country needs deep reforms, who is best suited to break the resistance?", "type": "origin", "options": [
+        {"text": "A. A political strongman with absolute prestige, unconstrained by red tape", "weights": {"X1": 1.0}, "next_id": null},
+        {"text": "B. A highly united ruling group that controls core resources", "weights": {"X2": 1.0}, "next_id": null},
+        {"text": "C. A traditional royal family or head of state with natural legitimacy", "weights": {"X3": 1.0}, "next_id": null},
+        {"text": "D. Emerging forces that can freely form parties and win support through debate", "weights": {"X6": 1.0}, "next_id": null}
+      ]},
+      { "id": 5, "text": "Q5. How do you view political competition?", "type": "origin", "options": [
+        {"text": "A. Competition should be moderate and never challenge the core leadership", "weights": {"X5": 1.0}, "next_id": null},
+        {"text": "B. Necessary, but major decisions should go to public referendums rather than politicians", "weights": {"X7": 1.0}, "next_id": null},
+        {"text": "C. Competition leads to division; the nation needs unified electoral rituals", "weights": {"X4": 1.0}, "next_id": null},
+        {"text": "D. Winners should be those who prove their control through power competition", "weights": {"X1": 1.0}, "next_id": null}
+      ]},
+      { "id": 6, "text": "Q6. Regarding power stability, you believe the most critical factor is:", "type": "origin", "options": [
+        {"text": "A. Establishing clear and unalterable succession bloodlines or sequences", "weights": {"X3": 1.0}, "next_id": null},
+        {"text": "B. Maintaining iteration and self-renewal within the ruling elite", "weights": {"X2": 1.0}, "next_id": null},
+        {"text": "C. Allowing political participation from various sectors within a controlled range", "weights": {"X5": 1.0}, "next_id": null},
+        {"text": "D. Ensuring every citizen has the right to replace the ruler at any time via votes", "weights": {"X6": 1.0}, "next_id": null}
+      ]},
+      { "id": 7, "text": "Q7. What kind of government best represents the 'Public Will'?", "type": "origin", "options": [
+        {"text": "A. A strong government that bypasses procedural limits to respond to public sentiment", "weights": {"X1": 1.0}, "next_id": null},
+        {"text": "B. An elite government that rationalizes long-term national interests via strict selection", "weights": {"X2": 1.0}, "next_id": null},
+        {"text": "C. A government with dynamic authorization through widespread competitive elections", "weights": {"X6": 1.0}, "next_id": null},
+        {"text": "D. A government that consults all citizens on every major decision", "weights": {"X7": 1.0}, "next_id": null}
+      ]},
+      { "id": 8, "text": "Q8. If elections are held during a transitional period, you believe:", "type": "origin", "options": [
+        {"text": "A. Elections should have no threshold, allowing fair competition for all factions", "weights": {"X6": 1.0}, "next_id": null},
+        {"text": "B. Candidates should be vetted to ensure they do not shock the basic system", "weights": {"X5": 1.0}, "next_id": null},
+        {"text": "C. Elections should serve as a vote of confidence for the current leadership", "weights": {"X4": 1.0}, "next_id": null}
+      ]},
+      { "id": 9, "text": "Q9. To ensure high policy continuity (10-20 years), you believe:", "type": "origin", "options": [
+        {"text": "A. A tradition of cross-generation succession or hereditary standards should be set", "weights": {"X3": 1.0}, "next_id": null},
+        {"text": "B. Long-term planning and designation should be handled by the ruling group", "weights": {"X2": 1.0}, "next_id": null},
+        {"text": "C. Law should limit the frequency or topics of competitive elections", "weights": {"X5": 1.0}, "next_id": null}
+      ]},
+      { "id": 10, "text": "Q10. Against severe populism, what acts as the best 'firewall'?", "type": "origin", "options": [
+        {"text": "A. Relying on traditional authority with a sense of sacredness", "weights": {"X3": 1.0}, "next_id": null},
+        {"text": "B. Relying on strong individual decisiveness to quickly settle unrest", "weights": {"X1": 1.0}, "next_id": null},
+        {"text": "C. Relying on complex representative and legal procedures to filter impulses", "weights": {"X6": 1.0}, "next_id": null}
+      ]},
+      { "id": 11, "text": "Q11. If technology allows 'real-time response,' you believe:", "type": "origin", "options": [
+        {"text": "A. Elections should be replaced by massive real-time public referendums", "weights": {"X7": 1.0}, "next_id": null},
+        {"text": "B. Technology should strengthen leadership mobilization and social consistency", "weights": {"X4": 1.0}, "next_id": null},
+        {"text": "C. Technology should assist the elite in making more precise decisions", "weights": {"X2": 1.0}, "next_id": null}
+      ]},
+      { "id": 12, "text": "Q12. Facing an extreme survival crisis like war, power generation should shift to:", "type": "origin", "options": [
+        {"text": "A. De facto personal dominance by a strongman summoned in crisis", "weights": {"X1": 1.0}, "next_id": null},
+        {"text": "B. Collective takeover by a committee of military or security agencies", "weights": {"X2": 1.0}, "next_id": null},
+        {"text": "C. Granting the existing leader the legitimacy for indefinite re-election", "weights": {"X4": 1.0}, "next_id": null}
+      ]},
+      { "id": 13, "text": "Q13. If you despise political intrigue among politicians, you prefer:", "type": "origin", "options": [
+        {"text": "A. Letting power pass naturally through family or bloodlines", "weights": {"X3": 1.0}, "next_id": null},
+        {"text": "B. Letting the public vote directly on affairs without intermediate politicians", "weights": {"X7": 1.0}, "next_id": null},
+        {"text": "C. Restricting competition to keep only one efficient governance team", "weights": {"X5": 1.0}, "next_id": null}
+      ]},
+      { "id": 14, "text": "Q14. If society demands change but you fear violent conflict, you would choose:", "type": "origin", "options": [
+        {"text": "A. Supporting a capable strongman to take over through informal means", "weights": {"X1": 1.0}, "next_id": null},
+        {"text": "B. Supporting a controlled, step-by-step gradual opening of elections", "weights": {"X5": 1.0}, "next_id": null},
+        {"text": "C. Insisting on a referendum to decide whether to change the status quo", "weights": {"X7": 1.0}, "next_id": null}
+      ]},
+      { "id": 15, "text": "Q15. In your opinion, 'The Law' should be:", "type": "transition", "options": [
+        {"text": "A. The supreme principle rulers must obey, even if it reduces efficiency", "weights": {"X6": 0.5, "Y4": 1.0}, "next_id": null},
+        {"text": "B. An effective tool for governance, adjustable according to needs", "weights": {"X2": 0.5, "Y2": 1.0}, "next_id": null},
+        {"text": "C. A contract resulting from compromise between the ruler and elite factions", "weights": {"X5": 0.5, "Y3": 1.0}, "next_id": null},
+        {"text": "D. Subordinate to a higher national will or leader's decision", "weights": {"X1": 1.0, "Y1": 1.5}, "next_id": null}
+      ]},
+      { "id": 16, "text": "Q16. If a beneficial policy is blocked by a court for being unconstitutional:", "type": "constraint", "options": [
+        {"text": "A. Procedures should yield to national interest; bypass the court and enforce it", "weights": {"Y1": 1.0}, "next_id": null},
+        {"text": "B. Law is a tool; amend the law to make it legal, then implement it", "weights": {"Y2": 1.0}, "next_id": null},
+        {"text": "C. The court ruling must be respected, even if the policy is delayed or fails", "weights": {"Y4": 1.0}, "next_id": null}
+      ]},
+      { "id": 17, "text": "Q17. Regarding power boundaries in an 'Emergency State', you believe:", "type": "constraint", "options": [
+        {"text": "A. The leader's will is supreme command; no civilian rules should apply", "weights": {"Y1": 1.0}, "next_id": null},
+        {"text": "B. Leaders can have privileges but must finalize legal procedures afterward", "weights": {"Y2": 1.0}, "next_id": null},
+        {"text": "C. Major decisions must pass through set institutions like the Parliament", "weights": {"Y3": 1.0}, "next_id": null}
+      ]},
+      { "id": 18, "text": "Q18. If law limits the efficiency of fighting crime, you lean towards:", "type": "constraint", "options": [
+        {"text": "A. Giving the executive more discretion; law should not be a hurdle", "weights": {"Y2": 1.0}, "next_id": null},
+        {"text": "B. Strictly following evidence and procedures, even if criminals escape", "weights": {"Y4": 1.0}, "next_id": null},
+        {"text": "C. This trade-off should be determined by all citizens via referendum", "weights": {"Y5": 1.0}, "next_id": null}
+      ]},
+      { "id": 19, "text": "Q19. Media reports critical of the government should:", "type": "constraint", "options": [
+        {"text": "A. Be strictly guided by the state to ensure social consistency", "weights": {"Y1": 1.0}, "next_id": null},
+        {"text": "B. Be allowed, but face administrative limits on core decision-making", "weights": {"Y3": 1.0}, "next_id": null},
+        {"text": "C. Be independent, acting as an external 'natural enemy' to power", "weights": {"Y4": 1.0}, "next_id": null}
+      ]},
+      { "id": 20, "text": "Q20. Regarding the status of the Judiciary (Courts), your view is:", "type": "constraint", "options": [
+        {"text": "A. It should assist the government in maintaining order and execution", "weights": {"Y2": 1.0}, "next_id": null},
+        {"text": "B. It should be neutral but consider political stability in disputes", "weights": {"Y3": 1.0}, "next_id": null},
+        {"text": "C. It must be absolute independent, with power to nullify executive acts", "weights": {"Y4": 1.0}, "next_id": null}
+      ]},
+      { "id": 21, "text": "Q21. When the Parliament and the Executive Head are in a fierce conflict:", "type": "constraint", "options": [
+        {"text": "A. The Head's will should prevail to ensure the state isn't paralyzed", "weights": {"Y1": 1.0}, "next_id": null},
+        {"text": "B. Resolve it through political bargaining; rules are just a framework", "weights": {"Y3": 1.0}, "next_id": null},
+        {"text": "C. It should be settled directly by citizens through a referendum", "weights": {"Y5": 1.0}, "next_id": null}
+      ]},
+      { "id": 22, "text": "Q22. Personal property and speech rights:", "type": "constraint", "options": [
+        {"text": "A. Should serve national goals and can be requisitioned or limited", "weights": {"Y1": 1.0}, "next_id": null},
+        {"text": "B. Should be protected by law, but the government can intervene legally", "weights": {"Y2": 1.0}, "next_id": null},
+        {"text": "C. Are sacred; no government has the right to infringe on them", "weights": {"Y4": 1.0}, "next_id": null}
+      ]},
+      { "id": 23, "text": "Q23. Peaceful demonstrations by citizens to express views are:", "type": "constraint", "options": [
+        {"text": "A. Disruptions to order; the government should suppress them quickly", "weights": {"Y1": 1.0}, "next_id": null},
+        {"text": "B. Allowed within rules, but must not interfere with decision-making", "weights": {"Y3": 1.0}, "next_id": null},
+        {"text": "C. Basic rights; the government must respond institutionally", "weights": {"Y5": 1.0}, "next_id": null}
+      ]},
+      { "id": 24, "text": "Q24. If a policy helps the majority but harms a tiny minority's core rights:", "type": "constraint", "options": [
+        {"text": "A. The minority must yield to the majority; the government can act", "weights": {"Y2": 1.0}, "next_id": null},
+        {"text": "B. Law must protect the minority unless facing a high judicial challenge", "weights": {"Y4": 1.0}, "next_id": null},
+        {"text": "C. Conflict must be solved through wide negotiation and public vote", "weights": {"Y5": 1.0}, "next_id": null}
+      ]},
+      { "id": 25, "text": "Q25. The difficulty of amending the Constitution or fundamental rules should be:", "type": "constraint", "options": [
+        {"text": "A. Very easy, as long as the top leadership deems it necessary", "weights": {"Y2": 1.0}, "next_id": null},
+        {"text": "B. Moderate, requiring consultation and bargaining in the Parliament", "weights": {"Y3": 1.0}, "next_id": null},
+        {"text": "C. Extremely hard, requiring a full public referendum", "weights": {"Y5": 1.0}, "next_id": null}
+      ]},
+      { "id": 26, "text": "Q26. When technical bureaucrats execute policies, they should:", "type": "constraint", "options": [
+        {"text": "A. Only be responsible to superiors; rules are flexible tools", "weights": {"Y1": 1.0, "vector_bureaucracy": 1.5}, "next_id": null},
+        {"text": "B. Follow the code, but can adapt under administrative pressure", "weights": {"Y3": 1.0}, "next_id": null},
+        {"text": "C. Be strictly limited by audits; power abuse must lead to lawsuits", "weights": {"Y4": 1.0}, "next_id": null}
+      ]},
+      { "id": 27, "text": "Q27. How do you view direct citizen participation in government decisions?", "type": "constraint", "options": [
+        {"text": "A. Decision is the leader's duty; mass participation causes chaos", "weights": {"Y2": 1.0}, "next_id": null},
+        {"text": "B. Can consult public opinion on specific issues, but experts decide", "weights": {"Y3": 1.0}, "next_id": null},
+        {"text": "C. Law should mandate that major issues be decided by citizens", "weights": {"Y5": 1.0}, "next_id": null}
+      ]},
+      { "id": 28, "text": "Q28. The core sign of a 'Good Government' is:", "type": "constraint", "options": [
+        {"text": "A. Having supreme authority to mobilize resources for great goals", "weights": {"Y1": 1.0}, "next_id": null},
+        {"text": "B. Flexibly using legal tools for efficient management and stability", "weights": {"Y2": 1.0}, "next_id": null},
+        {"text": "C. Power limited by law and protection of individual liberty", "weights": {"Y4": 1.0}, "next_id": null}
+      ]},
+      { "id": 29, "text": "Q29. Regarding the Social Contract, you agree more with:", "type": "constraint", "options": [
+        {"text": "A. Order over rules; individuals cede autonomy to the state", "weights": {"Y1": 1.0}, "next_id": null},
+        {"text": "B. Rules over will; government exists to protect rights", "weights": {"Y4": 1.0}, "next_id": null},
+        {"text": "C. Dynamic contract; major decisions updated by voting", "weights": {"Y5": 1.0}, "next_id": null}
+      ]},
+      { "id": 30, "text": "Q30. If a leader is produced your way, would you grant them extra-legal powers?", "type": "constraint_anchor", "options": [
+        {"text": "A. Yes, a legitimate leader shouldn't be tied by mediocre rules", "weights": {"X1": 0.8, "Y1": 1.5}, "flag": "will_overstep"},
+        {"text": "B. No, legitimate origin doesn't mean power can be infinite", "weights": {"X6": 0.5, "Y5": 1.0}, "flag": "will_obey"},
+        {"text": "C. It depends; major authorization should go back to a referendum", "weights": {"X7": 0.5, "Y5": 1.0}, "flag": "will_refer"}
+      ]},
+      { "id": 31, "text": "Q31. When national decision fails, the fundamental remedy is:", "type": "calibration", "options": [
+        {"text": "A. Finding and establishing a more insightful heroic leader", "weights": {"vector_personal": 1.5}, "next_id": null},
+        {"text": "B. Strengthening the correction and oversight of collective systems", "weights": {"vector_group": 1.5}, "next_id": null}
+      ]},
+      { "id": 32, "text": "Q32. In selecting high officials, which trait is more legitimate:", "type": "calibration", "options": [
+        {"text": "A. Absolute loyalty to the core will and execution capability", "weights": {"vector_loyalty": 1.5, "vector_bureaucracy": 1.0}, "next_id": null},
+        {"text": "B. Balance and compromise reached within the elite group", "weights": {"vector_elitism": 1.5}, "next_id": null}
+      ]},
+      { "id": 33, "text": "Q33. If a referendum decides to strip minority rights protected by law:", "type": "calibration", "options": [
+        {"text": "A. Since it's the public will, law and courts should not intervene", "weights": {"vector_populism": 1.5}, "next_id": null},
+        {"text": "B. Legal procedures are above public will; the decision is null", "weights": {"vector_constitutional": 1.5}, "next_id": null}
+      ]},
+      { "id": 34, "text": "Q34. You prefer to live in:", "type": "calibration", "options": [
+        {"text": "A. A system with unfair competition but high efficiency and stability", "weights": {"vector_order": 1.5}, "next_id": null},
+        {"text": "B. A system with messy competition but transparent rules and rights", "weights": {"vector_liberty": 1.5}, "next_id": null}
+      ]},
+      { "id": 35, "text": "Q35. Regarding major public policies (e.g., taxation, amendments):", "type": "calibration", "options": [
+        {"text": "A. Citizens decide directly on plans, no interference from politicians", "weights": {"X7": 1.5}},
+        {"text": "B. Gov, Parliament, and social groups (unions, etc.) negotiate consensus", "weights": {"vector_negotiation": 2.5}}
+      ]},
+      { "id": 36, "text": "Q36. On 'Hereditary Tradition' vs. 'Modern Administration':", "type": "calibration", "options": [
+        {"text": "A. Hereditary tradition should not exist in modern administration", "weights": {"X3": -1.0}, "next_id": null},
+        {"text": "B. Hereditary monarch as a ceremonial symbol; Cabinet makes decisions", "weights": {"X3": 1.0, "vector_cabinet": 2.5}, "next_id": null},
+        {"text": "C. Traditional authority stays in power; Cabinet and officials obey", "weights": {"X3": 1.5, "vector_monarchy": 2.5}, "next_id": null}
+      ]},
+      { "id": 37, "text": "Q37. If your political enemy takes power fairly and pushes policies you hate:", "type": "calibration", "options": [
+        {"text": "A. I lean towards informal means to abolish/limit their power", "weights": {"vector_low_const": 1.5}, "next_id": null},
+        {"text": "B. I will wait until next election and use legal checks to block them", "weights": {"vector_high_const": 1.5}, "next_id": null}
+      ]},
+      { "id": 38, "text": "Q38. Regarding 'Order', your ultimate bottom line is:", "type": "calibration", "options": [
+        {"text": "A. Even without law, as long as there's order, society can function", "weights": {"vector_realism": 1.5}, "next_id": null},
+        {"text": "B. Even if temporary chaos, as long as there's law, order will return", "weights": {"vector_idealism": 1.5}, "next_id": null}
+      ]},
+      { "id": 39, "text": "Q39. The ultimate goal of political power should be:", "type": "calibration", "options": [
+        {"text": "A. Achieving a great, collective vision that transcends individuals", "weights": {"vector_collectivism": 1.5}, "next_id": null},
+        {"text": "B. Providing safe boundaries and rules for personal happiness", "weights": {"vector_individualism": 1.5}, "next_id": null}
+      ]},
+      { "id": 40, "text": "Q40. If a system brings growth, would you permanently cede participation rights?", "type": "calibration", "options": [
+        {"text": "A. Yes, results (growth and stability) are more important than process", "weights": {"vector_authoritarian_final": 2.0}, "next_id": null},
+        {"text": "B. No, without legitimacy in process, result distribution is unreliable", "weights": {"vector_liberal_final": 2.0}, "next_id": null}
+      ]}
     ],
     "logic_map": {
-      "X1Y1": ["1. Personal Autocracy", "Personal Seizure (X1) × No Constraint (Y1). Power is concentrated in one person, maintained by ideological mobilization and security apparatus."],
-      "X1Y2": ["2. Personal Authoritarianism", "Personal Seizure (X1) × Instrumental Constraint (Y2). Laws exist but are tools; opposition is selectively suppressed."],
-      "X2Y2": ["3. Group Authoritarianism", "Elite Group Selection (X2) × Instrumental Constraint (Y2). Collective control by a small circle; procedures serve group interests."],
-      "X2Y2_bureaucracy": ["5. Bureaucratic Party-State", "A single ruling entity governs through a rigorous bureaucratic hierarchy (X2) with administrative control (Y2)."],
-      "X2Y3": ["4. Oligarchic Consultative System", "Elite Group Selection (X2) × Weak Separation of Powers (Y3). Consensus reached through elite bargaining; limited judicial presence."],
-      "X2Y4": ["14. Elite Constitutionalism", "Elite Selection (X2) × Strong Constitutional Constraint (Y4). Governed by professional elites and strictly limited by an independent judiciary."],
-      "X3Y1": ["6. Patriarchal Monarchy", "Hereditary Succession (X3) × No Constraint (Y1). The monarch's personal will is supreme; law and ritual serve royal power."],
-      "X3Y4": ["7. Constitutional Monarchy", "Hereditary Succession (X3) × Strong Separation of Powers and Bill of Rights (Y4). Ceremonial monarch; government is elected and constitutionally bound."],
-      "X4Y2": ["8. Electoral Authoritarianism", "Non-competitive Elections (X4) × Instrumental Constraint (Y2). Controlled elections provide procedural symbolic legitimacy."],
-      "X5Y3": ["9. Hybrid Regime", "Limited Competitive Elections (X5) × Weak Separation of Powers (Y3). Unequal party competition; policy easily dominated by the executive."],
-      "X6Y4": ["10. Representative Democracy", "Full Competitive Elections (X6) × Strong Rule of Law (Y4). Free and fair elections, independent judiciary, and protection of rights."],
-      "X6Y4_negotiation": ["11. Corporatist/Negotiated Democracy", "Introduction of social partnership and negotiation mechanisms on top of representative democracy (X6/Y4)."],
-      "X7Y2": ["15. Populist Authoritarianism", "Direct Mandate (X7) × Instrumental Constraint (Y2). Leaders bypass procedures using 'popular will' to strike at establishment elites."],
-      "X7Y3": ["12. Instrumental Plebiscitary System", "Direct Mandate (X7) × Weak Separation of Powers (Y3). Frequent referendums prone to manipulation and emotional decision-making."],
-      "X7Y5": ["13. Embedded Direct Democracy", "Direct Mandate (X7) × Double Constraint of Procedures and Issues (Y5). Complementary relationship between representation and direct participation."]
+      "X1Y1": ["1. Personal Autocracy", "Personal seizure (X1) × No constraint (Y1). Power concentrated in one, maintained by ideological mobilization and security."],
+      "X1Y2": ["2. Personal Authoritarianism", "Personal seizure (X1) × Instrumental constraint (Y2). Law as a tool; opposition selectively suppressed."],
+      "X2Y2": ["3. Group Authoritarianism", "Elite group selection (X2) × Instrumental constraint (Y2). Collective control by a small circle; procedures serve group interests."],
+      "X2Y2_bureaucracy": ["5. Bureaucratic Party-State", "Single ruling entity governs through a rigorous bureaucratic hierarchy (X2) with administrative control (Y2)."],
+      "X2Y3": ["4. Oligarchic Bargaining", "Elite group selection (X2) × Weak constraint (Y3). Consensus reached via bargaining; limited judicial presence."],
+      "X2Y4": ["14. Elite Constitutionalism", "Elite group selection (X2) × Strong constraint (Y4). Professionally governed and strictly limited by independent judiciary."],
+      "X3Y1": ["6. Patriarchal Monarchy", "Hereditary succession (X3) × No constraint (Y1). Monarch's will is supreme; law and ritual serve the crown."],
+      "X3Y4": ["7. Constitutional Monarchy", "Hereditary (X3) × Strong constraint (Y4). Ceremonial monarch; gov is elected and constitutionally bound."],
+      "X4Y2": ["8. Electoral Authoritarianism", "Non-competitive (X4) × Instrumental (Y2). Controlled elections provide symbolic procedural legitimacy."],
+      "X5Y3": ["9. Hybrid Regime", "Limited competition (X5) × Weak constraint (Y3). Unequal party play; executive dominates policy."],
+      "X6Y4": ["10. Representative Democracy", "Full competition (X6) × Strong constraint (Y4). Free elections, independent judiciary, and right protection."],
+      "X6Y4_negotiation": ["11. Negotiated Democracy", "Adds social partnership and negotiation mechanisms onto representative democracy (X6/Y4)."],
+      "X7Y2": ["15. Populist Authoritarianism", "Direct mandate (X7) × Instrumental (Y2). Leader bypasses procedures using 'public will' against elites."],
+      "X7Y3": ["12. Instrumental Plebiscitary System", "Direct mandate (X7) × Weak constraint (Y3). Frequent referendums but easily manipulated/emotional."],
+      "X7Y5": ["13. Embedded Direct Democracy", "Direct mandate (X7) × Double constraint (Y5). Complementary representative and direct participation."]
     },
     "paradox_map": {
-      "X1Y4": ["Savior Paradox", "Simultaneously demanding a strongman to break resistance (X1) and a legal system to lock down the strongman (Y4) is logically inconsistent."],
-      "X6Y1": ["Tyranny of the Majority", "Absolute popular will (X6) combined with zero constraint (Y1) leads to a rapid collapse into purges and chaos."],
-      "X7Y1": ["Tyranny of the Majority", "Popular will (X7) without institutional brakes (Y1) is a shortcut to autocracy."]
+      "X1Y4": ["Savior Paradox", "Demanding both a law-breaking strongman (X1) and law-locking stability (Y4) is inconsistent."],
+      "X1Y5": ["Savior Paradox", "Supreme rule of law (Y5) leaves no room for an unconstrained strongman (X1)."],
+      "X6Y1": ["Tyranny of the Majority", "Absolute popular will (X6) without constraints (Y1) leads to rapid collapse into purges."],
+      "X7Y1": ["Tyranny of the Majority", "Direct public will (X7) without institutional brakes (Y1) is a shortcut to autocracy."],
+      "X4Y4": ["Phantom Rule of Law", "Total monopoly of power (X4) and independent judiciary (Y4) are mutually exclusive."],
+      "X4Y5": ["Phantom Rule of Law", "Formalized elections (X4) cannot support extreme separation of powers (Y5)."],
+      "X2Y5": ["Elite Tension", "Elite group interests (X2) and universalized rule of law (Y5) have deep structural tension."]
     }
   }
 }
