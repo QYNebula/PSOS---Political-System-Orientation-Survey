@@ -1,0 +1,492 @@
+﻿{
+  "ui": {
+    "title": "政治體制傾向問卷",
+    "lang_display": "繁體中文",
+    "lang_select_title": "請選擇語言 / Select Language",
+    "loading": "資料載入中...",
+    "progress_prefix": "進度：",
+    "prev_btn": "← 上一題",
+    "next_btn": "確認選擇 →",
+    "result_title": "分析報告",
+    "reset_btn": "返回重測",
+    "report_labels": {
+      "coord": "判定座標",
+      "mode": "判定模式",
+      "matched": "匹配政體",
+      "desc": "結果描述",
+      "stats_title": "--- 維度得分統計 ---",
+      "axis_x": "權力產生 (X軸)",
+      "axis_y": "權力約束 (Y軸)",
+      "special_vectors": "特殊傾向",
+      "vector_bureaucracy": "官僚主義傾向",
+      "vector_negotiation": "協商主義傾向",
+      "paradox_alert": "【注意】檢測到邏輯悖論，建議重新測試",
+      "modes": {
+        "exact": "精確匹配",
+        "approx": "近似匹配",
+        "column_approx": "同列近似匹配",
+        "paradox": "邏輯悖論衝突",
+        "unique": "獨特傾向"
+      },
+      "no_match": ["未匹配政體", "您的傾向較為獨特，暫無歷史模型對照。"]
+    }
+  },
+  "quiz_data": {
+    "questions": [
+      {
+        "id": 1,
+        "text": "Q1. 你認為一個理想的領導者，其權力最正當的來源是：",
+        "type": "origin",
+        "options": [
+          {"text": "A. 悠久的歷史傳統與家族血緣的延續性（含虛位元首與實權君主）", "weights": {"X3": 1.5}, "next_id": null},
+          {"text": "B. 在國家動盪或危機中展現出的非凡膽識與鐵腕決斷", "weights": {"X1": 1.0}, "next_id": null},
+          {"text": "C. 經過長期培養、選拔並達成共識的專業精英集團", "weights": {"X2": 1.0}, "next_id": null},
+          {"text": "D. 廣大公民在法律框架下通過自主競爭投出的選票", "weights": {"X6": 1.0}, "next_id": null}
+        ]
+      },
+      {
+        "id": 2,
+        "text": "Q2. 當社會面臨根本性分歧時，你最信任哪種決策機制？",
+        "type": "origin",
+        "options": [
+          {"text": "A. 由全體國民對具體議題直接進行最終裁決", "weights": {"X7": 1.0}, "next_id": null},
+          {"text": "B. 由象徵國家團結的唯一領導機構做出統一指示", "weights": {"X4": 1.0}, "next_id": null},
+          {"text": "C. 在確保體制穩定的前提下，聽取部分被認可的民間代表意見", "weights": {"X5": 1.0}, "next_id": null},
+          {"text": "D. 依靠具有深厚根基的傳統家族或宗法權威進行調解", "weights": {"X3": 1.0}, "next_id": null}
+        ]
+      },
+      {
+        "id": 3,
+        "text": "Q3. 關於國家治理的「專業性」與「參與感」，你傾向於：",
+        "type": "origin",
+        "options": [
+          {"text": "A. 治理應由職業化、紀律嚴明的核心委員會全權負責", "weights": {"X2": 1.0, "vector_elitism": 1.0}, "next_id": null},
+          {"text": "B. 治理應向所有政見開放，即使過程混亂也要保證競爭機制", "weights": {"X6": 1.0}, "next_id": null},
+          {"text": "C. 領袖應直接向民眾尋求授權，繞過複雜的官僚中介", "weights": {"X7": 1.0}, "next_id": null},
+          {"text": "D. 選舉應作為一種展示全民團結、支持現狀的儀式", "weights": {"X4": 1.0}, "next_id": null}
+        ]
+      },
+      {
+        "id": 4,
+        "text": "Q4. 如果國家需要進行深層改革，誰最能破除阻力？",
+        "type": "origin",
+        "options": [
+          {"text": "A. 一位擁有絕對威望、不受繁文縟節束縛的政治強人", "weights": {"X1": 1.0}, "next_id": null},
+          {"text": "B. 一個內部高度團結、掌握核心資源的執政集團", "weights": {"X2": 1.0}, "next_id": null},
+          {"text": "C. 擁有天然合法性、能讓各派系歸順的傳統王室/元首", "weights": {"X3": 1.0}, "next_id": null},
+          {"text": "D. 能夠自由組建政黨、透過辯論贏得多數支持的新興力量", "weights": {"X6": 1.0}, "next_id": null}
+        ]
+      },
+      {
+        "id": 5,
+        "text": "Q5. 你如何看待政治競爭？",
+        "type": "origin",
+        "options": [
+          {"text": "A. 競爭應控制在溫和的範圍內，不應挑戰核心領導地位", "weights": {"X5": 1.0}, "next_id": null},
+          {"text": "B. 競爭是必要的，但重大決策應交由公民直接公投而非政客", "weights": {"X7": 1.0}, "next_id": null},
+          {"text": "C. 競爭會導致分裂，國家需要的是上下一致的選舉儀式", "weights": {"X4": 1.0}, "next_id": null},
+          {"text": "D. 勝者應是那些在實力競爭中證明了自己能掌控局面的人", "weights": {"X1": 1.0}, "next_id": null}
+        ]
+      },
+      {
+        "id": 6,
+        "text": "Q6. 關於權力的穩定性，你認為最關鍵的是：",
+        "type": "origin",
+        "options": [
+          {"text": "A. 確立明確且不可篡改的接班人血統或序列", "weights": {"X3": 1.0}, "next_id": null},
+          {"text": "B. 保持執政精英層內部的更迭與自我更新", "weights": {"X2": 1.0}, "next_id": null},
+          {"text": "C. 允許社會各界在可控範圍內進行政治參與", "weights": {"X5": 1.0}, "next_id": null},
+          {"text": "D. 確保每個公民都有透過選票隨時更換執政者的權利", "weights": {"X6": 1.0}, "next_id": null}
+        ]
+      },
+      {
+        "id": 7,
+        "text": "Q7. 什麼樣的政府最能代表「公意」？",
+        "type": "origin",
+        "options": [
+          {"text": "A. 敢於跨越程序限制、直接回應民眾情緒的強力政府", "weights": {"X1": 1.0}, "next_id": null},
+          {"text": "B. 經過嚴格選拔、能理性判斷國家長遠利益的精英政府", "weights": {"X2": 1.0}, "next_id": null},
+          {"text": "C. 透過廣泛的競爭性選舉獲得動態授權的政府", "weights": {"X6": 1.0}, "next_id": null},
+          {"text": "D. 對每一項重大決策都諮詢全體國民意見的政府", "weights": {"X7": 1.0}, "next_id": null}
+        ]
+      },
+      {
+        "id": 8,
+        "text": "Q8. 假設必須舉行選舉，但國家正處於轉型期，你認為：",
+        "type": "origin",
+        "options": [
+          {"text": "A. 選舉應不設門檻，支持各派勢力完全公平競爭", "weights": {"X6": 1.0}, "next_id": null},
+          {"text": "B. 應對參選方進行資格審核，確保不衝擊基本制度", "weights": {"X5": 1.0}, "next_id": null},
+          {"text": "C. 選舉應作為全民對現任領導層投出的信任票", "weights": {"X4": 1.0}, "next_id": null}
+        ]
+      },
+      {
+        "id": 9,
+        "text": "Q9. 假設為了保證政策的極高連續性（10-20年不變），你認為：",
+        "type": "origin",
+        "options": [
+          {"text": "A. 應當建立跨代交接的傳統或世襲標準", "weights": {"X3": 1.0}, "next_id": null},
+          {"text": "B. 應當由執政團體內部進行長遠佈局與指定", "weights": {"X2": 1.0}, "next_id": null},
+          {"text": "C. 應當透過法律限制競爭性選舉的頻率或議題", "weights": {"X5": 1.0}, "next_id": null}
+        ]
+      },
+      {
+        "id": 10,
+        "text": "Q10. 假設社會出現了嚴重的民粹主義傾向，你認為哪種方式是「防火牆」？",
+        "type": "origin",
+        "options": [
+          {"text": "A. 依靠具有神聖感的傳統權威來穩固人心", "weights": {"X3": 1.0}, "next_id": null},
+          {"text": "B. 依靠強而有力的個人決斷迅速平息騷亂", "weights": {"X1": 1.0}, "next_id": null},
+          {"text": "C. 依靠複雜的代議制與法治程序來過濾衝動", "weights": {"X6": 1.0}, "next_id": null}
+        ]
+      },
+      {
+        "id": 11,
+        "text": "Q11. 假設技術手段已經能實現「秒級響應」，你認為：",
+        "type": "origin",
+        "options": [
+          {"text": "A. 應廢除選舉，推行大規模的即時全民公投", "weights": {"X7": 1.0}, "next_id": null},
+          {"text": "B. 應利用技術強化領導人對社會的動員與意識形態一致性", "weights": {"X4": 1.0}, "next_id": null},
+          {"text": "C. 應利用技術輔助精英層做出更精準的決策", "weights": {"X2": 1.0}, "next_id": null}
+        ]
+      },
+      {
+        "id": 12,
+        "text": "Q12. 假設面臨戰爭等極端生存危機，權力的產生應轉向：",
+        "type": "origin",
+        "options": [
+          {"text": "A. 事實上的個人支配，由強者臨危受命", "weights": {"X1": 1.0}, "next_id": null},
+          {"text": "B. 由軍方或安全機構組成的委員會集體接管", "weights": {"X2": 1.0}, "next_id": null},
+          {"text": "C. 賦予現有領導人無限期連任的合法性", "weights": {"X4": 1.0}, "next_id": null}
+        ]
+      },
+      {
+        "id": 13,
+        "text": "Q13. 假設你非常厭惡政客間的爾虞我詐，你更傾向於：",
+        "type": "origin",
+        "options": [
+          {"text": "A. 還是讓權力在家族或血緣中自然傳遞", "weights": {"X3": 1.0}, "next_id": null},
+          {"text": "B. 乾脆讓民眾對事務直接表決，不需要中間政客", "weights": {"X7": 1.0}, "next_id": null},
+          {"text": "C. 限制競爭，只保留一個高效的治理團隊", "weights": {"X5": 1.0}, "next_id": null}
+        ]
+      },
+      {
+        "id": 14,
+        "text": "Q14. 假設社會要求變革，但你擔心暴力衝突，你會選擇：",
+        "type": "origin",
+        "options": [
+          {"text": "A. 支持一位有能力的強人透過非正規手段接管", "weights": {"X1": 1.0}, "next_id": null},
+          {"text": "B. 支持受控的、有步驟地逐步開放選舉", "weights": {"X5": 1.0}, "next_id": null},
+          {"text": "C. 堅持透過全民公投決定是否改變現狀", "weights": {"X7": 1.0}, "next_id": null}
+        ]
+      },
+      {
+        "id": 15,
+        "text": "Q15. 你認為「法律」在統治者面前應該是：",
+        "type": "transition",
+        "options": [
+          {"text": "A. 統治者必須絕對服從的最高準則（即便這會降低效率）", "weights": {"X6": 0.5, "Y4": 1.0}, "next_id": null},
+          {"text": "B. 統治者治理國家的有效工具，可根據需要進行調整", "weights": {"X2": 0.5, "Y2": 1.0}, "next_id": null},
+          {"text": "C. 統治者與各派精英達成妥協後的契約文本", "weights": {"X5": 0.5, "Y3": 1.0}, "next_id": null},
+          {"text": "D. 法律應服從於更高的民族意志或領袖決斷", "weights": {"X1": 1.0, "Y1": 1.5}, "next_id": null}
+        ]
+      },
+      {
+        "id": 16,
+        "text": "Q16. 當政府為了推行一項重大利國利民的政策，卻遭法院以程序違憲為由阻攔時：",
+        "type": "constraint",
+        "options": [
+          {"text": "A. 法律程序應讓位給國家利益，可繞過障礙強制執行", "weights": {"Y1": 1.0}, "next_id": null},
+          {"text": "B. 應將法律視為工具，透過修改法律使其合法化後再推行", "weights": {"Y2": 1.0}, "next_id": null},
+          {"text": "C. 必須尊重法院裁決，哪怕政策因此失敗或延期", "weights": {"Y4": 1.0}, "next_id": null}
+        ]
+      },
+      {
+        "id": 17,
+        "text": "Q17. 你如何看待「緊急狀態」下領導者的權力邊界？",
+        "type": "constraint",
+        "options": [
+          {"text": "A. 領袖意志即最高統帥，不應受任何文官規則束縛", "weights": {"Y1": 1.0}, "next_id": null},
+          {"text": "B. 領導者可擁有特權，但應在事後補齊法律手續", "weights": {"Y2": 1.0}, "next_id": null},
+          {"text": "C. 重大決定必須通過既定的分權機構（如議會）審議", "weights": {"Y3": 1.0}, "next_id": null}
+        ]
+      },
+      {
+        "id": 18,
+        "text": "Q18. 如果法律限制了政府處理治安犯罪的效率，你傾向於：",
+        "type": "constraint",
+        "options": [
+          {"text": "A. 賦予行政部門更大裁量權，法律不應成為阻礙", "weights": {"Y2": 1.0}, "next_id": null},
+          {"text": "B. 嚴格遵守證據與法定程序，即便這可能導致罪犯逃脫", "weights": {"Y4": 1.0}, "next_id": null},
+          {"text": "C. 這種重大權衡應由全體公民透過公投確定標準", "weights": {"Y5": 1.0}, "next_id": null}
+        ]
+      },
+      {
+        "id": 19,
+        "text": "Q19. 你認為媒體對政府的批評報導應該：",
+        "type": "constraint",
+        "options": [
+          {"text": "A. 受到國家嚴格引導，確保社會意志一致", "weights": {"Y1": 1.0}, "next_id": null},
+          {"text": "B. 允許存在，但在涉及核心決策時應受行政限制", "weights": {"Y3": 1.0}, "next_id": null},
+          {"text": "C. 獨立於行政權之外，作為權力的外部監督天敵", "weights": {"Y4": 1.0}, "next_id": null}
+        ]
+      },
+      {
+        "id": 20,
+        "text": "Q20. 關於司法機構（法院）的地位，你的理解是：",
+        "type": "constraint",
+        "options": [
+          {"text": "A. 應作為政府部門，協助維持秩序與執行政令", "weights": {"Y2": 1.0}, "next_id": null},
+          {"text": "B. 應保持中立，但在處理政治爭議時應考慮政府穩定", "weights": {"Y3": 1.0}, "next_id": null},
+          {"text": "C. 必須絕對獨立，有權宣布行政行為無效", "weights": {"Y4": 1.0}, "next_id": null}
+        ]
+      },
+      {
+        "id": 21,
+        "text": "Q21. 當立法機構（議會）與行政首長發生劇烈衝突時：",
+        "type": "constraint",
+        "options": [
+          {"text": "A. 應以行政首長意志為準，保證國家機器不癱瘓", "weights": {"Y1": 1.0}, "next_id": null},
+          {"text": "B. 透過政治議價解決，規則僅提供談判框架", "weights": {"Y3": 1.0}, "next_id": null},
+          {"text": "C. 應交由公民透過全民公投直接裁決", "weights": {"Y5": 1.0}, "next_id": null}
+        ]
+      },
+      {
+        "id": 22,
+        "text": "Q22. 你認為個人的基本財產與言論權利：",
+        "type": "constraint",
+        "options": [
+          {"text": "A. 應服從國家最高目標，可被徵用或限制", "weights": {"Y1": 1.0}, "next_id": null},
+          {"text": "B. 應受法律保護，但政府依法可以進行干預", "weights": {"Y2": 1.0}, "next_id": null},
+          {"text": "C. 是神聖不可侵犯的，任何政府無權以集體名義侵犯", "weights": {"Y4": 1.0}, "next_id": null}
+        ]
+      },
+      {
+        "id": 23,
+        "text": "Q23. 對於公民透過和平示威表達政見，你的看法是：",
+        "type": "constraint",
+        "options": [
+          {"text": "A. 這是對秩序的破壞，政府應迅速平息", "weights": {"Y1": 1.0}, "next_id": null},
+          {"text": "B. 可以在指定規則內進行，但不得干擾決策程序", "weights": {"Y3": 1.0}, "next_id": null},
+          {"text": "C. 這是基本權利，政府必須做出制度化的回應", "weights": {"Y5": 1.0}, "next_id": null}
+        ]
+      },
+      {
+        "id": 24,
+        "text": "Q24. 如果政策涉及多數人福利，但損害極少數人的核心權利：",
+        "type": "constraint",
+        "options": [
+          {"text": "A. 應少數服從多數，政府有權採取行動", "weights": {"Y2": 1.0}, "next_id": null},
+          {"text": "B. 法律必須保護少數，除非通過極高難度的司法挑戰", "weights": {"Y4": 1.0}, "next_id": null},
+          {"text": "C. 利益衝突必須透過廣泛協商與公民投票決定", "weights": {"Y5": 1.0}, "next_id": null}
+        ]
+      },
+      {
+        "id": 25,
+        "text": "Q25. 修改憲法或根本規則的難度應該：",
+        "type": "constraint",
+        "options": [
+          {"text": "A. 非常容易，只要最高領導層認為有必要", "weights": {"Y2": 1.0}, "next_id": null},
+          {"text": "B. 適中，需要經過立法機構的磋商與博弈", "weights": {"Y3": 1.0}, "next_id": null},
+          {"text": "C. 極難，必須經過公民全民公投", "weights": {"Y5": 1.0}, "next_id": null}
+        ]
+      },
+      {
+        "id": 26,
+        "text": "Q26. 當官僚機構（技術官僚）執行政策時，他們應該：",
+        "type": "constraint",
+        "options": [
+          {"text": "A. 僅對上級負責，規則是靈活的執行手段", "weights": {"Y1": 1.0, "vector_bureaucracy": 1.5}, "next_id": null},
+          {"text": "B. 遵循法典，但在行政壓力下可以彈性變通", "weights": {"Y3": 1.0}, "next_id": null},
+          {"text": "C. 嚴格受制於審計監督，越權行為必遭訴訟", "weights": {"Y4": 1.0}, "next_id": null}
+        ]
+      },
+      {
+        "id": 27,
+        "text": "Q27. 你如何看待公民對政府決策的直接參與？",
+        "type": "constraint",
+        "options": [
+          {"text": "A. 決策是領導者的責任，大眾參與會導致混亂", "weights": {"Y2": 1.0}, "next_id": null},
+          {"text": "B. 可以在特定議題徵求民意，但最終決定權在專家", "weights": {"Y3": 1.0}, "next_id": null},
+          {"text": "C. 法律應明確重大議題必須由公民直接決定", "weights": {"Y5": 1.0}, "next_id": null}
+        ]
+      },
+      {
+        "id": 28,
+        "text": "Q28. 你認為一個「好政府」最核心的標誌是：",
+        "type": "constraint",
+        "options": [
+          {"text": "A. 擁有無上權威，能調動一切資源實現偉大目標", "weights": {"Y1": 1.0}, "next_id": null},
+          {"text": "B. 靈活運用法律手段，高效管理並維持穩定", "weights": {"Y2": 1.0}, "next_id": null},
+          {"text": "C. 權力運作受法律嚴格限制，且能保護個人自由", "weights": {"Y4": 1.0}, "next_id": null}
+        ]
+      },
+      {
+        "id": 29,
+        "text": "Q29. 關於社會契約，你更認同：",
+        "type": "constraint",
+        "options": [
+          {"text": "A. 秩序優於規則，個人應向國家讓渡自主權", "weights": {"Y1": 1.0}, "next_id": null},
+          {"text": "B. 規則優於意志，政府存在是為了保護權利", "weights": {"Y4": 1.0}, "next_id": null},
+          {"text": "C. 契約是動態的，重大決策應透過投票更新", "weights": {"Y5": 1.0}, "next_id": null}
+        ]
+      },
+      {
+        "id": 30,
+        "text": "Q30. 若領導者由你支持的方式產生，你是否願意賦予其超越法律的特權？",
+        "type": "constraint_anchor",
+        "options": [
+          {
+            "text": "A. 是的，正當產生的領袖不應被平庸的規則束縛", 
+            "weights": {"X1": 0.8, "Y1": 1.5}, 
+            "flag": "will_overstep"
+          },
+          {
+            "text": "B. 不可以，產生方式正當不代表權力可以無限膨脹", 
+            "weights": {"X6": 0.5, "Y5": 1.0}, 
+            "flag": "will_obey"
+          },
+          {
+            "text": "C. 取決於議題，重大授權應重新交由全民公投", 
+            "weights": {"X7": 0.5, "Y5": 1.0}, 
+            "flag": "will_refer"}
+        ]
+      },
+      {
+        "id": 31,
+        "text": "Q31. 當國家決策遭遇重大失敗時，最根本的補救方案是：",
+        "type": "calibration",
+        "options": [
+          {"text": "A. 尋找並確立一位更具洞察力的英雄式領袖", "weights": {"vector_personal": 1.5}, "next_id": null},
+          {"text": "B. 強化集體決策體系的糾錯與監督能力", "weights": {"vector_group": 1.5}, "next_id": null}
+        ]
+      },
+      {
+        "id": 32,
+        "text": "Q32. 在選拔高層官員時，你認為哪個特質更具合法性：",
+        "type": "calibration",
+        "options": [
+          {"text": "A. 對核心意志的絕對忠誠與執行力", "weights": {"vector_loyalty": 1.5, "vector_bureaucracy": 1.0}, "next_id": null},
+          {"text": "B. 在精英集團內部博弈中達成的平衡與妥協", "weights": {"vector_elitism": 1.5}, "next_id": null}
+        ]
+      },
+      {
+        "id": 33,
+        "text": "Q33. 若全民公投決定剝奪憲法保護的少數群體權利：",
+        "type": "calibration",
+        "options": [
+          {"text": "A. 既然是民意決定的，憲法和法院不應干預", "weights": {"vector_populism": 1.5}, "next_id": null},
+          {"text": "B. 憲法程序高於民意，該決定必須宣布無效", "weights": {"vector_constitutional": 1.5}, "next_id": null}
+        ]
+      },
+      {
+        "id": 34,
+        "text": "Q34. 你更傾向於生活在：",
+        "type": "calibration",
+        "options": [
+          {"text": "A. 一個雖然競爭不公，但效率極高、生活穩定的體制下", "weights": {"vector_order": 1.5}, "next_id": null},
+          {"text": "B. 一個雖然競爭混亂，但規則透明且保護權利的體制下", "weights": {"vector_liberty": 1.5}, "next_id": null}
+        ]
+      },
+      {
+        "id": 35,
+        "text": "Q35. 關於重大公共政策（如稅制、修憲）：",
+        "type": "calibration",
+        "options": [
+          {
+            "text": "A. 應由民眾針對方案直接決定，不受政治家干擾", 
+            "weights": {"X7": 1.5} 
+          },
+          {
+            "text": "B. 應由政府、議會與社會利益集團（如工會、商會）共同協商達成共識", 
+            "weights": {"vector_negotiation": 2.5} 
+          }
+        ]
+      },
+      {
+        "id": 36,
+        "text": "Q36. 關於「世襲傳統」與「現代行政」的關係，你認為：",
+        "type": "calibration",
+        "options": [
+          {
+            "text": "A. 現代行政中不應存在世襲傳統", 
+            "weights": {"X3": -1.0},
+            "next_id": null
+          },
+          {
+            "text": "B. 世襲元首應當保留為超越黨派的精神象徵，實際決策由受約束的內閣負責", 
+            "weights": {"X3": 1.0, "vector_cabinet": 2.5},
+            "next_id": null
+          },
+          {
+            "text": "C. 傳統權威的實權地位不可動搖，內閣與官員應作為輔助者服從其意志", 
+            "weights": {"X3": 1.5, "vector_monarchy": 2.5},
+            "next_id": null
+          }
+        ]
+      },
+      {
+        "id": 37,
+        "text": "Q37. 若你的政敵透過合法公平競爭上台，並推行你極度厭惡的政策：",
+        "type": "calibration",
+        "options": [
+          {"text": "A. 我傾向支持非正規手段來廢除/限制他的權力", "weights": {"vector_low_const": 1.5}, "next_id": null},
+          {"text": "B. 我會選擇在下次選舉前透過合法制衡手段阻礙他", "weights": {"vector_high_const": 1.5}, "next_id": null}
+        ]
+      },
+      {
+        "id": 38,
+        "text": "Q38. 關於「秩序」，你的最終底線是：",
+        "type": "calibration",
+        "options": [
+          {"text": "A. 哪怕沒有法律，只要有秩序，社會就可以運轉", "weights": {"vector_realism": 1.5}, "next_id": null},
+          {"text": "B. 哪怕社會暫時混亂，只要有法治，秩序終會重建", "weights": {"vector_idealism": 1.5}, "next_id": null}
+        ]
+      },
+      {
+        "id": 39,
+        "text": "Q39. 你認為政治權力的終極目的應該是：",
+        "type": "calibration",
+        "options": [
+          {"text": "A. 實現某種偉大的、超越個人的共同體遠景", "weights": {"vector_collectivism": 1.5}, "next_id": null},
+          {"text": "B. 為每個人追求私人幸福提供安全邊界與公平規則", "weights": {"vector_individualism": 1.5}, "next_id": null}
+        ]
+      },
+      {
+        "id": 40,
+        "text": "Q40. 若一個體制能帶來持續經濟增長，你是否願意永久放棄政治參與權？",
+        "type": "calibration",
+        "options": [
+          {"text": "A. 願意，結果（增長與穩定）比產生過程更重要", "weights": {"vector_authoritarian_final": 2.0}, "next_id": null},
+          {"text": "B. 不願意，沒有過程合法性，結果的分配便不可靠", "weights": {"vector_liberal_final": 2.0}, "next_id": null}
+        ]
+      }
+    ],
+    "logic_map": {
+      "X1Y1": ["1. 個人極權", "個人強奪(X1) × 無約束(Y1)。權力集中於一人，靠意識形態動員與安全機構維持統治。"],
+      "X1Y2": ["2. 個人威權", "個人強奪(X1) × 工具性約束(Y2)。存在法律但本質為工具，反對派被選擇性壓制。"],
+      "X2Y2": ["3. 集團威權", "少數集團選擇(X2) × 工具性約束(Y2)。小圈層集體控制，程序服務集團利益。"],
+      "X2Y2_bureaucracy": ["5. 科層黨國", "單一執政主體以嚴密的科層體系(X2)實現治理(Y2)。"],
+      "X2Y3": ["4. 寡頭合議制", "少數集團選擇(X2) × 弱分權約束(Y3)。精英間議價達成合意，有限司法存在但被俘獲。"],
+      "X2Y4": ["14. 精英立憲制", "少數集團選擇(X2) × 強分權約束(Y4)。由專業精英治理，且受獨立司法嚴格限制。"],
+      "X3Y1": ["6. 宗法君主制", "世襲繼承(X3) × 無約束(Y1)。君主個人意志至上，法與禮制服務王權。"],
+      "X3Y4": ["7. 憲政君主制", "世襲繼承(X3) × 強分權與權利保障(Y4)。君主象徵性，政府民選並受憲法約束。"],
+      "X4Y2": ["8. 選舉威權", "選舉—非競爭(X4) × 工具性約束(Y2)。選舉外觀可控，合法性來源於程序象徵。"],
+      "X5Y3": ["9. 混合政體", "選舉—有限競爭(X5) × 弱分權約束(Y3)。多黨競爭不對等，政策易受行政主導。"],
+      "X6Y4": ["10. 代議制民主", "選舉—充分競爭(X6) × 強分權保障(Y4)。自由公平選舉、獨立司法、權利保障。"],
+      "X6Y4_negotiation": ["11. 協商型民主", "在代議制(X6/Y4)基礎上引入社會夥伴協商機制。"],
+      "X7Y2": ["15. 民粹威權制", "直接表決(X7) × 工具性約束(Y2)。領袖借民意授權繞過程序，打擊建制精英。"],
+      "X7Y3": ["12. 工具化公投制", "直接表決(X7) × 弱分權約束(Y3)。頻繁公投但易被動員操控，決策易情緒化。"],
+      "X7Y5": ["13. 嵌入式直接民主", "直接表決(X7) × 程序與議題雙約束(Y5)。代議與直接參與互補，保留社會糾錯。"]
+    },
+    "paradox_map": {
+      "X1Y4": ["救世主悖論", "既要求強人突破阻力(X1)，又要求法律死鎖強人(Y4)，邏輯上難以自洽。"],
+      "X1Y5": ["救世主悖論", "極致法治(Y5)下不存在無所不能的強人(X1)。"],
+      "X6Y1": ["多數人暴政", "絕對民意(X6)配合零約束(Y1)，系統將迅速坍塌為清算與混亂。"],
+      "X7Y1": ["多數人暴政", "缺乏制度剎車(Y1)的民意(X7)是權力走向極權的捷徑。"],
+      "X4Y4": ["幻影法治", "權力高度壟斷(X4)與獨立司法(Y4)在現實中互斥。"],
+      "X4Y5": ["幻影法治", "形式化選舉(X4)無法支撐起極致的權力分立(Y5)。"],
+      "X2Y5": ["精英潔癖", "精英集團利益(X2)與極致普適法治(Y5)存在深層張力。"]
+    }
+  }
+}
