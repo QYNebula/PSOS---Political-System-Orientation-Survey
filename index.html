@@ -579,45 +579,49 @@
         // 初始化所有维度分数
         ['X1','X2','X3','X4','X5','X6','X7','Y1','Y2','Y3','Y4','Y5','vector_cabinet','vector_negotiation','vector_bureaucracy','vector_elitism'].forEach(k => scores[k] = 0);
 
-        // 累计得分
+        // 1. 累计得分
         for (let qIdx in userAnswers) {
             let optIdx = userAnswers[qIdx];
             let weights = quizData.questions[qIdx].options[optIdx].weights;
             for (let k in weights) { scores[k] = (scores[k] || 0) + weights[k]; }
         }
 
-        // 确定最高分坐标
-        let bestX = ['X1','X2','X3','X4','X5','X6','X7'].reduce((a, b) => scores[a] > scores[b] ? a : b);
-        let bestY = ['Y1','Y2','Y3','Y4','Y5'].reduce((a, b) => scores[a] > scores[b] ? a : b);
+        // 2. 确定最高分坐标
+        let bestX = ['X1','X2','X3','X4','X5','X6','X7'].reduce((a, b) => scores[a] >= scores[b] ? a : b);
+        let bestY = ['Y1','Y2','Y3','Y4','Y5'].reduce((a, b) => scores[a] >= scores[b] ? a : b);
         
         let title, desc, mode = "精确匹配";
         let coord = bestX + bestY;
 
-        // 1. 悖论判定
+        // 3. 逻辑判定流程
         if (paradoxMap[coord]) {
             [title, desc] = paradoxMap[coord];
             mode = "逻辑悖论冲突";
         } 
-        // 2. X7Y4 特殊注明
         else if (bestX === "X7" && bestY === "Y4") {
             title = "直接民主的中点";
             desc = "你处于 13. 嵌入式直接民主 与 12. 工具化公投制 之间。反映了受试者在民意授权与法治边界上的复杂态度。";
             mode = "中间倾向注明";
         } 
-        // 3. 正常匹配与同列归位
         else {
+            // 如果坐标不存在，执行同列近似匹配
             if (!logicMap[coord]) {
-                let definedYs = Object.keys(logicMap).filter(k => k.startsWith(bestX)).map(k => parseInt(k.substring(2)));
+                // 【核心修复点】这里改为 split('Y')[1] 以正确获取 Y 后面的数字
+                let definedYs = Object.keys(logicMap)
+                    .filter(k => k.startsWith(bestX))
+                    .map(k => parseInt(k.split('Y')[1]));
+                
                 if (definedYs.length > 0) {
-                    let curY = parseInt(bestY.substring(1));
+                    let curY = parseInt(bestY.substring(1)); // 获取当前 bestY 的数字 (如 "Y3" -> 3)
                     let closestY = definedYs.reduce((prev, curr) => Math.abs(curr - curY) < Math.abs(prev - curY) ? curr : prev);
-                    bestY = "Y" + closestY;
+                    
+                    bestY = "Y" + closestY; // 重置 bestY 为最近的有效值
                     coord = bestX + bestY;
                     mode = "同列近似匹配";
                 }
             }
 
-            // 4. 三岔口拦截逻辑
+            // 特殊拦截逻辑
             if (bestX === "X6" && bestY === "Y4") {
                 if (scores.vector_cabinet >= 2.0) [title, desc] = logicMap["X3Y4"];
                 else if (scores.vector_negotiation >= 1.5) [title, desc] = ["11. 协商型民主", "在代议制基础上引入社会伙伴协商机制。"];
@@ -626,18 +630,18 @@
                 if (scores.vector_bureaucracy > scores.vector_elitism) [title, desc] = ["5. 科层党国", "单一执政主体以严密的科层体系实现治理。"];
                 else [title, desc] = logicMap["X2Y2"];
             } else {
-                [title, desc] = logicMap[coord] || ["未匹配政体", "倾向处于极边缘地带。"];
+                [title, desc] = logicMap[coord] || ["未匹配政体", "您的倾向组合较为独特，暂无完全匹配的历史政体模型。"];
             }
         }
 
-        // 组装报告
+        // 4. 组装报告
         const report = `判定坐标: ${bestX} - ${bestY} (${mode})\n\n` +
                        `匹配政体: ${title}\n` +
                        `结果描述: ${desc}\n\n` +
                        `--- 维度得分统计 ---\n` +
                        `权力产生(X轴): ${bestX} = ${scores[bestX].toFixed(1)}\n` +
                        `权力约束(Y轴): ${bestY} = ${scores[bestY].toFixed(1)}\n` +
-                       `特殊倾向: 官僚主义倾向=${(scores.vector_bureaucracy || 0).toFixed(1)}, 协商主义倾向=${(scores.vector_negotiation || 0).toFixed(1)}`;
+                       `特殊倾向: 官僚主义=${(scores.vector_bureaucracy || 0).toFixed(1)}, 协商主义=${(scores.vector_negotiation || 0).toFixed(1)}`;
 
         document.getElementById('report-text').innerText = report;
         document.getElementById('result-overlay').style.display = 'flex';
@@ -656,6 +660,7 @@
 </script>
 </body>
 </html>
+
 
 
 
