@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>政治体制倾向问卷 v3.0</title>
+    <title>政治体制倾向问卷 v3.1</title>
     <style>
         :root { --primary: #2196F3; --success: #4CAF50; --bg: #f5f7f9; }
         body { font-family: "微软雅黑", sans-serif; background: var(--bg); margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
@@ -641,7 +641,7 @@
                        `--- 维度得分统计 ---\n` +
                        `权力产生(X轴): ${bestX} = ${scores[bestX].toFixed(1)}\n` +
                        `权力约束(Y轴): ${bestY} = ${scores[bestY].toFixed(1)}\n` +
-                       `特殊倾向: 官僚主义=${(scores.vector_bureaucracy || 0).toFixed(1)}, 协商主义=${(scores.vector_negotiation || 0).toFixed(1)}`;
+                       `特殊倾向: 官僚主义倾向=${(scores.vector_bureaucracy || 0).toFixed(1)}, 协商主义倾向=${(scores.vector_negotiation || 0).toFixed(1)}`;
 
         document.getElementById('report-text').innerText = report;
         document.getElementById('result-overlay').style.display = 'flex';
@@ -660,6 +660,7 @@
 </script>
 </body>
 </html>
+
 
 
 
