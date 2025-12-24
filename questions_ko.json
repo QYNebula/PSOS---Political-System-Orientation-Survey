@@ -207,10 +207,16 @@
         {"text": "A. 경쟁은 불공정하지만 효율과 안정성이 매우 높은 시스템", "weights": {"vector_order": 1.5}, "next_id": null},
         {"text": "B. 경쟁은 혼란스럽지만 규칙과 권리가 투명한 시스템", "weights": {"vector_liberty": 1.5}, "next_id": null}
       ]},
-      { "id": 35, "text": "Q35. 주요 공공 정책(증세, 개헌안 등)에 대하여:", "type": "calibration", "options": [
-        {"text": "A. 정치인의 간섭 없이 시민들이 직접 안을 결정한다", "weights": {"X7": 1.5}},
-        {"text": "B. 정부, 의회, 사회 단체(노조 등)가 협상하여 합의를 형성한다", "weights": {"vector_negotiation": 2.5}}
-      ]},
+      {
+  "id": 35,
+  "text": "Q35. 주요 공공 정책(예: 세제, 개헌)의 최종 의사 결정 방식에 관하여:",
+  "type": "calibration",
+  "options": [
+    { "text": "A. 중간 단계의 간섭을 최소화하고, 구체적인 안안에 대해 국민이 직접 투표로 결정해야 한다.", "weights": { "X7": 1.5 } },
+    { "text": "B. 선출된 대표자들이 대의제 틀 안에서 법적 절차에 따라 심의하고 투표로 결정해야 한다.", "weights": { "X6": 1.0 } },
+    { "text": "C. 의사 결정은 단순한 대의 기관의 투표가 아니라 정부, 이익 단체, 노조 등 기능적 조직 간의 대등한 협상과 합의를 우선시해야 한다.", "weights": { "vector_negotiation": 2.5 } }
+  ] Korea
+},
       { "id": 36, "text": "Q36. '세습적 전통'과 '현대적 행정'에 대하여:", "type": "calibration", "options": [
         {"text": "A. 현대 행정에서 세습적 전통은 존재해서는 안 된다", "weights": {"X3": -1.0}, "next_id": null},
         {"text": "B. 세습 군주는 의례적 상징으로 두고 내각이 의사결정을 한다", "weights": {"X3": 1.0, "vector_cabinet": 2.5}, "next_id": null},
