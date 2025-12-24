@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Political System Orientation Survey</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
         :root { --primary: #2196F3; --success: #4CAF50; --error: #f44336; --bg: #f5f7f9; }
         body { font-family: "微软雅黑", sans-serif; background: var(--bg); margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
@@ -74,15 +75,21 @@
 </div>
 
 <script>
+    // Supabase Configuration
+    const supabaseUrl = 'https://fdosfnzbjargqocrftlv.supabase.co';
+    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZkb3NmbnpiamFyZ3FvY3JmdGx2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjY1MzczNjMsImV4cCI6MjA4MjExMzM2M30.-X7LR7gW9BSsmMKCC6JxXGdQo61i8Z_kElbgpxlox0M';
+    const _supabase = supabase.createClient(supabaseUrl, supabaseKey);
+
     const CORE_VERSION = "v3.7"; 
     let quizData = null;
     let currentIndex = 0;
     let userAnswers = {};
     let history = [];
+    let currentLang = 'zh-cn';
 
     function handleStart() {
-        const selectedLang = document.getElementById('lang-menu').value;
-        initQuiz(selectedLang);
+        currentLang = document.getElementById('lang-menu').value;
+        initQuiz(currentLang);
     }
 
     async function initQuiz(lang) {
@@ -162,7 +169,7 @@
         const labels = quizData.ui.report_labels;
         const logicMap = quizData.quiz_data.logic_map;
         const paradoxMap = quizData.quiz_data.paradox_map;
-        let modeKey = "exact"; //初始定性为精准匹配
+        let modeKey = "exact";
 
         // 1. 悖论判定
         if (paradoxMap[bestX + bestY]) {
@@ -209,6 +216,31 @@
         displayResult([finalTitle, finalDesc], modeKey, bestX, bestY, scores, labels);
     }
 
+    // 新增：Supabase 数据上传逻辑
+    async function uploadToSupabase(reportData) {
+        try {
+            const { error } = await _supabase
+                .from('Results')
+                .insert([{
+                    answers: Object.values(userAnswers),
+                    result_name: reportData.title,
+                    match_mode: reportData.mode,
+                    coord_x: reportData.x,
+                    coord_y: reportData.y,
+                    vector_bureau: reportData.scores.vector_bureaucracy || 0,
+                    vector_negat: reportData.scores.vector_negotiation || 0,
+                    is_paradox: reportData.mode === "paradox",
+                    paradox_type: reportData.mode === "paradox" ? reportData.title : null,
+                    lang: currentLang
+                }]);
+            
+            if (error) throw error;
+            console.log("Success: Anonymous data synced to cloud.");
+        } catch (err) {
+            console.error("Data Sync Error:", err.message);
+        }
+    }
+
     function displayResult(contentArray, modeKey, x, y, scores, labels) {
         const [title, desc] = contentArray;
         document.getElementById('paradox-alert-area').innerHTML = (modeKey === "paradox") ? `<div class="paradox-banner">${labels.paradox_alert}</div>` : '';
@@ -226,6 +258,15 @@
 
         document.getElementById('report-text').innerText = report;
         document.getElementById('result-overlay').style.display = 'flex';
+
+        // 触发静默上传
+        uploadToSupabase({
+            title: title,
+            mode: modeKey,
+            x: x,
+            y: y,
+            scores: scores
+        });
     }
 
     function resetQuiz() {
@@ -236,13 +277,3 @@
 </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
