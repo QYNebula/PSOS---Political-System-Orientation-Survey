@@ -207,10 +207,15 @@
         {"text": "A. A system with unfair competition but high efficiency and stability", "weights": {"vector_order": 1.5}, "next_id": null},
         {"text": "B. A system with messy competition but transparent rules and rights", "weights": {"vector_liberty": 1.5}, "next_id": null}
       ]},
-      { "id": 35, "text": "Q35. Regarding major public policies (e.g., taxation, amendments):", "type": "calibration", "options": [
-        {"text": "A. Citizens decide directly on plans, no interference from politicians", "weights": {"X7": 1.5}},
-        {"text": "B. Gov, Parliament, and social groups (unions, etc.) negotiate consensus", "weights": {"vector_negotiation": 2.5}}
-      ]},
+      {
+  "id": 35,
+  "text": "Q35. Regarding the final decision-making process for major public policies (e.g., taxation, constitutional amendments):",
+  "options": [
+    { "text": "A. Direct voting by the public on specific proposals, minimizing interference from intermediaries.", "weights": { "X7": 1.5 } },
+    { "text": "B. Deliberation and voting by elected representatives within a representative framework according to legal procedures.", "weights": { "X6": 1.0 } },
+    { "text": "C. Decisions should prioritize equal negotiation and consensus among functional organizations (e.g., government, industry associations, unions) rather than purely by representative bodies.", "weights": { "vector_negotiation": 2.5 } }
+  ]
+},
       { "id": 36, "text": "Q36. On 'Hereditary Tradition' vs. 'Modern Administration':", "type": "calibration", "options": [
         {"text": "A. Hereditary tradition should not exist in modern administration", "weights": {"X3": -1.0}, "next_id": null},
         {"text": "B. Hereditary monarch as a ceremonial symbol; Cabinet makes decisions", "weights": {"X3": 1.0, "vector_cabinet": 2.5}, "next_id": null},
@@ -261,3 +266,4 @@
     }
   }
 }
+
