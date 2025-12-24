@@ -210,6 +210,7 @@
       {
   "id": 35,
   "text": "Q35. Regarding the final decision-making process for major public policies (e.g., taxation, constitutional amendments):",
+  "type": "calibration",
   "options": [
     { "text": "A. Direct voting by the public on specific proposals, minimizing interference from intermediaries.", "weights": { "X7": 1.5 } },
     { "text": "B. Deliberation and voting by elected representatives within a representative framework according to legal procedures.", "weights": { "X6": 1.0 } },
@@ -266,4 +267,5 @@
     }
   }
 }
+
 
