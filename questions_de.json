@@ -207,10 +207,16 @@
         {"text": "A. Einem System mit unfairem Wettbewerb, aber hoher Effizienz und Stabilität", "weights": {"vector_order": 1.5}, "next_id": null},
         {"text": "B. Einem System mit ungeordnetem Wettbewerb, aber transparenten Regeln und Rechten", "weights": {"vector_liberty": 1.5}, "next_id": null}
       ]},
-      { "id": 35, "text": "Q35. In Bezug auf wichtige öffentliche Maßnahmen (z.B. Steuern, Verfassungsänderungen):", "type": "calibration", "options": [
-        {"text": "A. Bürger entscheiden direkt über Pläne, keine Einmischung durch Politiker", "weights": {"X7": 1.5}},
-        {"text": "B. Regierung, Parlament und gesellschaftliche Gruppen (Gewerkschaften etc.) handeln Konsens aus", "weights": {"vector_negotiation": 2.5}}
-      ]},
+      {
+  "id": 35,
+  "text": "Q35. Bezüglich des abschließenden Entscheidungsprozesses für wichtige öffentliche Angelegenheiten (z. B. Steuern, Verfassungsänderungen):",
+  "type": "calibration",
+  "options": [
+    { "text": "A. Direkte Abstimmung durch die Bürger über spezifische Vorschläge, um die Einmischung von Zwischeninstanzen zu minimieren.", "weights": { "X7": 1.5 } },
+    { "text": "B. Beratung und Abstimmung durch gewählte Vertreter in einem repräsentativen Rahmen nach gesetzlichen Verfahren.", "weights": { "X6": 1.0 } },
+    { "text": "C. Entscheidungen sollten vorrangig durch Verhandlung und Konsens zwischen funktionalen Organisationen (z. B. Regierung, Wirtschaftsverbände, Gewerkschaften) getroffen werden, statt rein durch repräsentative Gremien.", "weights": { "vector_negotiation": 2.5 } }
+  ]
+},
       { "id": 36, "text": "Q36. Über „Erbliche Tradition“ vs. „Moderne Verwaltung“:", "type": "calibration", "options": [
         {"text": "A. Erbliche Tradition sollte in der modernen Verwaltung nicht existieren", "weights": {"X3": -1.0}, "next_id": null},
         {"text": "B. Erblicher Monarch als zeremonielles Symbol; das Kabinett trifft Entscheidungen", "weights": {"X3": 1.0, "vector_cabinet": 2.5}, "next_id": null},
