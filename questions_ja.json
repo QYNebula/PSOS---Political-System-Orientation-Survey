@@ -207,10 +207,16 @@
         {"text": "A. 競争は不公平だが、効率と安定性が極めて高いシステム", "weights": {"vector_order": 1.5}, "next_id": null},
         {"text": "B. 競争は混沌としているが、ルールと権利が透明なシステム", "weights": {"vector_liberty": 1.5}, "next_id": null}
       ]},
-      { "id": 35, "text": "Q35. 重要な公共政策（増税、憲法改正案など）について：", "type": "calibration", "options": [
-        {"text": "A. 政治家の干渉なしに、市民が案を直接決定する", "weights": {"X7": 1.5}, "next_id": null},
-        {"text": "B. 政府、議会、社会団体（労働組合など）が交渉して合意形成する", "weights": {"vector_negotiation": 2.5}, "next_id": null}
-      ]},
+      {
+  "id": 35,
+  "text": "Q35. 重大な公共政策（税制、憲法改正など）の最終的な意思決定方式について：",
+  "type": "calibration",
+  "options": [
+    { "text": "A. 具体的な案に対して国民が直接投票を行い、中間的な介入を最小限に抑えるべきだ。", "weights": { "X7": 1.5 } },
+    { "text": "B. 選出された代表者が、代議制の枠組みの中で法的手続きに従って審議し、投票で決定すべきだ。", "weights": { "X6": 1.0 } },
+    { "text": "C. 意思決定は、単なる代議制機関の投票ではなく、政府・業界団体・労働組合などの職能団体間の対等な交渉と合意を優先すべきだ。", "weights": { "vector_negotiation": 2.5 } }
+  ]
+},
       { "id": 36, "text": "Q36. 「世襲的伝統」と「近代的行政」について：", "type": "calibration", "options": [
         {"text": "A. 近代行政において世襲的伝統は存在すべきではない", "weights": {"X3": -1.0}, "next_id": null},
         {"text": "B. 世襲君主は象徴とし、内閣が意思決定を行う", "weights": {"X3": 1.0, "vector_cabinet": 2.5}, "next_id": null},
