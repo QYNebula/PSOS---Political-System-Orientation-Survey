@@ -207,10 +207,15 @@
         {"text": "A. Un système avec une compétition injuste mais une efficacité et une stabilité élevées", "weights": {"vector_order": 1.5}, "next_id": null},
         {"text": "B. Un système avec une compétition désordonnée mais des règles et des droits transparents", "weights": {"vector_liberty": 1.5}, "next_id": null}
       ]},
-      { "id": 35, "text": "Q35. Concernant les politiques publiques majeures (ex: fiscalité, amendements) :", "type": "calibration", "options": [
-        {"text": "A. Les citoyens décident directement sur les plans, sans interférence des politiciens", "weights": {"X7": 1.5}},
-        {"text": "B. Le gouv, le parlement et les groupes sociaux (syndicats, etc.) négocient un consensus", "weights": {"vector_negotiation": 2.5}}
-      ]},
+      {
+  "id": 35,
+  "text": "Q35. Concernant le processus de décision finale pour les politiques publiques majeures (ex : fiscalité, amendements constitutionnels) :",
+  "options": [
+    { "text": "A. Vote direct des citoyens sur des propositions spécifiques, minimisant l'intervention des intermédiaires.", "weights": { "X7": 1.5 } },
+    { "text": "B. Délibération et vote par des représentants élus dans un cadre représentatif selon les procédures légales.", "weights": { "X6": 1.0 } },
+    { "text": "C. Les décisions devraient prioriser la négociation d'égal à égal et le consensus entre organisations fonctionnelles (ex : gouvernement, syndicats, associations professionnelles) plutôt qu'un vote purement représentatif.", "weights": { "vector_negotiation": 2.5 } }
+  ]
+},
       { "id": 36, "text": "Q36. Sur « Tradition héréditaire » vs « Administration moderne » :", "type": "calibration", "options": [
         {"text": "A. La tradition héréditaire ne devrait pas exister dans l'administration moderne", "weights": {"X3": -1.0}, "next_id": null},
         {"text": "B. Monarque héréditaire comme symbole cérémoniel ; le Cabinet prend les décisions", "weights": {"X3": 1.0, "vector_cabinet": 2.5}, "next_id": null},
